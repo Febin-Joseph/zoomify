@@ -1,8 +1,30 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
-  content: [],
+  content: ["./src/**/*.{js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      COLORS: {
+        homeclr: "#1A6093",
+        secondary: "#444262",
+        tertiary: "#FF7754",
+        gray: "#83829A",
+        gray2: "#C1C0C8",
+        white: "#F3F4F8",
+        lightWhite: "#FAFAFC",
+      },
+      SIZES: {
+        xSmall: 10,
+        small: 12,
+        medium: 16,
+        large: 20,
+        xLarge: 24,
+        xxLarge: 32,
+      },
+      // backgroundImage: {
+      //   'gradient': 'linear-gradient(134deg, #000 0%, #35669F 47.85%, #000 100%)',
+      // },
+    },
   },
   plugins: [],
 }
