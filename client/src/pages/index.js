@@ -1,10 +1,10 @@
 //PAGES
-import Home from './pages/home/Home'
-import Home2 from './pages/home2/Home2'
-import JoinMeeting from './pages/joinmeeting/JoinMeeting'
-import NewMeeting from './pages/newmeeting/NewMeeting'
-import SignIn from './pages/signin/SignIn'
-import SignUp from './pages/signup/SignUp'
+import Home from './home/Home'
+import Home2 from './home2/Home2'
+import JoinMeeting from './joinmeeting/JoinMeeting'
+import NewMeeting from './newmeeting/NewMeeting'
+import SignIn from './signin/SignIn'
+import SignUp from './signup/SignUp'
 
 export {
     Home,

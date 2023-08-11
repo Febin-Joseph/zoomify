@@ -7,6 +7,7 @@ import MainBtn from './common/button/MainBtn'
 //Cards
 import HomeCard from './common/card/HomeCard'
 import OTPcard from './common/card/OTPcard'
+import PlansCard from './common/card/PlansCard'
 
 //Logo
 import Logo from './common/logo/Logo'
@@ -15,7 +16,7 @@ import Logo from './common/logo/Logo'
 import Nav from './common/nav/Nav'
 
 //Settings
-import setting from './common/settingbtn/setting'
+import Setting from './common/settingbtn/Setting'
 
 export {
     HomeBtn,
@@ -23,7 +24,8 @@ export {
     MainBtn,
     HomeCard,
     OTPcard,
+    PlansCard,
     Logo,
     Nav,
-    setting,
+    Setting,
 }

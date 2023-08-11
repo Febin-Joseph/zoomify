@@ -21,9 +21,6 @@ module.exports = {
         xLarge: 24,
         xxLarge: 32,
       },
-      // backgroundImage: {
-      //   'gradient': 'linear-gradient(134deg, #000 0%, #35669F 47.85%, #000 100%)',
-      // },
     },
   },
   plugins: [],
