@@ -15,9 +15,6 @@ import Logo from './common/logo/Logo'
 //Navigation
 import Nav from './common/nav/Nav'
 
-//Settings
-import Setting from './common/settingbtn/Setting'
-
 export {
     HomeBtn,
     InputBtn,
@@ -27,5 +24,4 @@ export {
     PlansCard,
     Logo,
     Nav,
-    Setting,
 }
