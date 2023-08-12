@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeBtn from '../button/HomeBtn'
+// import HomeBtn from '../button/HomeBtn'
 
 const HomeCard = () => {
   return (
