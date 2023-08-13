@@ -7,18 +7,21 @@ const Home = () => {
   };
 
   return (
-    <div style={gradientStyle} className="max-h-screen">
-      <p className='text-[#FBFBFB] text-[57px] md:text-[120px] font-medium
-      text-left p-5 pt-[70px] leading-[65px]'>
-        Connect With
-      </p>
+    <div style={gradientStyle} className="h-screen">
+      <div className='text-[#FBFBFB] text-[50px] md:text-[120px]
+      font-medium text-left p-5 pl-7 pt-[45px] leading-[65px]'>
+        <p>
+          Connect
+        </p>
+        <p>With</p>
+      </div>
 
-      <p className='text-[#D7D7D7] text-center text-[23px]
+      <p className='text-[#D7D7D7] text-center text-[1.5rem]
        font-semibold pt-0'>
         Anyone, Anywhere, AnyTime
       </p>
-      <HomeCard />
       <Logo />
+      <HomeCard />
     </div>
   )
 }
