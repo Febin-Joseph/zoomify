@@ -7,13 +7,13 @@ const Home = () => {
   };
 
   return (
-    <div style={gradientStyle} className="h-screen">
-      <p className='text-[#FBFBFB] text-[65px] md:text-[120px] font-medium
-       md:font-normal text-left p-9 pt-[70px] leading-[65px] flex-col'>
+    <div style={gradientStyle} className="min-h-screen">
+      <p className='text-[#FBFBFB] text-[57px] md:text-[120px] font-medium
+      text-left p-5 pt-[70px] leading-[65px]'>
         Connect With
       </p>
 
-      <p className='text-[#D7D7D7] text-center text-[27px]
+      <p className='text-[#D7D7D7] text-center text-[23px]
        font-semibold pt-0'>
         Anyone, Anywhere, AnyTime
       </p>

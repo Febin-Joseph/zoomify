@@ -11,7 +11,7 @@ import premium from "../assets/icons/premium.png";
 import round from "../assets/icons/round.png";
 import zoomifyLogo from "../assets/icons/zoomifyLogo.png";
 
-export default {
+export {
     copy,
     backbtn,
     downarrow,
