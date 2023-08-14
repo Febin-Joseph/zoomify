@@ -7,7 +7,7 @@ const Home = () => {
   };
 
   return (
-    <div style={gradientStyle} className="h-screen">
+    <div style={gradientStyle} className="min-h-screen">
       <div className='text-[#FBFBFB] text-[50px] md:text-[120px]
       font-medium text-left p-5 pl-7 pt-[45px] leading-[65px]'>
         <p>
@@ -16,11 +16,13 @@ const Home = () => {
         <p>With</p>
       </div>
 
-      <p className='text-[#D7D7D7] text-center text-[1.5rem]
+      <div className='-mt-4'>
+        <p className='text-[#D7D7D7] text-center text-[1.5rem]
        font-semibold pt-0'>
-        Anyone, Anywhere, AnyTime
-      </p>
-      <Logo />
+          Anyone, Anywhere, AnyTime
+        </p>
+        <Logo />
+      </div>
       <HomeCard />
     </div>
   )
