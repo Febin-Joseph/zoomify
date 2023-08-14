@@ -7,7 +7,7 @@ const Home = () => {
   };
 
   return (
-    <div style={gradientStyle} className="h-[100vh]">
+    <div style={gradientStyle} className="min-h-screen">
       <div className='text-[#FBFBFB] text-[50px] md:text-[120px]
       font-medium text-left p-5 pl-7 pt-[45px] leading-[50px]'>
         <p>
