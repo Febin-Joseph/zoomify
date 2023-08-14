@@ -2,7 +2,7 @@ import React from 'react';
 
 const HomeBtn = ({ value, height, width }) => {
   const buttonStyle = {
-    width: width ? `${width}%` : '90px', // Set the width in pixels directly
+    width: width ? `${width}%` : '90px',
     height: height ? `${height}px` : '76px',
     borderRadius: '43px',
     backgroundColor: '#1A6093',
@@ -14,7 +14,7 @@ const HomeBtn = ({ value, height, width }) => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}
-    className='text-[#E3E3E3] text-[21px] font-semibold'>
+      className='text-[#E3E3E3] text-[21px] font-semibold'>
       <button style={buttonStyle}>{value}</button>
     </div>
   );
