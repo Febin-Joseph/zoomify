@@ -15,7 +15,7 @@ const Home = () => {
         </div>
 
         <div className='-mt-4'>
-          <p className='text-[#D7D7D7] text-center text-[1.2rem]
+          <p className='text-[#D7D7D7] text-center text-[1.3rem]
             font-semibold pt-0'>
             Anyone, Anywhere, AnyTime
           </p>
