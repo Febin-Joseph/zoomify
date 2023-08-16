@@ -15,9 +15,21 @@ const HomeCard = () => {
       </div>
 
       <div className='justify-center items-center inset-0 relative mb-6'>
-        <HomeBtn value={"Join Meeting"} width={90} height={60} />
-        <HomeBtn value="Sign in" width={80} height={60} />
-        <HomeBtn value="Sign up" width={70} height={60} />
+        <HomeBtn 
+        value={"Join Meeting"} 
+        width={90} 
+        height={60} />
+
+        <HomeBtn 
+        value="Sign in" 
+        width={80} 
+        height={60} />
+
+        <HomeBtn 
+        value="Sign up" 
+        width={70} 
+        height={60} />
+        
       </div>
     </div>
   );
