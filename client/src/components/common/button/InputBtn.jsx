@@ -1,25 +1,33 @@
-import React from 'react'
+import { useState } from 'react';
 
 const InputBtn = ({ text, width, height, placeholder }) => {
+  const [inputBox, setInputBox] = useState('');
 
-  const buttonStyle = {
+  const inputStyle = {
     width: width ? `${width}vw` : '90px',
     height: height ? `${height}vw` : '76px',
-  }
+  };
+
   return (
-    <div className='flex justify-center'>
-      <div className='w-[100%] absolute'>
-        <p className='text-[#FBFBFB] text-[15px] justify-center text-center'>{text}</p>
+    <div className='flex flex-col items-center mt-10 lg:mt-0'>
+      <p
+        className='text-[#FBFBFB] text-[15px] text-left mb-2 mr-56'>
+        {text}
+      </p>
+      <div className='relative'>
+        <input
+          type="text"
+          style={inputStyle}
+          className={`rounded-[15px] mb-4 bg-[#EDEDED] max-w-[380px] 
+            lg:max-w-[380px] min-h-[7vh] max-h-[52px] text-[#7E7E7E]
+            font-semibold text-center ${inputBox ? 'text-black' : ''}`}
+          value={inputBox}
+          onChange={(e) => setInputBox(e.target.value)}
+          placeholder={placeholder}
+        />
       </div>
-      <button
-        style={buttonStyle}
-        className='rounded-[20px] bg-[#EDEDED] max-w-[380px]
-          lg:max-w-[35vw] min-h-[7vh] max-h-[65px] mt-20 text-[#7E7E7E]
-           font-semibold text-center'>
-        {placeholder}
-      </button>
     </div>
-  )
+  );
 }
 
-export default InputBtn
+export default InputBtn;

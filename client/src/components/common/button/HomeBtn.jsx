@@ -28,7 +28,7 @@ const HomeBtn = ({ value, height, width }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}
       className='text-[#E3E3E3] text-[21px] font-semibold'>
-      <button style={buttonStyle} onClick={handleSignUpClick}>{value}</button>
+      <button style={buttonStyle} className='max-w-[350px]' onClick={handleSignUpClick}>{value}</button>
     </div>
   );
 }
