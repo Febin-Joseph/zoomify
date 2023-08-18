@@ -1,6 +1,6 @@
 //COMMON
 //Buttons
-import HomeBtn from './common/button/HomeBtn'
+import HomeBtn from './common/button/MainBtn'
 import InputBtn from './common/button/InputBtn'
 import MainBtn from './common/button/AuthenicationBtn'
 

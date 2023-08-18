@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const InputBtn = ({ text, width, height, placeholder }) => {
-  const [inputBox, setInputBox] = useState('');
+  const [inputBoxVal, setInputBoxVal] = useState('');
 
   const inputStyle = {
     width: width ? `${width}vw` : '90px',
@@ -18,11 +18,11 @@ const InputBtn = ({ text, width, height, placeholder }) => {
         <input
           type="text"
           style={inputStyle}
-          className={`rounded-[15px] mb-4 bg-[#EDEDED] max-w-[380px] 
-            lg:max-w-[380px] min-h-[7vh] max-h-[52px] text-[#7E7E7E]
-            font-semibold text-center ${inputBox ? 'text-black' : ''}`}
-          value={inputBox}
-          onChange={(e) => setInputBox(e.target.value)}
+          className={`rounded-[15px] mb-4 bg-[#EDEDED] max-w-[350px] 
+            lg:max-w-[350px] min-h-[7vh] max-h-[52px] text-[#7E7E7E]
+            font-semibold text-center ${inputBoxVal ? 'text-black' : ''}`}
+          value={inputBoxVal}
+          onChange={(e) => setInputBoxVal(e.target.value)}
           placeholder={placeholder}
         />
       </div>

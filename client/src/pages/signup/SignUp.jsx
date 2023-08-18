@@ -1,15 +1,8 @@
 import React from 'react';
-import { Nav } from '../../components';
-import { MainCard } from '../../components';
-import { InputBtn } from '../../components';
-import { HomeBtn } from '../../components';
+import { Nav, MainCard, InputBtn, HomeBtn } from '../../components';
 
 const SignUp = () => {
-  // function ageVerifiction() {
-  //   if(!InputBtn.value === Number) {
-  //     alert('enter a valid date of birth')
-  //   }
-  // }
+
   return (
     <div className='flex flex-col bg-[#000] h-screen'>
       <Nav value={"Sign Up"} />
@@ -26,7 +19,20 @@ const SignUp = () => {
               height={8}
               placeholder={"Birth Date"}
             />
-          )} />
+          )}
+        >
+          <p
+            className='text-[#A1A1A1] text-[13px] text-center mt-2'>
+            Please confirm Your Birth Year. This data will not be stored.
+          </p>
+
+          <div className='mt-5'>
+            <HomeBtn
+              value={"Continue"}
+              width={60}
+              height={60} />
+          </div>
+        </MainCard>
       </div>
 
       {/* This is for lg less than devices input box */}
@@ -37,19 +43,20 @@ const SignUp = () => {
           height={8}
           placeholder={"Birth Date"}
         />
+        <p
+            className='text-[#A1A1A1] text-[13px] text-center mt-2'>
+            Please confirm Your Birth Year. This data will not be stored.
+          </p>
+
+          <div className='mt-5'>
+            <HomeBtn
+              value={"Continue"}
+              width={60}
+              height={60}
+              />
+          </div>
       </div>
 
-      <p
-        className='text-[#A1A1A1] text-[13px] text-center mt-2'>
-        Please confirm Your Birth Year. This data will not be stored.
-      </p>
-
-      <div className='mt-5'>
-        <HomeBtn 
-        value={"Continue"} 
-        width={60} 
-        height={60}/>
-      </div>
     </div>
   );
 }

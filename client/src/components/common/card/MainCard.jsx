@@ -3,9 +3,9 @@
 
 import React from 'react';
 
-const MainCard = ({ title, renderInputBtn }) => {
+const MainCard = ({ title, renderInputBtn, children }) => {
     return (
-        <div className='bg-[#1F1D1D] w-[38vw] h-[38vw] min-h-[300px] rounded-[40px]'>
+        <div className='bg-[#1F1D1D] w-[38vw] max-w-[480px] h-[38vw] min-h-[300px] max-h-[450px] rounded-[40px]'>
             <p className='text-[#E3E3E3] text-[2.5vw] text-center font-medium mt-4'>
                 {title}
             </p>
@@ -14,8 +14,9 @@ const MainCard = ({ title, renderInputBtn }) => {
                     {renderInputBtn()}
                 </div>
             )}
+            {children}
         </div>
-    )
+    );
 }
 
 export default MainCard;
