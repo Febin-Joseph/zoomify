@@ -12,7 +12,7 @@ const MainBtn = ({ value, height, width, onClick }) => {
       className='text-[#E3E3E3] text-[21px] font-semibold'>
       <button
         style={buttonStyle}
-        className='rounded-[43px] bg-[#1A6093] flex items-center justify-center content-center m-[5px]'
+        className='rounded-[43px] bg-[#1A6093] flex items-center justify-center content-center m-[5px] sm:max-w-[300px]'
         onClick={onClick}>
         {value}
       </button>
