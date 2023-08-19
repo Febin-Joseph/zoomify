@@ -1,9 +1,9 @@
 import React from 'react'
 
-const MainBtn = () => {
+const AuthenicationBtn = () => {
   return (
-    <div>MainBtn</div>
+    <div>AuthenicationBtn</div>
   )
 }
 
-export default MainBtn
+export default AuthenicationBtn

@@ -1,8 +1,8 @@
 //COMMON
 //Buttons
-import HomeBtn from './common/button/MainBtn'
 import InputBtn from './common/button/InputBtn'
-import MainBtn from './common/button/AuthenicationBtn'
+import MainBtn from './common/button/MainBtn'
+import AuthenicationBtn from './common/button/AuthenicationBtn'
 
 //Cards
 import HomeCard from './common/card/HomeCard'
@@ -17,9 +17,9 @@ import Logo from './common/logo/Logo'
 import Nav from './common/nav/Nav'
 
 export {
-    HomeBtn,
     InputBtn,
     MainBtn,
+    AuthenicationBtn,
     HomeCard,
     OTPcard,
     PlansCard,

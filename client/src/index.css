@@ -5,3 +5,20 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+#root {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* Remove any default margin or padding from specific elements */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Recommended box-sizing value for consistent layout */
+  }
+  
+  /* Optionally, if you want to ensure all elements have no default outline on focus */
+  *:focus {
+    outline: none;
+  }

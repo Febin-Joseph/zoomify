@@ -1,7 +1,15 @@
-import React from 'react';
-import { Nav, MainCard, InputBtn, HomeBtn } from '../../components';
+import React, { useState } from 'react';
+import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
+import { ageVerification } from '../../middleware';
 
 const SignUp = () => {
+  const [birthYear, setBirthYear] = useState('');
+  const [verificationStatus, setVerificationStatus] = useState('');
+  
+  function handleAgeVerification() {
+    const verificationStatus = ageVerification(birthYear); // Call the ageVerification function
+    setVerificationStatus(verificationStatus);
+  }
 
   return (
     <div className='flex flex-col bg-[#000] h-screen'>
@@ -18,19 +26,23 @@ const SignUp = () => {
               width={85}
               height={8}
               placeholder={"Birth Date"}
+              change={(e) => setBirthYear(e.target.value)}
+              value={birthYear}
             />
           )}
         >
-          <p
-            className='text-[#A1A1A1] text-[13px] text-center mt-2'>
+          <p className='text-[#A1A1A1] text-[13px] text-center mt-2'>
             Please confirm Your Birth Year. This data will not be stored.
           </p>
 
           <div className='mt-5'>
-            <HomeBtn
+            <MainBtn
               value={"Continue"}
               width={60}
-              height={60} />
+              height={60}
+              onClick={handleAgeVerification}
+            />
+            <p className={`text-center mt-2 ${verificationStatus.includes('successful') ? 'text-green-500' : 'text-red-500'}`}>{verificationStatus}</p>
           </div>
         </MainCard>
       </div>
@@ -42,21 +54,23 @@ const SignUp = () => {
           width={85}
           height={8}
           placeholder={"Birth Date"}
+          change={(e) => setBirthYear(e.target.value)}
+          value={birthYear}
         />
-        <p
-            className='text-[#A1A1A1] text-[13px] text-center mt-2'>
-            Please confirm Your Birth Year. This data will not be stored.
-          </p>
+        <p className='text-[#A1A1A1] text-[13px] text-center mt-2'>
+          Please confirm Your Birth Year. This data will not be stored.
+        </p>
 
-          <div className='mt-5'>
-            <HomeBtn
-              value={"Continue"}
-              width={60}
-              height={60}
-              />
-          </div>
+        <div className='mt-5'>
+          <MainBtn
+            value={"Continue"}
+            width={60}
+            height={60}
+            onClick={handleAgeVerification}
+          />
+          <p className={`text-center mt-2 ${verificationStatus.includes('successful') ? 'text-green-500' : 'text-red-500'}`}>{verificationStatus}</p>
+        </div>
       </div>
-
     </div>
   );
 }
