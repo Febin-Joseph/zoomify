@@ -1,7 +1,6 @@
 import React from 'react';
 
-const InputBtn = ({ text, width, height, placeholder, value, change }) => {
-  // const [inputBoxVal, setInputBoxVal] = useState('');
+const InputBtn = ({ text, width, height, placeholder, value, change, type }) => {
 
   const inputStyle = {
     width: width ? `${width}vw` : '90px',
@@ -16,10 +15,10 @@ const InputBtn = ({ text, width, height, placeholder, value, change }) => {
       </p>
       <div className='relative'>
         <input
-          type="text"
+          type={type}
           style={inputStyle}
           className={`rounded-[15px] mb-4 bg-[#EDEDED] max-w-[350px] 
-            lg:max-w-[350px] min-h-[7vh] max-h-[52px] text-[#7E7E7E]
+            lg:max-w-[350px] min-h-[50px] max-h-[52px] text-[#7E7E7E]
             font-semibold text-center ${value ? 'text-black' : ''}`}
           value={value}
           onChange={change}

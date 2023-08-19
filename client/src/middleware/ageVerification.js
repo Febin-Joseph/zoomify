@@ -1,10 +1,10 @@
 export function ageVerification(birthYear) {
-    if (!birthYear || isNaN(birthYear)) {
+    if (!birthYear || isNaN(birthYear)) {//checks if the input value is  empty or not a number
       return 'Please enter a valid year of birth.';
     } else {
-      const currentYear = new Date().getFullYear();
-      const enteredYear = parseInt(birthYear);
-      const userAge = currentYear - enteredYear;
+      const currentYear = new Date().getFullYear();//taken the current year
+      const enteredYear = parseInt(birthYear);//taking the user entered year
+      const userAge = currentYear - enteredYear;//current year minus user entered year for gettingthe user age
   
       if (userAge >= 18 && userAge <= 150) {
         return 'Age verification successful! You are eligible to sign up.';

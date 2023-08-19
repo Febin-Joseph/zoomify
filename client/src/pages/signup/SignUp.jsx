@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
+import Rightside from './Rightside';
 import { ageVerification } from '../../middleware';
+import { GoogleLogo } from '../../constants/icons';
+import { GithubLogo } from '../../constants/icons';
 
 const SignUp = () => {
   const [birthYear, setBirthYear] = useState('');
   const [verificationStatus, setVerificationStatus] = useState('');
-  
+
+  //age verification imported from middleware folder
   function handleAgeVerification() {
     const verificationStatus = ageVerification(birthYear); // Call the ageVerification function
     setVerificationStatus(verificationStatus);
@@ -25,7 +29,7 @@ const SignUp = () => {
               text={"VERIFY YOUR AGE"}
               width={85}
               height={8}
-              placeholder={"Birth Date"}
+              placeholder={"Birth Year"}
               change={(e) => setBirthYear(e.target.value)}
               value={birthYear}
             />
@@ -42,7 +46,11 @@ const SignUp = () => {
               height={60}
               onClick={handleAgeVerification}
             />
-            <p className={`text-center mt-2 ${verificationStatus.includes('successful') ? 'text-green-500' : 'text-red-500'}`}>{verificationStatus}</p>
+            <p
+              className={`text-center mt-2 ${verificationStatus.includes('successful') ?
+                'text-green-500' : 'text-red-500'}`}>
+              {verificationStatus}
+            </p>
           </div>
         </MainCard>
       </div>
@@ -53,7 +61,7 @@ const SignUp = () => {
           text={"VERIFY YOUR AGE"}
           width={85}
           height={8}
-          placeholder={"Birth Date"}
+          placeholder={"Birth Year"}
           change={(e) => setBirthYear(e.target.value)}
           value={birthYear}
         />
@@ -68,7 +76,27 @@ const SignUp = () => {
             height={60}
             onClick={handleAgeVerification}
           />
-          <p className={`text-center mt-2 ${verificationStatus.includes('successful') ? 'text-green-500' : 'text-red-500'}`}>{verificationStatus}</p>
+          <p
+            className={`text-center mt-2 ${verificationStatus.includes('successful') ?
+              'text-green-500' : 'text-red-500'}`}>
+            {verificationStatus}
+          </p>
+        </div>
+      </div>
+
+
+      {/* Right-Center Content */}
+      <div
+        className='hidden lg:absolute lg:top-[80px] lg:right-0 lg:flex lg:flex-col
+                  lg:justify-center lg:items-center h-[calc(100vh - 80px)] lg:w-[50%]'>
+        <div>
+          <Rightside
+            value1={"Sign Up With Google"}
+            logo1={GoogleLogo}
+
+            value2={"Sign Up With Github"}
+            logo2={GithubLogo}
+          />
         </div>
       </div>
     </div>

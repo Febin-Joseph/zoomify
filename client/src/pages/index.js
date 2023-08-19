@@ -5,6 +5,7 @@ import JoinMeeting from './joinmeeting/JoinMeeting'
 import NewMeeting from './newmeeting/NewMeeting'
 import SignIn from './signin/SignIn'
 import SignUp from './signup/SignUp'
+import Rightside from './signup/Rightside'
 
 export {
     Home,
@@ -12,5 +13,6 @@ export {
     JoinMeeting,
     NewMeeting,
     SignIn,
-    SignUp
+    SignUp,
+    Rightside,
 }

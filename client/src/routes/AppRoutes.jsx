@@ -6,10 +6,10 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' Component={Home}/>
-                <Route path='/join' Component={JoinMeeting}/>
-                <Route path='/signin' Component={SignIn}/>
-                <Route path='/signup' Component={SignUp}/>
+                <Route path='/' Component={Home} />
+                <Route path='/join' Component={JoinMeeting} />
+                <Route path='/signin' Component={SignIn} />
+                <Route path='/signup' Component={SignUp} />
             </Routes>
         </BrowserRouter>
     )
