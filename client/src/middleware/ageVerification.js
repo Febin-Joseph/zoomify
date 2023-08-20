@@ -7,7 +7,7 @@ export function ageVerification(birthYear) {
       const userAge = currentYear - enteredYear;//current year minus user entered year for gettingthe user age
   
       if (userAge >= 18 && userAge <= 150) {
-        return 'Age verification successful! You are eligible to sign up.';
+        return 'Age verification successful.';
       } else if (userAge < 18) {
         return 'You must be 18 years old or older to sign up.';
       } else {

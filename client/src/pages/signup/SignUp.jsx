@@ -55,7 +55,7 @@ const SignUp = () => {
         </MainCard>
       </div>
 
-      {/* This is for lg less than devices input box */}
+      {/* This is for lg less than devices*/}
       <div className='justify-center items-center lg:hidden'>
         <InputBtn
           text={"VERIFY YOUR AGE"}
@@ -75,12 +75,14 @@ const SignUp = () => {
             width={60}
             height={60}
             onClick={handleAgeVerification}
+            maxWidth={"max-w-[300px]"}
           />
           <p
             className={`text-center mt-2 ${verificationStatus.includes('successful') ?
               'text-green-500' : 'text-red-500'}`}>
             {verificationStatus}
           </p>
+
         </div>
       </div>
 
