@@ -1,3 +1,4 @@
+//ICONS
 import copy from "../assets/icons/copy.png"
 import backbtn from "../assets/icons/backbtn.png";
 import downarrow from "../assets/icons/downarrow.png";
@@ -10,6 +11,9 @@ import newMeet from "../assets/icons/newMeet.png";
 import premium from "../assets/icons/premium.png";
 import round from "../assets/icons/round.png";
 import zoomifyLogo from "../assets/icons/zoomifyLogo.png";
+
+//IMAGES
+import profile from "../assets/images/profile.png"
 
 export {
     copy,
@@ -24,4 +28,5 @@ export {
     premium,
     round,
     zoomifyLogo,
+    profile,
 }
