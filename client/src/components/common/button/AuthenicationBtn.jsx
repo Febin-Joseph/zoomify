@@ -8,7 +8,7 @@ const AuthenicationBtn = ({ value, logo }) => {
       <button className='flex items-center bg-[#FFFFFF] 
         w-[300px] h-[50px] text-[#1D201B] text-[15px] font-bold mt-4 rounded-[10px] text-center'>
         <img src={logo} alt="logos" className={`w-[60px] items-center justify-center ml-5 ${logo === GithubLogo ? 'github-logo' : ''}`} />
-        <span className="flex-grow">{value}</span>
+        <span className="flex-grow mr-10">{value}</span>
       </button>
     </div>
   );

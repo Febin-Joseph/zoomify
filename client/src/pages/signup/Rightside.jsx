@@ -1,7 +1,5 @@
 import React from 'react'
-import { InputBtn } from '../../components'
-import { MainBtn } from '../../components'
-import { AuthenicationBtn } from '../../components'
+import { InputBtn, MainBtn, AuthenicationBtn } from '../../components'
 
 const Rightside = ({ value1, logo1, value2, logo2 }) => {
   return (
@@ -26,17 +24,17 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
       />
 
       <div className='flex items-center justify-center'>
-        <p className='text-[#A1A1A1] text-[13px] w-[25vw] text-center mt-1 mb-3'>
+        <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
           By proceeding, I agree to the Zoomify’s Privacy Statement and Terms of Service.
         </p>
       </div>
-
 
       <div className='mb-8'>
         <MainBtn
           value={"Continue"}
           width={60}
           height={60}
+          maxWidth={"max-w-[300px]"}
         />
       </div>
 
