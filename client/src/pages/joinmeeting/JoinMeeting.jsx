@@ -68,38 +68,38 @@ const JoinMeeting = () => {
         {nameVerified ? (
           <div className='flex flex-col items-center justify-center'>
             <InputBtn
-          text={"MEETING ID"}
-          width={85}
-          height={8}
-          placeholder={"Meeting ID"}
-          change={''}
-          value={''}
-        />
+              text={"MEETING ID"}
+              width={85}
+              height={8}
+              placeholder={"Meeting ID"}
+              change={''}
+              value={''}
+            />
+            <div className='mt-[-35px]'>
+              <InputBtn
+                text={"MEETING PASSWORD"}
+                type={"password"}
+                width={85}
+                height={8}
+                placeholder={"Password"}
+                change={''}
+                value={''}
+              />
+            </div>
+            <div className='flex items-center justify-center'>
+              <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
+                Enter Meeting Credential to Join a Meeting
+              </p>
+            </div>
 
-        <InputBtn
-          text={"MEETING PASSWORD"}
-          type={"password"}
-          width={85}
-          height={8}
-          placeholder={"Password"}
-          change={''}
-          value={''}
-        />
+            <div className='mb-8'>
+              <MainBtn
+                value={"Join Meeting"}
+                width={60}
+                height={60}
+              />
+            </div>
 
-        <div className='flex items-center justify-center'>
-          <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
-            Enter Meeting Credential to Join a Meeting
-          </p>
-        </div>
-
-        <div className='mb-8'>
-          <MainBtn
-            value={"Join Meeting"}
-            width={60}
-            height={60}
-          />
-        </div>
-      
           </div>
         ) : (
           <div className='mt-10'>
@@ -166,11 +166,12 @@ const JoinMeeting = () => {
           </p>
         </div>
 
-        <div className='mb-8'>
+        <div className='mb-8 '>
           <MainBtn
             value={"Join Meeting"}
             width={60}
             height={60}
+            maxWidth={'max-w-[300px]'}
           />
         </div>
       </div>

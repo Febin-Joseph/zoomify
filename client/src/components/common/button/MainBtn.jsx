@@ -13,7 +13,7 @@ const MainBtn = ({ value, height, width, onClick, maxWidth }) => {
       <button
         style={buttonStyle}
         className={`rounded-[43px] bg-[#1A6093] flex items-center 
-        justify-center content-center m-[5px] ${maxWidth}`}
+        justify-center content-center m-[5px] ${maxWidth} min-w-[200px]`}
         onClick={onClick}>
         {value}
       </button>

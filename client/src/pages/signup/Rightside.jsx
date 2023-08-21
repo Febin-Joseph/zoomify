@@ -12,7 +12,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         change={''}
         value={''}
       />
-
+<div className='mt-[-40px] lg:mt-0'>
       <InputBtn
         text={"ENTER YOUR PASSWORD"}
         type={"Password"}
@@ -22,7 +22,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         change={''}
         value={''}
       />
-
+</div>
       <div className='flex items-center justify-center'>
         <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
           By proceeding, I agree to the Zoomify’s Privacy Statement and Terms of Service.
