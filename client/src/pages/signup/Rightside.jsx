@@ -40,7 +40,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
 
       <div className=' items-center justify-center flex flex-col'>
         <p className='text-[#A1A1A1] text-[12px] text-center mt-3 absolute'>
-          OR SELECT YOUR SIGN UP METHOD
+          OR SELECT YOUR {value1.includes("Sign Up") ? "SIGN UP" : "SIGN IN"} METHOD
           <span className='absolute mt-2 w-full flex items-center  h-[0.5px] bg-[#FFFFFF]'></span>
         </p>
       </div>

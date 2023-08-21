@@ -6,21 +6,17 @@
   font-family: 'Poppins', sans-serif;
 }
 
-#root {
+html,
+body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-*:focus {
-  outline: none;
-}
 
 .github-logo {
   width: 44px;

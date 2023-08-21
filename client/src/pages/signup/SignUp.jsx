@@ -27,7 +27,8 @@ const SignUp = () => {
       <Nav value={"Sign Up"} />
 
       {/* Age Verification Section */}
-      <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%] lg:bg-[#2B2B2B] lg:flex-grow lg:pt-7'>
+      <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%]
+       lg:bg-[#2B2B2B] lg:flex-grow lg:pt-7'>
         <MainCard title={"Sign Up"}>
           <InputBtn
             text={"VERIFY YOUR AGE"}
@@ -99,7 +100,8 @@ const SignUp = () => {
       </div>
 
       {/* Right-Center Content for lg greater devices */}
-      <div className='hidden lg:absolute lg:top-[80px] lg:right-0 lg:flex lg:flex-col lg:justify-center lg:items-center lg:h-[calc(100vh - 80px)] lg:w-[50%]'>
+      <div className='hidden lg:absolute lg:top-[80px] lg:right-0 lg:flex lg:flex-col
+       lg:justify-center lg:items-center lg:h-[calc(100vh - 80px)] lg:w-[50%]'>
         <Rightside
           value1={"Sign Up With Google"}
           logo1={GoogleLogo}
