@@ -24,7 +24,7 @@ const Home = () => {
           <Logo />
         </div>
       </div>
-      <HomeCard />
+        <HomeCard />
     </div>
   );
 }

@@ -39,12 +39,13 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
       </div>
 
       <div className=' items-center justify-center flex flex-col'>
-        <p className='text-[#A1A1A1] text-[12px] text-center mt-3 absolute'>
+        <p className='text-[#A1A1A1] text-[12px] text-center mt-2 absolute'>
           OR SELECT YOUR {value1.includes("Sign Up") ? "SIGN UP" : "SIGN IN"} METHOD
+          {/* IT IS FOR THE LINE UNDER THE PARA */}
           <span className='absolute mt-2 w-full flex items-center  h-[0.5px] bg-[#FFFFFF]'></span>
         </p>
       </div>
-      <div className='mt-7 flex items-center justify-center flex-col'>
+      <div className='lg:mt-7 mt-5 flex items-center justify-center flex-col'>
         <AuthenicationBtn
           value={value1}
           logo={logo1}
