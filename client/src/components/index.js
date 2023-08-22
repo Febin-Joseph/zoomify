@@ -16,6 +16,9 @@ import Logo from './common/logo/Logo'
 //Navigation
 import Nav from './common/nav/Nav'
 
+//Notification
+import Notification from './Notification'
+
 export {
     InputBtn,
     MainBtn,
@@ -26,4 +29,5 @@ export {
     MainCard,
     Logo,
     Nav,
+    Notification,
 }

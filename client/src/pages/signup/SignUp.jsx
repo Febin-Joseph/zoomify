@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
+import { Nav, MainCard, InputBtn, MainBtn, Notification } from '../../components';
 import Rightside from './Rightside';
 import { ageVerification } from '../../middleware';
 import { GoogleLogo } from '../../constants/icons';
@@ -22,9 +22,18 @@ const SignUp = () => {
     setVerificationStatus(status);
   }
 
+
   return (
-    <div className='flex flex-col bg-[#000] h-screen'>
+    <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
       <Nav value={"Sign Up"} />
+
+      {verificationStatus ? (
+        <div className='fixed top-14 z-10 right-2'>
+          <Notification verificationStatus={verificationStatus} />
+        </div>
+      ) :
+        null
+      }
 
       {/* Age Verification Section */}
       <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%]
@@ -48,11 +57,6 @@ const SignUp = () => {
               height={60}
               onClick={handleAgeVerification}
             />
-            <p
-              className={`text-center mt-2 ${verificationStatus.includes('successful') ?
-                'text-green-500' : 'text-red-500'}`}>
-              {verificationStatus}
-            </p>
           </div>
         </MainCard>
       </div>

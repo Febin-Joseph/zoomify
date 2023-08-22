@@ -21,7 +21,7 @@ const JoinMeeting = () => {
   }
 
   return (
-    <div className='flex flex-col bg-[#000] h-screen'>
+    <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
       <Nav value={"Join Meeting"} />
 
       <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%]

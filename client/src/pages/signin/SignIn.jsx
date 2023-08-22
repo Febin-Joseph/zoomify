@@ -23,7 +23,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className='flex flex-col bg-[#000] h-screen'>
+    <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
       <Nav value={"Sign In"} />
 
       {/* Age Verification Section */}
