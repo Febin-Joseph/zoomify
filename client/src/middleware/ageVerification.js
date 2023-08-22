@@ -8,7 +8,7 @@ export function ageVerification(birthYear) {
 
     if (userAge >= 18 && userAge <= 150) {
       return 'Age verification successful.';
-    } else if (userAge < 18) {
+    } else if (userAge < 18 || userAge >= 1) {
       return 'You must be 18 years old or older to sign up.';
     } else {
       return 'Invalid year of birth. Please enter a valid year.';

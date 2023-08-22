@@ -62,7 +62,7 @@ const SignUp = () => {
       </div>
 
       {/* This is for lg less than devices */}
-      <div className='justify-center items-center lg:hidden'>
+      <div className='justify-center items-center lg:hidden mt-[-23px]'>
         {ageVerified ? (
           <div className='flex items-center justify-center'>
             <Rightside
