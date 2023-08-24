@@ -15,6 +15,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         .required('Required'),
       password: Yup.string()
         .max(15, 'Must be 15 characters or less')
+        .min(4, 'Must be 4 or greater')
         .required('Required'),
     }),
     onSubmit
