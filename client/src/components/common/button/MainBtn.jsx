@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MainBtn = ({ value, height, width, onClick, maxWidth }) => {
+const MainBtn = ({ value, height, width, onClick, maxWidth, type }) => {
 
   const buttonStyle = {
     width: width ? `${width}%` : '90px',
@@ -14,6 +14,7 @@ const MainBtn = ({ value, height, width, onClick, maxWidth }) => {
         style={buttonStyle}
         className={`rounded-[43px] bg-[#1A6093] flex items-center 
         justify-center content-center m-[5px] ${maxWidth} min-w-[200px]`}
+        type={type}
         onClick={onClick}>
         {value}
       </button>

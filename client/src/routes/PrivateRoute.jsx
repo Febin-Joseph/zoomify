@@ -1,11 +1,15 @@
-// import React from 'react'
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import 
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { NewMeeting } from '../pages';
 
-// const PrivateRoute = () => {
-//   return (
-    
-//   )
-// }
+const PrivateRoutes = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/new' Component={NewMeeting} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
 
-// export default PrivateRoute
+export default PrivateRoutes;
