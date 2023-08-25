@@ -22,7 +22,7 @@ const Notification = ({ verificationStatus }) => {
                     clearInterval(interval);
                     setTimeout(() => {
                         setIsVisible(false);
-                    }, 3000);
+                    }, 2000);
                 }
             }, 16);
 

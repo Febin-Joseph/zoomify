@@ -5,13 +5,19 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { rateLimit } from 'express-rate-limit';
-import { body, validationResult } from 'express-validator';
 import authRoutes from './routes/auth.js'
+
+//RateLimit to prevent attacks and abuse
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+  });
 
 
 //Middlewares
 const app = express();
 app.use(express.json());
+app.use(limiter)
 dotenv.config();
 app.use(cors());
 app.use(helmet());
