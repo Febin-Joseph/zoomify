@@ -1,15 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { NewMeeting } from '../pages';
+import { Route, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const PrivateRoutes = () => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    const isAuthenticated = useSelector(state => state.auth.token !== null);
+    const navigate = useNavigate();
+
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path='/new' Component={NewMeeting} />
-            </Routes>
-        </BrowserRouter>
-    )
-}
+        <Route
+            {...rest}
+            render={props =>
+                isAuthenticated ? (
+                    <Component {...props} />
+                ) : (
+                    navigate('/signin')
+                )
+            }
+        />
+    );
+};
 
-export default PrivateRoutes;
+export default PrivateRoute;

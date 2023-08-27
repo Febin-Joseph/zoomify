@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Home, JoinMeeting, SignUp, SignIn } from '../pages'
+import { Home, JoinMeeting, SignUp, SignIn } from '../pages';
+import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
     return (

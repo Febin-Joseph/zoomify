@@ -7,8 +7,8 @@ import dotenv from 'dotenv';
 import { rateLimit } from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
 
-//RateLimit to prevent attacks and abuse
-const limiter = rateLimit({
+//RATELIMIT
+const limiter = rateLimit({//It is used to prevent attacks and abuse
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // Limit each IP to 100 requests per windowMs
   });
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use('/auth', authRoutes)
 
 
-//MongoDB connection
+//MONGODB CONNECTION
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
