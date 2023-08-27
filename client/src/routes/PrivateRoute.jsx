@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ path, element: Element }) => {
     const isAuthenticated = useSelector(state => state.auth.token !== null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/signin');
+        }
+    }, [isAuthenticated, navigate]);
+
     return (
         <Route
-            {...rest}
-            render={props =>
-                isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    navigate('/signin')
-                )
-            }
+            path={path}
+            element={isAuthenticated ? <Element /> : null}
         />
     );
 };
