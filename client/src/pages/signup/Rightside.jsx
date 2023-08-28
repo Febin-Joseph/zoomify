@@ -2,11 +2,20 @@ import React from 'react';
 import { InputBtn, MainBtn, AuthenicationBtn } from '../../components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { signin, signup } from '../../redux/auth/authActions';
 
 const Rightside = ({ value1, logo1, value2, logo2 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector(state => state.auth.token !== null);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home');
+    }
+  }, [isAuthenticated, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -22,11 +31,10 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
     }),
     onSubmit: async (values) => {
       if (value1.includes('Sign Up')) {
-        // Dispatch signup action
-        dispatch(signup({ email: values.email, password: values.password }));
+        dispatch(signup({ email: values.email, password: values.password }))
       } else {
-        // Dispatch signin action
-        dispatch(signin({ email: values.email, password: values.password }));
+        dispatch(signin({ email: values.email, password: values.password }))
+        localStorage.setItem('token', process.env.JWT_KEY);
       }
     },
   });

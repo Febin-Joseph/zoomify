@@ -1,20 +1,25 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Home, JoinMeeting, SignUp, SignIn, Home2 } from '../pages';
-import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
+    const isAuthenticated = useSelector(state => state.auth.token !== null);
+
     return (
         <BrowserRouter>
-        <PrivateRoute path='/new' component={Home2} />
             <Routes>
-                <Route path='/' Component={Home} />
-                <Route path='/join' Component={JoinMeeting} />
-                <Route path='/signin' Component={SignIn} />
-                <Route path='/signup' Component={SignUp} />
+                <Route path='/' element={<Home />} />
+                <Route path='/join' element={<JoinMeeting />} />
+                <Route path='/signin' element={<SignIn />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route
+                    path='/home'
+                    element={isAuthenticated ? <Home2 /> : <Navigate to="/signin" />}
+                />
             </Routes>
         </BrowserRouter>
-    )
+    );
 }
 
 export default AppRoutes;
