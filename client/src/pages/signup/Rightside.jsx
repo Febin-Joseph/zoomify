@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signin, signup } from '../../redux/auth/authActions';
+import { signup, signin } from '../../redux/auth/authActions';
 
 const Rightside = ({ value1, logo1, value2, logo2 }) => {
   const dispatch = useDispatch();
@@ -32,9 +32,10 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
     onSubmit: async (values) => {
       if (value1.includes('Sign Up')) {
         dispatch(signup({ email: values.email, password: values.password }))
+        navigate('/home')
       } else {
         dispatch(signin({ email: values.email, password: values.password }))
-        localStorage.setItem('token', process.env.JWT_KEY);
+        navigate('/home')
       }
     },
   });
