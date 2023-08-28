@@ -11,7 +11,7 @@ import authRoutes from './routes/auth.js'
 const limiter = rateLimit({//It is used to prevent attacks and abuse
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // Limit each IP to 100 requests per windowMs
-  });
+});
 
 
 //Middlewares
@@ -19,7 +19,11 @@ const app = express();
 app.use(express.json());
 app.use(limiter)
 dotenv.config();
-app.use(cors());
+app.use(cors({
+    origin: ['https://zoomify.vercel.app'], 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
