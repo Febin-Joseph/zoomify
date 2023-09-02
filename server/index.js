@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-//import cors from 'cors';
+import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { rateLimit } from 'express-rate-limit';
@@ -19,11 +19,13 @@ const app = express();
 app.use(express.json());
 app.use(limiter)
 dotenv.config();
-//app.use(cors({
-//    origin: ['https://zoomify.vercel.app', 'https://zoomify.pages.dev', 'http://localhost:3000'],
-//    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//    credentials: true,
-//}));
+app.use(cors(
+    //{
+    //origin: ['https://zoomify.vercel.app', 'https://zoomify.pages.dev', 'http://localhost:3000'],
+    //methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    //credentials: true,
+//}
+));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
