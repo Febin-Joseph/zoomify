@@ -1,8 +1,9 @@
 import React from 'react';
 import MainBtn from '../button/MainBtn';
 import { useNavigate } from 'react-router-dom';
+import { newMeet } from '../../../constants/icons';
 
-const HomeCard = () => {
+const HomeCard = ({ color, isAuthenticated }) => {
   const navigate = useNavigate();
 
   const handleClick = (value) => {
@@ -28,12 +29,28 @@ const HomeCard = () => {
       </div>
 
       <div className='justify-center items-center inset-0 relative mb-6'>
-        <MainBtn
-          value={"Join Meeting"}
-          width={90}
-          height={60}
-          onClick={() => handleClick("Join Meeting")}
-        />
+        {isAuthenticated === true ?
+          <div className='flex md:ml-20 sm:ml-36 ml-20'>
+            <button>
+              <div className={`w-[95px] h-[85px] rounded-[20px] ${color} flex items-center
+          justify-center mt-[-20px]`}>
+                <div className='bg-white w-[65px] h-[60px] items-center justify-center rounded-[15px]'>
+                  <img
+                    src={newMeet}
+                    alt="joinBtn"
+                    className='items-center justify-center m-auto pt-3 w-[45px]' />
+                </div>
+              </div>
+              <p className='text-white text-[18px] text-center'>New</p>
+            </button>
+          </div>
+          :
+          <MainBtn
+            value={"Join Meeting"}
+            width={90}
+            height={60}
+            onClick={() => handleClick("Join Meeting")}
+          />}
 
         <MainBtn
           value="Sign in"
@@ -48,7 +65,6 @@ const HomeCard = () => {
           height={60}
           onClick={() => handleClick("Sign up")}
         />
-
       </div>
     </div>
   );
