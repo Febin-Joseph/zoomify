@@ -3,6 +3,7 @@
 import InputBtn from './common/button/InputBtn'
 import MainBtn from './common/button/MainBtn'
 import AuthenicationBtn from './common/button/AuthenicationBtn'
+import Home2btn from './common/button/Home2btn'
 
 //Cards
 import HomeCard from './common/card/HomeCard'
@@ -23,6 +24,7 @@ export {
     InputBtn,
     MainBtn,
     AuthenicationBtn,
+    Home2btn,
     HomeCard,
     OTPcard,
     PlansCard,
