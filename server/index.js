@@ -31,6 +31,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 
 //Routes
+app.get("/",(req, res) => {
+    res.send("gyuhg")
+})
 app.use('/auth', authRoutes)
 
 
