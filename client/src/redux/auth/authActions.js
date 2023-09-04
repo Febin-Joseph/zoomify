@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:4000';
+const API_URL = 'https://zoomify-rl7n.vercel.app';
 
 // Sign Up action
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
