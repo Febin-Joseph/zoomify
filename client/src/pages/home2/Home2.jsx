@@ -27,7 +27,7 @@ const Home2 = () => {
         </div>
         <HomeCard
           isAuthenticated={true}
-          color={'bg-[#DE5247]'} />
+           />
       </div>
     </div>
   )

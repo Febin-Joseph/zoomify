@@ -13,8 +13,8 @@ export const signup = createAsyncThunk('auth/signup', async (userData) => {
 export const signin = createAsyncThunk('auth/signin', async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/auth/signin`, userData);
-    const { token } = response.data;
-    localStorage.setItem('token', token);
+    // const { token } = response.data;
+    // localStorage.setItem('token', token);
     return response.data;
   } catch (error) {
     throw error;

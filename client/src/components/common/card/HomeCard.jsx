@@ -1,7 +1,8 @@
 import React from 'react';
 import MainBtn from '../button/MainBtn';
 import { useNavigate } from 'react-router-dom';
-import { newMeet } from '../../../constants/icons';
+import Home2btn from '../button/Home2btn';
+import { newMeet, join } from '../../../constants/icons';
 
 const HomeCard = ({ color, isAuthenticated }) => {
   const navigate = useNavigate();
@@ -25,24 +26,26 @@ const HomeCard = ({ color, isAuthenticated }) => {
       <div className='justify-center items-center ml-[5%] mr-[5%] text-white
         font-bold text-center pt-4 text-[23px] leading-9 mb-5'>
         <p>Welcome</p>
-        <p className='text-[15px]'>Get Started With Your Account</p>
+        {isAuthenticated === true ?
+          <p className='hidden text-[15px]'>Get Started With Your Account</p>
+          : <p className='text-[15px]'>Get Started With Your Account</p>
+        }
       </div>
 
       <div className='justify-center items-center inset-0 relative mb-6'>
         {isAuthenticated === true ?
-          <div className='flex md:ml-20 sm:ml-36 ml-20'>
-            <button>
-              <div className={`w-[95px] h-[85px] rounded-[20px] ${color} flex items-center
-          justify-center mt-[-20px]`}>
-                <div className='bg-white w-[65px] h-[60px] items-center justify-center rounded-[15px]'>
-                  <img
-                    src={newMeet}
-                    alt="joinBtn"
-                    className='items-center justify-center m-auto pt-3 w-[45px]' />
-                </div>
-              </div>
-              <p className='text-white text-[18px] text-center'>New</p>
-            </button>
+          <div className='flex mt-10
+           flex-row justify-center m-auto'>
+            <Home2btn
+              color={'bg-[#DE5247]'}
+              icon={newMeet}
+            />
+            <div className='md:ml-10 ml-14 '>
+              <Home2btn
+                color={'bg-[#1A6093]'}
+                icon={join}
+              />
+            </div>
           </div>
           :
           <MainBtn
