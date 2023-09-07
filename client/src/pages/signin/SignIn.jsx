@@ -26,7 +26,7 @@ const SignIn = () => {
     <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
       <Nav value={"Sign In"} />
 
-      {/* Age Verification Section */}
+      {/* Age Verification Section and Left side Content */}
       <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%]
        lg:bg-[#2B2B2B] lg:flex-grow lg:pt-7'>
         <MainCard title={"Sign In"}>
@@ -57,7 +57,7 @@ const SignIn = () => {
         </MainCard>
       </div>
 
-      {/* This is for lg less than devices */}
+      {/* Right-Center Content for lg LESS than devices */}
       <div className='justify-center items-center lg:hidden'>
         {ageVerified ? (
           <div className='flex items-center justify-center'>
@@ -99,7 +99,7 @@ const SignIn = () => {
         )}
       </div>
 
-      {/* Right-Center Content for lg greater devices */}
+      {/* Right-Center Content for lg GREATER devices */}
       <div className='hidden lg:absolute lg:top-[80px] lg:right-0 lg:flex lg:flex-col
        lg:justify-center lg:items-center lg:h-[calc(100vh - 80px)] lg:w-[50%]'>
         <Rightside

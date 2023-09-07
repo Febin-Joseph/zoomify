@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputBtn, MainBtn, AuthenicationBtn } from '../../components';
+import { InputBtn, MainBtn, AuthenicationBtn, OTPcard } from '../../components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -98,6 +98,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         <AuthenicationBtn value={value1} logo={logo1} />
         <AuthenicationBtn value={value2} logo={logo2} />
       </div>
+      <OTPcard />
     </div>
   );
 };
