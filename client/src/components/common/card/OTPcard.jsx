@@ -32,7 +32,7 @@ const OTPcard = () => {
             Click here to resend.
           </a>
         </p>
-        <span className='w-full h-[0.5px] bg-[#FFFFFF] mt-2'></span>
+        <span className='w-full h-[0.5px] bg-[#FFFFFF] mt-2' />
         <div className='mt-4 space-x-6 text-white font-bold text-center'>
           <button
             className='bg-[#1A6093] w-[115px] h-[45px] rounded-[13px]'>
