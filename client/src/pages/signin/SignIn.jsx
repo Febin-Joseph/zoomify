@@ -58,7 +58,7 @@ const SignIn = () => {
       </div>
 
       {/* Right-Center Content for lg LESS than devices */}
-      <div className='justify-center items-center lg:hidden'>
+      <div className='justify-center items-center pb-3 lg:hidden'>
         {ageVerified ? (
           <div className='flex items-center justify-center'>
             <Rightside
@@ -101,7 +101,7 @@ const SignIn = () => {
 
       {/* Right-Center Content for lg GREATER devices */}
       <div className='hidden lg:absolute lg:top-[80px] lg:right-0 lg:flex lg:flex-col
-       lg:justify-center lg:items-center lg:h-[calc(100vh - 80px)] lg:w-[50%]'>
+       lg:justify-center lg:items-center lg:h-[calc(100vh - 80px)] lg:w-[50%] lg:max-h-full'>
         <Rightside
           value1={"Sign In With Google"}
           logo1={GoogleLogo}

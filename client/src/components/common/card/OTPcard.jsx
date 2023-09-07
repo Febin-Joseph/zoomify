@@ -6,8 +6,8 @@ const OTPcard = () => {
     <div className='flex justify-center items-center
       absolute top-0 bottom-0 right-0 left-0
        md:mr-7 md:top-[220px] md:left-[200px]'>
-      <div className='min-w-[320px] h-[340px] bg-[#1F1D1D] rounded-[40px]
-       flex flex-col justify-center items-center'>
+      <div className='min-w-[320px] max-w-[330px] h-[340px] bg-[#1F1D1D] rounded-[40px]
+       flex flex-col items-center pt-7'>
         <img
           src={zoomifyLogo}
           alt="zoomify"
