@@ -84,7 +84,13 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         </div>
 
         <div className='mb-8'>
-          <MainBtn value={'Continue'} width={60} height={60} maxWidth={'max-w-[300px]'} type={'submit'} />
+          <MainBtn
+            value={'Continue'}
+            width={60}
+            height={60}
+            maxWidth={'max-w-[300px]'}
+            type={'submit'}
+          />
         </div>
       </form>
 

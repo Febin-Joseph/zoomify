@@ -18,7 +18,10 @@ import Logo from './common/logo/Logo'
 import Nav from './common/nav/Nav'
 
 //Notification
-import Notification from './Notification'
+import Notification from './unusual/Notification'
+
+//OTP Button
+import OTPBtn from './unusual/OTPBtn'
 
 export {
     InputBtn,
@@ -32,4 +35,5 @@ export {
     Logo,
     Nav,
     Notification,
+    OTPBtn,
 }

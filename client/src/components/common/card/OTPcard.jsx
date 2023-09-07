@@ -1,5 +1,6 @@
 import React from 'react';
 import { zoomifyLogo } from '../../../constants/icons';
+import OTPBtn from '../../unusual/OTPBtn';
 
 const OTPcard = () => {
   return (
@@ -13,12 +14,35 @@ const OTPcard = () => {
           alt="zoomify"
           className='md:w-[12vw] h-[50px]'
         />
-        <p className='text-[12px] text-[#A1A1A1] font-semibold mt-5'>
+        <p className='text-[12px] text-[#A1A1A1] font-semibold mt-2'>
           ENTER THE VERIFICATION CODE SEND TO
         </p>
         <p className='text-[13px] text-[#FBFBFB] font-bold'>
           febinachu123@gmail.com
         </p>
+        <div className='flex flex-row'>
+          <OTPBtn />
+          <OTPBtn />
+          <OTPBtn />
+          <OTPBtn />
+        </div>
+        <p className='text-[#A1A1A1] text-[14px] mt-6'>
+          Didn’t get a code?
+          <a href="https://google.com" className='text-[#FFFFFF]'>
+            Click here to resend.
+          </a>
+        </p>
+        <span className='w-full h-[0.5px] bg-[#FFFFFF] mt-2'></span>
+        <div className='mt-4 space-x-6 text-white font-bold text-center'>
+          <button
+            className='bg-[#1A6093] w-[115px] h-[45px] rounded-[13px]'>
+            Verify
+          </button>
+          <button
+            className='bg-[#DE5247] w-[115px] h-[45px] rounded-[13px]'>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
