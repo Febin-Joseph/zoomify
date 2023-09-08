@@ -22,11 +22,11 @@ const NewMeeting = () => {
 
   return (
     <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
-      <Nav value={"Join Meeting"} />
+      <Nav value={"New Meeting"} />
 
       <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%]
        lg:bg-[#2B2B2B] lg:flex-grow lg:pt-7'>
-        <MainCard title={"Join Meeting"}>
+        <MainCard title={"New Meeting"}>
           <div className='mt-[-30px]'>
             <p className='text-[#A1A1A1] text-[13px] text-center mb-4'>
               This Will Be Your Meeting Profile And Name
@@ -36,10 +36,10 @@ const NewMeeting = () => {
               alt="profileImg"
               className='w-[100px] m-auto items-center justify-center mb-0' />
             <InputBtn
-              text={"YOUR NAME"}
+              text={"MEETING NAME"}
               width={85}
               height={8}
-              placeholder={"Enter Your Name"}
+              placeholder={"Enter Meeting Name"}
               change={(e) => setNameValidation(e.target.value)}
               value={nameValidation}
             />
@@ -50,7 +50,7 @@ const NewMeeting = () => {
                 width={60}
                 height={60}
                 onClick={handleNameVerification}
-                maxWidth={"max-w-[300px]"}
+                maxWidth={"max-w-[100px]"}
               />
 
             </div>
@@ -81,20 +81,20 @@ const NewMeeting = () => {
                 type={"password"}
                 width={85}
                 height={8}
-                placeholder={"Password"}
+                placeholder={"Meeting Password"}
                 change={''}
                 value={''}
               />
             </div>
-            <div className='flex items-center justify-center'>
+            {/* <div className='flex items-center justify-center'>
               <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
-                Enter Meeting Credential to Join a Meeting
+                Enter Meeting Credential to Join a Meeting m
               </p>
-            </div>
+            </div> */}
 
             <div className='mb-8'>
               <MainBtn
-                value={"Join Meeting"}
+                value={"Start Meeting"}
                 width={60}
                 height={60}
               />
@@ -111,10 +111,10 @@ const NewMeeting = () => {
               alt="profileImg"
               className='w-[100px] m-auto items-center justify-center mb-0' />
             <InputBtn
-              text={"YOUR NAME"}
+              text={"MEETING NAME"}
               width={85}
               height={8}
-              placeholder={"Enter Your Name"}
+              placeholder={"Enter Meeting Name"}
               change={(e) => setNameValidation(e.target.value)}
               value={nameValidation}
             />
@@ -125,7 +125,7 @@ const NewMeeting = () => {
                 width={60}
                 height={60}
                 onClick={handleNameVerification}
-                maxWidth={"max-w-[300px]"}
+                maxWidth={"max-w-[100px]"}
               />
 
             </div>
@@ -155,20 +155,20 @@ const NewMeeting = () => {
           type={"password"}
           width={85}
           height={8}
-          placeholder={"Password"}
+          placeholder={"Meeting Password"}
           change={''}
           value={''}
         />
 
-        <div className='flex items-center justify-center'>
+        {/* <div className='flex items-center justify-center'>
           <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
             Enter Meeting Credential to Join a Meeting
           </p>
-        </div>
+        </div> */}
 
-        <div className='mb-8 '>
+        <div className='mb-8 mt-5'>
           <MainBtn
-            value={"Join Meeting"}
+            value={"Start Meeting"}
             width={60}
             height={60}
             maxWidth={'max-w-[300px]'}

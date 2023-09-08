@@ -6,6 +6,7 @@ import NewMeeting from './newmeeting/NewMeeting'
 import SignIn from './signin/SignIn'
 import SignUp from './signup/SignUp'
 import Rightside from './signup/Rightside'
+import PageNotFound from './PageNotFound/PageNotFound.JSX'
 
 export {
     Home,
@@ -15,4 +16,5 @@ export {
     SignIn,
     SignUp,
     Rightside,
+    PageNotFound,
 }
