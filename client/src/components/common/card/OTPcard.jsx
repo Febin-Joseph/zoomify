@@ -28,7 +28,7 @@ const OTPcard = () => {
         </div>
         <p className='text-[#A1A1A1] text-[14px] mt-6'>
           Didn’t get a code?
-          <a href="https://google.com" className='text-[#FFFFFF]'>
+          <a href="https://google.com" className='text-[#FFFFFF] ml-1'>
             Click here to resend.
           </a>
         </p>
