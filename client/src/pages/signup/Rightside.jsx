@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputBtn, MainBtn, AuthenicationBtn, OTPcard } from '../../components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,13 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { signup, signin } from '../../redux/auth/authActions';
 
 const Rightside = ({ value1, logo1, value2, logo2 }) => {
+  const [showOTP, setShowOTP] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.auth.token !== null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAuthenticated) {
-      navigate('/home');
+      setShowOTP(true)
     }
   }, [isAuthenticated, navigate]);
 
@@ -31,11 +32,17 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
     }),
     onSubmit: async (values) => {
       if (value1.includes('Sign Up')) {
-        dispatch(signup({ email: values.email, password: values.password }))
-        navigate('/home')
+        dispatch(signup({
+          email: values.email,
+          password: values.password
+        }))
+        setShowOTP(true);
       } else {
-        dispatch(signin({ email: values.email, password: values.password }))
-        navigate('/home')
+        dispatch(signin({
+          email: values.email,
+          password: values.password
+        }))
+        setShowOTP(true);
       }
     },
   });
@@ -104,7 +111,11 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         <AuthenicationBtn value={value1} logo={logo1} />
         <AuthenicationBtn value={value2} logo={logo2} />
       </div>
-      <OTPcard />
+      {showOTP ? (
+        <OTPcard />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

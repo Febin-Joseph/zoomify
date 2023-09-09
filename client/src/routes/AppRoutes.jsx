@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Home, JoinMeeting, SignUp, SignIn, Home2, NewMeeting, PageNotFound } from '../pages';
+import { OTPcard } from '../components';
 
 const AppRoutes = () => {
     const isAuthenticated = useSelector(state => state.auth.token !== null);
@@ -15,7 +16,7 @@ const AppRoutes = () => {
                 <Route path='/signup' element={<SignUp />} />
                 <Route
                     path='/home'
-                    element={isAuthenticated ? <Home2 /> : <Navigate to="/signin" />}
+                    element={<Home2 />}
                 >
                     <Route path='new' element={<NewMeeting />} />
                 </Route>
