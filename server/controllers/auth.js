@@ -2,6 +2,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { body, validationResult } from 'express-validator';
+import generateOTP from 'gen-otp';
+import nodemailer from 'nodemailer'
 
 //VALIDATION FOR SIGN UP
 export const validateSignup = [
@@ -17,7 +19,7 @@ export const signup = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    try {//PASS ALL THE VALUES FROM THE User.js
+    try {//PASSING THE VALUES FROM THE User.js
         const {
             email,
             password,
@@ -26,16 +28,75 @@ export const signup = async (req, res) => {
         const salt = await bcrypt.genSalt();//GENERATE RANDOM SALT
         const hashedPassword = await bcrypt.hash(password, salt)//HASHED THE PASSWORD
 
+        //Generates OTP
+        const genOTP = generateOTP({
+            length: 4,
+            digits: true,
+            expiration: '1h',
+        })
+        const otp = genOTP.otp.toString();
+
+        //Hash generated otp
+        const saltOTP = await bcrypt.genSalt();
+        const hashedOTP = await bcrypt.hash(otp, saltOTP)
+
         const newUser = new User({//CREATING A NEW USER FROM THE User.js 
             email,
             password: hashedPassword,//STORING THE PASSWORD AS HASHED PASSWORD IN THE DB
+            otp: hashedOTP,
         });
-        const saveUser = await newUser.save();//SAVING IT TO THE DATABASE AND ALSO PASSIND IT AS THE RESPONSE IN THE NEXT LINE 
-        res.status(201).json(saveUser)
+        const saveUser = await newUser.save();//SAVING IT TO THE DATABASE
+
+        // Send the OTP via email
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: 'febinachu123@gmail.com',
+            subject: 'OTP Verification',
+            text: `Your OTP for registration is: ${otp}`,
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({ error: 'Email could not be sent' });
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.status(201).json(saveUser);
+            }
+        });
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
-}
+};
+
+// OTP verification
+export const verifyOTP = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) return res.status(400).json({ message: 'User not found' });
+
+        if (user.otp !== otp) return res.status(400).json({ message: 'Invalid OTP' });
+
+        // Mark the user as verified
+        user.verified = true;
+        await user.save();
+
+        res.status(200).json({ message: 'OTP verified successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 
 //VALIDATION FOR SIGN IN
