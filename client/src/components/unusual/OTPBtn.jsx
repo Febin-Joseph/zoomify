@@ -41,6 +41,7 @@ const OTPBtn = ({ handleInputChange, index, disabled }) => {
         ref={inputRef}
         disabled={disabled} // Disable input based on the prop
         maxLength={1}
+        inputMode="numeric"
       />
     </div>
   );
