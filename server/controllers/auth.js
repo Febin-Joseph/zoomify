@@ -32,7 +32,7 @@ export const signup = async (req, res) => {
         const genOTP = generateOTP({
             length: 4,
             digits: true,
-            expiration: '1h',
+            expiration: '10s',
         })
         const otp = genOTP.otp.toString();
 
@@ -86,7 +86,8 @@ export const verifyOTP = async (req, res) => {
 
         if (!user) return res.status(400).json({ message: 'User not found' });
 
-        if (user.otp !== otp) return res.status(400).json({ message: 'Invalid OTP' });
+        const isOtp = await bcrypt.compare(otp, user.otp)
+        if (!isOtp) return res.status(400).json({ message: 'Invalid OTP' });
 
         // Mark the user as verified
         user.verified = true;
