@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputBtn = ({ text, width, height, placeholder, value, change, type, name }) => {
+const InputBtn = ({ text, width, height, placeholder, value, change, type, name, props }) => {
 
   const inputStyle = {
     width: width ? `${width}vw` : '90px',
@@ -24,6 +24,7 @@ const InputBtn = ({ text, width, height, placeholder, value, change, type, name 
           value={value}
           onChange={change}
           placeholder={placeholder}
+          {props}
         />
       </div>
     </div>
