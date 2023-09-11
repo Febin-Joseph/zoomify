@@ -5,6 +5,7 @@ import Home2btn from '../button/Home2btn';
 import { newMeet, join } from '../../../constants/icons';
 
 const HomeCard = ({ color, isAuthenticated }) => {
+
   const navigate = useNavigate();
 
   const handleClick = (value) => {
@@ -39,11 +40,15 @@ const HomeCard = ({ color, isAuthenticated }) => {
             <Home2btn
               color={'bg-[#DE5247]'}
               icon={newMeet}
+              click={() => navigate('/new')}
+              value={"New"}
             />
             <div className='md:ml-10 ml-14 '>
               <Home2btn
                 color={'bg-[#1A6093]'}
                 icon={join}
+                click={() => navigate('/join')}
+                value={"Join"}
               />
             </div>
           </div>

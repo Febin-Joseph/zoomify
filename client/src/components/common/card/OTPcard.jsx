@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { zoomifyLogo } from '../../../constants/icons';
 import OTPBtn from '../../unusual/OTPBtn';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const OTPcard = ({ email }) => {
   const [otp, setOTP] = useState(['', '', '', '']);
   const [isOTPEnabled, setIsOTPEnabled] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (value, index) => {
     const updatedOTP = [...otp];
@@ -32,6 +35,7 @@ const OTPcard = ({ email }) => {
   };
 
   const API_URL = 'https://zoomify-backend.vercel.app'
+
   const handleVerifyOTP = () => {
     const otpValue = otp.join('');
 
@@ -42,6 +46,9 @@ const OTPcard = ({ email }) => {
     axios.post(`${API_URL}/auth/verifyOtp`, data)
       .then((response) => {
         console.log('Response from the server:', response.data);
+        if (response.data.message === 'OTP verified successfully') {
+          navigate('/home')
+        }
       })
       .catch((error) => {
         console.error('Error while verifying OTP:', error);

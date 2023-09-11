@@ -17,9 +17,8 @@ const AppRoutes = () => {
                 <Route
                     path='/home'
                     element={<Home2 />}
-                >
-                    <Route path='new' element={<NewMeeting />} />
-                </Route>
+                />
+                <Route path='new' element={<NewMeeting />} />
                 <Route path='*' element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>
