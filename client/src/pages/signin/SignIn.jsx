@@ -37,7 +37,7 @@ const SignIn = () => {
             placeholder={"Birth Year"}
             change={(e) => setBirthYear(e.target.value)}
             value={birthYear}
-            inputMode="numeric"
+            inputMode={inputMode="numeric"}
           />
           <p className='text-[#A1A1A1] text-[13px] text-center mt-2'>
             Please confirm Your Birth Year. This data will not be stored.
