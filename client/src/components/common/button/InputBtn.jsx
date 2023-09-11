@@ -24,7 +24,7 @@ const InputBtn = ({ text, width, height, placeholder, value, change, type, name,
           value={value}
           onChange={change}
           placeholder={placeholder}
-          {props}
+          props={props}
         />
       </div>
     </div>
