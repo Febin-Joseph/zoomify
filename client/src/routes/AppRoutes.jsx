@@ -11,13 +11,10 @@ const AppRoutes = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/join' element={<JoinMeeting />} />
-                <Route path='/signin' element={<SignIn />} />
-                <Route path='/signup' element={<SignUp />} />
-                <Route
-                    path='/home'
-                    element={<Home2 />}
-                />
+                <Route path='join' element={<JoinMeeting />} />
+                <Route path='signin' element={<SignIn />} />
+                <Route path='signup' element={<SignUp />} />
+                <Route path='home' element={<Home2 />} />
                 <Route path='new' element={<NewMeeting />} />
                 <Route path='*' element={<PageNotFound />} />
             </Routes>

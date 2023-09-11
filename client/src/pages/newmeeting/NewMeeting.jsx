@@ -86,11 +86,11 @@ const NewMeeting = () => {
                 value={''}
               />
             </div>
-            {/* <div className='flex items-center justify-center'>
+            <div className='flex items-center justify-center'>
               <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
-                Enter Meeting Credential to Join a Meeting m
+              This is Your Meeting Credentials to Start a Meeting
               </p>
-            </div> */}
+            </div>
 
             <div className='mb-8'>
               <MainBtn
@@ -160,13 +160,13 @@ const NewMeeting = () => {
           value={''}
         />
 
-        {/* <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center'>
           <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
-            Enter Meeting Credential to Join a Meeting
+            This is Your Meeting Credentials to Start a Meeting
           </p>
-        </div> */}
+        </div>
 
-        <div className='mb-8 mt-5'>
+        <div className='mb-8 mt-0'>
           <MainBtn
             value={"Start Meeting"}
             width={60}
