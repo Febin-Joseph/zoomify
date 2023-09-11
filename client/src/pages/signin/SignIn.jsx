@@ -37,7 +37,6 @@ const SignIn = () => {
             placeholder={"Birth Year"}
             change={(e) => setBirthYear(e.target.value)}
             value={birthYear}
-            inputMode={inputMode="numeric"}
           />
           <p className='text-[#A1A1A1] text-[13px] text-center mt-2'>
             Please confirm Your Birth Year. This data will not be stored.
@@ -59,7 +58,7 @@ const SignIn = () => {
       </div>
 
       {/* Right-Center Content for lg LESS than devices */}
-      <div className='justify-center items-center pb-3 lg:hidden'>
+      <div className='justify-center items-center lg:hidden mt-[-23px]'>
         {ageVerified ? (
           <div className='flex items-center justify-center'>
             <Rightside
@@ -78,6 +77,7 @@ const SignIn = () => {
               placeholder={"Birth Year"}
               change={(e) => setBirthYear(e.target.value)}
               value={birthYear}
+              inputMode={inputMode="numeric"}
             />
             <p className='text-[#A1A1A1] text-[13px] text-center mt-2'>
               Please confirm Your Birth Year. This data will not be stored.
