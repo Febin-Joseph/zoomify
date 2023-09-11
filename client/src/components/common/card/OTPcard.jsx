@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { zoomifyLogo } from '../../../constants/icons';
 import OTPBtn from '../../unusual/OTPBtn';
+import axios from 'axios';
 
 const OTPcard = ({ email }) => {
   const [otp, setOTP] = useState(['', '', '', '']);
@@ -30,12 +31,21 @@ const OTPcard = ({ email }) => {
     }
   };
 
+  const API_URL = 'https://zoomify-backend.vercel.app'
   const handleVerifyOTP = () => {
-    if (otp.join('') === '1234') {
-      console.log('OTP verified. Navigating to home...');
-    } else {
-      console.log('Invalid OTP. Please try again.');
+    const otpValue = otp.join('');
+
+    const data = {
+      otp: otpValue,
+      email: email
     }
+    axios.post(`${API_URL}/auth/verifyOtp`, data)
+      .then((response) => {
+        console.log('Response from the server:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error while verifying OTP:', error);
+      });
   };
 
   const handleCancel = () => {
@@ -104,7 +114,6 @@ const OTPcard = ({ email }) => {
             </div>
           </div>
         </div>
-
       )}
     </div>
   );

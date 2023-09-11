@@ -111,7 +111,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         <AuthenicationBtn value={value1} logo={logo1} />
         <AuthenicationBtn value={value2} logo={logo2} />
       </div>
-      {showOTP ? (
+      {showOTP && (value1.includes('Sign Up')) ? (
         <OTPcard
           email={formik.values.email}
         />

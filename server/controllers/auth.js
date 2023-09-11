@@ -60,7 +60,7 @@ export const signup = async (req, res) => {
 
         const mailOptions = {
             from: process.env.EMAIL,
-            to: 'febinachu123@gmail.com',
+            to: email,
             subject: 'OTP Verification',
             text: `Your OTP for registration is: ${otp}`,
         };
@@ -70,7 +70,6 @@ export const signup = async (req, res) => {
                 console.log(error);
                 res.status(500).json({ error: 'Email could not be sent' });
             } else {
-                console.log('Email sent: ' + info.response);
                 res.status(201).json(saveUser);
             }
         });
