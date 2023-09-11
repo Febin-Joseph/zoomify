@@ -32,9 +32,10 @@ export const signup = async (req, res) => {
         const genOTP = generateOTP({
             length: 4,
             digits: true,
-            expiration: '10s',
+            expiration: '3m',//OTP expires in 3 minutes
         })
         const otp = genOTP.otp.toString();
+        const otpExpires = genOTP.expiresAt.toString();
 
         //Hash generated otp
         const saltOTP = await bcrypt.genSalt();
@@ -44,10 +45,11 @@ export const signup = async (req, res) => {
             email,
             password: hashedPassword,//STORING THE PASSWORD AS HASHED PASSWORD IN THE DB
             otp: hashedOTP,
+            otpExpiration: otpExpires,
         });
         const saveUser = await newUser.save();//SAVING IT TO THE DATABASE
 
-        // Send the OTP via email
+        // Sending the OTP via email
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -85,6 +87,10 @@ export const verifyOTP = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) return res.status(400).json({ message: 'User not found' });
+
+        if (user.otpExpiration && user.otpExpiration < new Date()) {
+            return res.status(400).json({ message: "OTP expired" })
+        }
 
         const isOtp = await bcrypt.compare(otp, user.otp)
         if (!isOtp) return res.status(400).json({ message: 'Invalid OTP' });
