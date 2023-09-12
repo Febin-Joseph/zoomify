@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
-import { copy, lock } from '../../../constants/icons';
+import { copy, goBtn2, lock } from '../../../constants/icons';
 
 const InputBtn = ({ ...props }) => {
 
   const [isHovered, setIsHovered] = useState(false);
+  const [payMsg, setPayMsg] = useState(false)
 
   const inputStyle = {
     width: props.width ? `${props.width}vw` : '90px',
     height: props.height ? `${props.height}vw` : '76px',
   };
 
+  const handleClickLock = () => {
+    setPayMsg(true);
+  }
+
+  // Hiding the PayMsg when mouse leaves
+  const handleMouseLeave = () => {
+    setPayMsg(false);
+  }
 
   return (
     <div className='flex flex-col items-center mt-10 lg:mt-0'>
@@ -19,7 +28,10 @@ const InputBtn = ({ ...props }) => {
       <div
         className='relative'
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          handleMouseLeave();
+        }}
       >
         <input
           type={props.type}
@@ -43,7 +55,23 @@ const InputBtn = ({ ...props }) => {
             <img
               src={lock}
               alt="lock"
-              className='w-[30px]' />
+              className='w-[30px]'
+              onClick={handleClickLock}
+            />
+
+            {/* Displaying Paying Notification  */}
+            {payMsg && (
+              <div className="w-[230px] rounded-[30px] bg-[#515977] p-2 absolute bottom-[43px] -right-3 flex">
+                <p className='text-start text-[12px] text-white w-40 ml-3'>
+                  PAY FOR UNLOCK SETTING ID AND PASSWORD
+                </p>
+                <img
+                  src={goBtn2}
+                  alt="goBtn"
+                  className='ml-2'
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

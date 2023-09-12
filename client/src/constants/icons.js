@@ -5,6 +5,7 @@ import downarrow from "../assets/icons/downarrow.png";
 import GithubLogo from "../assets/icons/Github-logo.png";
 import GoogleLogo from "../assets/icons/Google-logo.png";
 import gobtn from "../assets/icons/gobtn.png";
+import goBtn2 from "../assets/icons/goBtn2.png"
 import lock from "../assets/icons/lock.png";
 import join from "../assets/icons/join.png";
 import newMeet from "../assets/icons/newMeet.png";
@@ -22,6 +23,7 @@ export {
     GithubLogo,
     GoogleLogo,
     gobtn,
+    goBtn2,
     lock,
     join,
     newMeet,
