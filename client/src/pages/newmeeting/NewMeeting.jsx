@@ -74,6 +74,7 @@ const NewMeeting = () => {
               placeholder={"Meeting ID"}
               change={''}
               value={''}
+              showCopyIcon={true}
             />
             <div className='mt-[-35px]'>
               <InputBtn
@@ -84,11 +85,12 @@ const NewMeeting = () => {
                 placeholder={"Meeting Password"}
                 change={''}
                 value={''}
+                showCopyIcon={true}
               />
             </div>
             <div className='flex items-center justify-center'>
               <p className='text-[#A1A1A1] text-[13px] lg:w-[25vw] w-[250px] text-center mt-1 mb-3'>
-              This is Your Meeting Credentials to Start a Meeting
+                This is Your Meeting Credentials to Start a Meeting
               </p>
             </div>
 
@@ -148,6 +150,7 @@ const NewMeeting = () => {
           placeholder={"Meeting ID"}
           change={''}
           value={''}
+          showCopyIcon={true}
         />
 
         <InputBtn
@@ -158,6 +161,7 @@ const NewMeeting = () => {
           placeholder={"Meeting Password"}
           change={''}
           value={''}
+          showCopyIcon={true}
         />
 
         <div className='flex items-center justify-center'>
