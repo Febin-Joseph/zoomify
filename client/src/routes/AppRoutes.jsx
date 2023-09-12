@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Home, JoinMeeting, SignUp, SignIn, Home2, NewMeeting, PageNotFound } from '../pages';
-import { OTPcard } from '../components';
+import { Home, JoinMeeting, SignUp, SignIn, Home2, NewMeeting } from '../pages';
+import { PageNotFound } from '../pages';
 
 const AppRoutes = () => {
     const isAuthenticated = useSelector(state => state.auth.token !== null);

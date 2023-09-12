@@ -91,11 +91,19 @@ export const verifyOTP = async (req, res) => {
             return res.status(400).json({ message: "OTP expired" })
         }
 
+        if (user.otpUsed) {
+            return res.status(400).json({ message: "OTP Already Used" })
+        }
+
         const isOtp = await bcrypt.compare(otp, user.otp)
         if (!isOtp) return res.status(400).json({ message: 'Invalid OTP' });
 
         // Mark the user as verified
         user.verified = true;
+        await user.save();
+
+        //Mark OTP already used
+        user.otpUsed = true;
         await user.save();
 
         res.status(200).json({ message: 'OTP verified successfully' });
