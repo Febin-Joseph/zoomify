@@ -12,6 +12,7 @@ import newMeet from "../assets/icons/newMeet.png";
 import premium from "../assets/icons/premium.png";
 import round from "../assets/icons/round.png";
 import zoomifyLogo from "../assets/icons/zoomifyLogo.png";
+import closeBtn from "../assets/icons/closeBtn.png";
 
 //IMAGES
 import profile from "../assets/images/profile.png"
@@ -31,4 +32,5 @@ export {
     round,
     zoomifyLogo,
     profile,
+    closeBtn,
 }
