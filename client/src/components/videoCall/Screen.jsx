@@ -2,7 +2,11 @@ import React from 'react'
 
 const Screen = () => {
   return (
-    <div>Screen</div>
+    <div className='flex justify-start items-center ml-[90px]'>
+      <div className='w-[63vw] h-[39vw] rounded-[45px] bg-white min-w-[300px] min-h-[400px]'>
+
+      </div>
+    </div>
   )
 }
 
