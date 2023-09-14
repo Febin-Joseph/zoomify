@@ -7,6 +7,8 @@ import SignIn from './signin/SignIn'
 import SignUp from './signup/SignUp'
 import Rightside from './signup/Rightside'
 import PageNotFound from './PageNotFound/PageNotFound.JSX'
+import Chat from './videoCall/chat/Chat'
+import Room from './videoCall/room/Room'
 
 export {
     Home,
@@ -17,4 +19,6 @@ export {
     SignUp,
     Rightside,
     PageNotFound,
+    Chat,
+    Room,
 }

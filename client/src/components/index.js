@@ -17,11 +17,19 @@ import Logo from './common/logo/Logo'
 //Navigation
 import Nav from './common/nav/Nav'
 
+//UNUSUAL
 //Notification
 import Notification from './unusual/Notification'
 
 //OTP Button
 import OTPBtn from './unusual/OTPBtn'
+
+//VIDEOCALL
+//BackIcon
+import BackIcon from './videoCall/BackIcon'
+
+//Screen
+import Screen from './videoCall/Screen'
 
 export {
     InputBtn,
@@ -36,4 +44,6 @@ export {
     Nav,
     Notification,
     OTPBtn,
+    BackIcon,
+    Screen,
 }
