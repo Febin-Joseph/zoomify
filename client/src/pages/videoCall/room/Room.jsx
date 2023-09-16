@@ -19,7 +19,7 @@ const Room = ({ nameValidation }) => {
                 <div className='mt-4 '>
                     <Screen />
                 </div>
-                    <Chat />
+                <Chat />
             </div>
         </div>
     )
