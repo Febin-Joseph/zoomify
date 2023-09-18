@@ -128,14 +128,16 @@ const Room = () => {
             {myStream && (
                 <div className='mt-4'>
                 <Screen>
-                  <ReactPlayer
-                    playing
-                    muted
-                    url={myStream}
-                    controls={true} // You can add controls for video playback
-                  />
+                    <ReactPlayer
+                        playing
+                        muted
+                        url={myStream}
+                        controls={true}
+                        width="100%" // Set the width to 100% for responsiveness
+                        height="100%" // Set the height to 100% for responsiveness
+                    />
                 </Screen>
-              </div>
+            </div>
             )}
             {remoteStream && (
                 <>
