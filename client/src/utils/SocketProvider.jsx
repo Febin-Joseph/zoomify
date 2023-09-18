@@ -9,7 +9,7 @@ export const useSocket = () => {
 }
 
 export const SocketProvider = (props) => {
-    const socket = useMemo(() => io('localhost:4000'), [])
+    const socket = useMemo(() => io('https://zoomify.vercel.app'), [])
 
     return (
         <SocketContext.Provider value={socket}>
