@@ -6,10 +6,11 @@ import peer from "../../../utils/peer";
 import { useSocket } from "../../../utils/SocketProvider";
 
 const Room = () => {
-    const socket = useSocket();
     const [remoteSocketId, setRemoteSocketId] = useState(null);
     const [myStream, setMyStream] = useState();
     const [remoteStream, setRemoteStream] = useState();
+    
+    const socket = useSocket();
 
     const handleUserJoined = useCallback(({ email, id }) => {
         console.log(`Email ${email} joined room`);
