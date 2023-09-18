@@ -4,11 +4,14 @@ import { Provider } from 'react-redux';
 import './index.css';
 import AppRoutes from './routes/AppRoutes';
 import store from './redux/auth/authReducers';
+import { SocketProvider } from './utils/SocketProvider';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <AppRoutes />
+      <SocketProvider>
+        <AppRoutes />
+      </SocketProvider>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')
