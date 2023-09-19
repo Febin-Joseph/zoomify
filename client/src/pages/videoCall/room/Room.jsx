@@ -113,6 +113,7 @@ const Room = () => {
     ]);
     
     return (
+        <>
         <div className='flex flex-col bg-[#000] min-h-screen max-h-full text-white'>
         <div className='lg:ml-10 lg:mt-4'>
             <div className='ml-5 mt-0 flex items-center'>
@@ -152,18 +153,11 @@ const Room = () => {
                     />
                 </>
             )}
+            </div>
         </div>
-        </div>
+        <Chat />
+        </>
     );
 }
 
 export default Room;
-
-
-// (
-    
-//             <div className='mt-4 '>
-//                 <Screen />
-//             </div>
-//             <Chat />
-// )

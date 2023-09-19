@@ -58,7 +58,6 @@ const emailToSocketIdMap = new Map();
 const socketIdToEmailMap = new Map();
 
 io.on('connection', (socket) => {
-    console.log(`Socket connected: ${socket.id}`);
     socket.on('room:join', (data) => {
         const { email, room } = data
         emailToSocketIdMap.set(email, socket.id);
@@ -81,9 +80,5 @@ io.on('connection', (socket) => {
 
     socket.on('peer:nego:done', ({ to, ans }) => {
         io.to(to).emit('peer:nego:final', { from: socket.id, ans })
-    })
-
-    socket.on('disconnect', () => {
-        console.log(`Socket disconnected: ${socket.id}`);
     })
 });
