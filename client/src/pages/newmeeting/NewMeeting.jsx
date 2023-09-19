@@ -107,7 +107,7 @@ const NewMeeting = () => {
             <div className='mt-[-35px]'>
               <InputBtn
                 text={"MEETING PASSWORD"}
-                type={"password"}
+                type={"text"}
                 width={85}
                 height={8}
                 placeholder={"Meeting Password"}
@@ -184,7 +184,7 @@ const NewMeeting = () => {
 
         <InputBtn
           text={"MEETING PASSWORD"}
-          type={"password"}
+          type={"text"}
           width={85}
           height={8}
           placeholder={"Meeting Password"}

@@ -57,7 +57,7 @@ const io = new Server(server, {
 const emailToSocketIdMap = new Map();
 const socketIdToEmailMap = new Map();
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
     socket.on('room:join', (data) => {
         const { email, room } = data
         emailToSocketIdMap.set(email, socket.id);
