@@ -13,6 +13,7 @@ import premium from "../assets/icons/premium.png";
 import round from "../assets/icons/round.png";
 import zoomifyLogo from "../assets/icons/zoomifyLogo.png";
 import closeBtn from "../assets/icons/closeBtn.png";
+import send from "../assets/icons/send.png"
 
 //IMAGES
 import profile from "../assets/images/profile.png"
@@ -33,4 +34,5 @@ export {
     zoomifyLogo,
     profile,
     closeBtn,
+    send
 }
