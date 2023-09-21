@@ -1,40 +1,36 @@
 import React, { useState } from 'react';
 
-const ChatNav = () => {
-  const [activeButton, setActiveButton] = useState('roomchat');
+function ChatNav() {
+  // State to track the selected button
+  const [selectedButton, setSelectedButton] = useState('roomchat');
 
+  // Function to handle button click
   const handleButtonClick = (button) => {
-    setActiveButton(button);
+    setSelectedButton(button);
   };
 
   return (
-    <div>
-      <div className='top-14 justify-center left-6 absolute w-[87%] h-[60px] bg-white rounded-[50px]'>
-        <div className='w-[55%] h-[100%] rounded-[50px] right-0'>
-          <div
-            className={`w-[50%] h-[100%] float-left cursor-pointer ${
-              activeButton === 'roomchat' ? 'bg-black text-white' : 'bg-white text-black'
-            }`}
-            onClick={() => handleButtonClick('roomchat')}
-          >
-            RoomChat
-          </div>
-          <div
-            className={`w-[50%] h-[100%] float-left cursor-pointer ${
-              activeButton === 'participants' ? 'bg-black text-white' : 'bg-white text-black'
-            }`}
-            onClick={() => handleButtonClick('participants')}
-          >
-            Participants
-          </div>
-          <div style={{ clear: 'both' }}></div>
-        </div>
-      </div>
-      <div className={`w-[55%] h-[100%] rounded-[50px] right-0 ${activeButton === 'roomchat' ? 'bg-black' : 'bg-white'}`}>
-        {/* Content for RoomChat */}
-      </div>
+    <div className='top-14 justify-center left-6 absolute w-[87%] h-[60px] bg-white rounded-[50px]'>
+      <button
+        className={`w-[50%] h-[100%] rounded-[50px] ${selectedButton === 'roomchat' ?
+          'bg-black text-white' :
+          ''
+          }`}
+        onClick={() => handleButtonClick('roomchat')}
+      >
+        Room Chat
+      </button>
+      <button
+        className={`w-[50%] h-[100%] rounded-[50px] ${selectedButton === 'participants' ?
+          'bg-black text-white' :
+          ''
+          }`}
+        onClick={() => handleButtonClick('participants')}
+      >
+        Participants
+      </button>
     </div>
   );
-};
+}
 
 export default ChatNav;
