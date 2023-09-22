@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
 function ChatNav() {
-  // State to track the selected button
   const [selectedButton, setSelectedButton] = useState('roomchat');
 
-  // Function to handle button click
   const handleButtonClick = (button) => {
     setSelectedButton(button);
   };

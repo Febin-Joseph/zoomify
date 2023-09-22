@@ -67,6 +67,12 @@ io.on('connection', (socket) => {
         io.to(socket.id).emit('room:join', data);
     })
 
+    socket.on('chat:message', (data) => {
+        const { message, room } = data;
+        // Broadcast the chat message to all users in the room
+        io.to(room).emit('chat:message', { message });
+    });
+
     socket.on('user:call', ({ to, offer }) => {
         io.to(to).emit('incomming:call', { from: socket.id, offer })
     })
