@@ -8,7 +8,7 @@ function ChatNav() {
   };
 
   return (
-    <div className='top-14 justify-center left-6 absolute w-[87%] h-[60px] bg-white rounded-[50px]'>
+    <div className='top-12 justify-center left-6 absolute w-[87%] h-[60px] bg-white rounded-[50px]'>
       <button
         className={`w-[50%] h-[100%] rounded-[50px] ${selectedButton === 'roomchat' ?
           'bg-black text-white' :

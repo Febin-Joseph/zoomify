@@ -9,13 +9,14 @@ const Chat = () => {
     // State to store chat messages and user input
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const currentUserName = 'Your'; // Replace with the current user's name
 
     // Function to handle sending a new chat message
     const handleSendMessage = () => {
         if (newMessage.trim() !== '') {
             // Create a new message object with sender name, timestamp, and content
             const message = {
-                sender: 'You', // Replace with the sender's name
+                sender: currentUserName, // Use the current user's name
                 timestamp: new Date().toLocaleTimeString(),
                 content: newMessage,
             };
@@ -54,14 +55,14 @@ const Chat = () => {
                     <ChatNav />
                 </div>
                 <div className="chat-messages">
-  {chatMessages.map((message, index) => (
-    <Message
-      key={index}
-      message={message}
-      currentUser={message.sender === 'You'} // Set currentUser based on sender
-    />
-  ))}
-</div>
+                    {chatMessages.map((message, index) => (
+                        <Message
+                            key={index}
+                            message={message}
+                            isCurrentScreen={message.sender === currentUserName}
+                        />
+                    ))}
+                </div>
                 {/* Message input */}
                 <div className="flex justify-center items-center">
                     <MsgInput
