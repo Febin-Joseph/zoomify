@@ -1,30 +1,29 @@
+import React from "react";
+
+const formatTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12AM
+  const formattedMinutes = minutes.toString().padStart(2, "0"); // Add leading zero for single-digit minutes
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+};
+
 const Message = ({ message, isCurrentScreen }) => {
-  const isCurrentUser = isCurrentScreen;
-
-  const messageContainerStyle = isCurrentUser
-    ? 'flex justify-end'
-    : 'flex justify-start';
-
-  const messageStyle = isCurrentUser
-    ? 'bg-[#8AC78D] rounded-l-[30px] rounded-b-[20px] pl-6 pt-[2px] ml-2'
-    : 'bg-white rounded-r-[30px] rounded-b-[20px] pl-4 pt-[2px] mr-2';
-
-  const senderName = isCurrentUser ? 'You' : message.sender;
-
+  const formattedTime = formatTimestamp(message.timestamp); // Assuming you have a timestamp property in the message object
   return (
-    <div className={messageContainerStyle}>
-      <div className={`w-[185px] h-[62px] ${messageStyle}`}>
-        <label htmlFor="name" className="text-[13px] text-[#5C5C5C]">
-          {senderName}
-        </label>
-
-        <label htmlFor="Date" className="text-[11.5px] pl-16 text-[#5C5C5C]">
-          {message.timestamp}
-        </label>
-
-        <p className="text-[13px] mt-1 text-black font-semibold">
-          {message.content}
-        </p>
+    <div className={`flex ${isCurrentScreen ? 'justify-end m-3' : 'justify-start m-3'}`}>
+      <div
+        className={`rounded-lg p-2 max-w-[70%] ${isCurrentScreen ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'
+          } break-words overflow-hidden relative`}
+      >
+        <div className="mb-1">{message.content}</div>
+        <div
+          className={`text-xs absolute top-0 right-0 mt-1 mr-1 text-gray-500`}
+        >
+          {formattedTime}
+        </div>
       </div>
     </div>
   );

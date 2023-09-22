@@ -9,16 +9,19 @@ const Chat = () => {
     // State to store chat messages and user input
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserName = 'Your'; // Replace with the current user's name
 
+    // Get the current user's socket ID
+    const currentUserSocketId = socket.id;
+
+    // Function to handle sending a new chat message
     // Function to handle sending a new chat message
     const handleSendMessage = () => {
         if (newMessage.trim() !== '') {
-            // Create a new message object with sender name, timestamp, and content
+            // Create a new message object with sender socket ID, timestamp, and content
             const message = {
-                sender: currentUserName, // Use the current user's name
-                timestamp: new Date().toLocaleTimeString(),
+                senderSocketId: currentUserSocketId,
                 content: newMessage,
+                timestamp: Date.now(),
             };
 
             // Emit the chat message to the server with the room information and the complete message object
@@ -28,6 +31,7 @@ const Chat = () => {
             setNewMessage('');
         }
     };
+
 
     // Listen for incoming chat messages from the server
     useEffect(() => {
@@ -59,7 +63,7 @@ const Chat = () => {
                         <Message
                             key={index}
                             message={message}
-                            isCurrentScreen={message.sender === currentUserName}
+                            isCurrentScreen={message.senderSocketId === currentUserSocketId}
                         />
                     ))}
                 </div>
