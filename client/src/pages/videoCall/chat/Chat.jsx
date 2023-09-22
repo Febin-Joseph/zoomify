@@ -48,17 +48,17 @@ const Chat = () => {
     }, [chatMessages, socket]);
 
     return (
-        <div>
-            <div className='fixed bottom-0 right-0 lg:h-[41vw] rounded-tl-[45px] lg:w-[26.7vw] bg-[#2B2B2BA6]'>
-                <img
-                    src={closeBtn}
-                    alt="close"
-                    className='absolute -top-4 -right-3 p-3 w-[85px]'
-                />
-                <div className='top-12 flex justify-center items-center'>
-                    <ChatNav />
-                </div>
-                <div className="chat-messages">
+        <div className='fixed bottom-0 right-0 lg:h-[41vw] rounded-tl-[45px] lg:w-[26.7vw] bg-[#2B2B2BA6]'>
+            <img
+                src={closeBtn}
+                alt="close"
+                className='absolute -top-4 -right-3 p-3 w-[85px]'
+            />
+            <div className='top-12 flex justify-center items-center'>
+                <ChatNav />
+            </div>
+            <div className="flex flex-col">
+                <div className='flex-1 overflow-y-auto'>
                     {chatMessages.map((message, index) => (
                         <Message
                             key={index}
@@ -67,14 +67,14 @@ const Chat = () => {
                         />
                     ))}
                 </div>
-                {/* Message input */}
-                <div className="flex justify-center items-center">
-                    <MsgInput
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onSend={handleSendMessage}
-                    />
-                </div>
+            </div>
+            {/* Message input */}
+            <div className="flex justify-center items-center">
+                <MsgInput
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onSend={handleSendMessage}
+                />
             </div>
         </div>
     );

@@ -15,12 +15,12 @@ const Message = ({ message, isCurrentScreen }) => {
   return (
     <div className={`flex ${isCurrentScreen ? 'justify-end m-3' : 'justify-start m-3'}`}>
       <div
-        className={`rounded-lg p-2 max-w-[70%] ${isCurrentScreen ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'
+        className={`rounded-lg p-2 min-w-[130px] min-h-[55px] max-w-[70%] ${isCurrentScreen ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'
           } break-words overflow-hidden relative`}
       >
-        <div className="mb-1">{message.content}</div>
+        <div className="pt-3 pl-3">{message.content}</div>
         <div
-          className={`text-xs absolute top-0 right-0 mt-1 mr-1 text-gray-500`}
+          className={`text-xs absolute top-0 right-0 mt-1 mr-1 text-black pr-2`}
         >
           {formattedTime}
         </div>
