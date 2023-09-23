@@ -6,60 +6,57 @@ import { useSocket } from '../../../utils/SocketProvider';
 const Chat = () => {
     const socket = useSocket();
 
-    // State to store chat messages and user input
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [showMessages, setShowMessages] = useState(true);
 
-    // Get the current user's socket ID
     const currentUserSocketId = socket.id;
 
-    // Function to handle sending a new chat message
-    // Function to handle sending a new chat message
     const handleSendMessage = () => {
         if (newMessage.trim() !== '') {
-            // Create a new message object with sender socket ID, timestamp, and content
+            // a new message object with sender socket ID, timestamp, and content
             const message = {
                 senderSocketId: currentUserSocketId,
                 content: newMessage,
                 timestamp: Date.now(),
             };
 
-            // Emit the chat message to the server with the room information and the complete message object
-            socket.emit('chat:message', { message, room: '1' }); // Replace 'your-room-name' with the actual room name
+            // Emitting the message to the server with the room info and the complete message object
+            socket.emit('chat:message', { message, room: '1' });
 
-            // Clear the input field
+            // Clearing the input fieldafter sending
             setNewMessage('');
         }
     };
 
-
-    // Listen for incoming chat messages from the server
+    // Listen for incoming messages from the server
     useEffect(() => {
         socket.on('chat:message', (data) => {
             const { message } = data;
-            // Update the chatMessages state to include the received message
+            // Updating the chatMessages state to include the received message
             setChatMessages([...chatMessages, message]);
         });
 
-        // Clean up the event listener when the component unmounts
+        // Cleaning up the event listener when the component unmounts
         return () => {
             socket.off('chat:message');
         };
     }, [chatMessages, socket]);
 
     return (
-        <div className='fixed bottom-0 right-0 lg:h-[41vw] rounded-tl-[45px] lg:w-[26.7vw] bg-[#2B2B2BA6]'>
+        <div className='lg:fixed lg:bottom-0 lg:right-0 lg:h-[565px] lg:rounded-tl-[45px]
+         lg:w-[350px] bg-[#2B2B2BA6]'>
             <img
                 src={closeBtn}
                 alt="close"
                 className='absolute -top-4 -right-3 p-3 w-[85px]'
             />
             <div className='top-12 flex justify-center items-center mb-10 pb-1'>
-                <ChatNav />
+                <ChatNav setShowMessages={setShowMessages} />
             </div>
             <div className="flex flex-col">
                 <div className='flex-1 overflow-y-auto mt-16 max-h-[28.5vw] group'>
-                    {chatMessages.map((message, index) => (
+                    {showMessages && chatMessages.map((message, index) => (
                         <Message
                             key={index}
                             message={message}
