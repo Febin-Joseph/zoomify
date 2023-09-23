@@ -20,3 +20,27 @@ body {
   width: 44px;
   margin-left: 30px;
 }
+
+/* .no-scrollbar::-webkit-scrollbar {
+  display: none
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+
+.group::-webkit-scrollbar {
+  width: 10px;
+}
+
+.group::-webkit-scrollbar-track {
+  background: #d1e5ff;
+  background-color: transparent;
+}
+
+.group::-webkit-scrollbar-thumb {
+  background: linear-gradient(#642bff, #ff22e6);
+  border-radius: 10px;
+}
+

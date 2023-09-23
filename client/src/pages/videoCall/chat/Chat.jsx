@@ -54,11 +54,11 @@ const Chat = () => {
                 alt="close"
                 className='absolute -top-4 -right-3 p-3 w-[85px]'
             />
-            <div className='top-12 flex justify-center items-center mb-10'>
+            <div className='top-12 flex justify-center items-center mb-10 pb-1'>
                 <ChatNav />
             </div>
             <div className="flex flex-col">
-                <div className='flex-1 overflow-y-auto mt-16'>
+                <div className='flex-1 overflow-y-auto mt-16 max-h-[28.5vw] group'>
                     {chatMessages.map((message, index) => (
                         <Message
                             key={index}
