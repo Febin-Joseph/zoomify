@@ -9,7 +9,7 @@ const Room = () => {
     const [remoteSocketId, setRemoteSocketId] = useState(null);
     const [myStream, setMyStream] = useState();
     const [remoteStream, setRemoteStream] = useState();
-    
+
     const socket = useSocket();
 
     const handleUserJoined = useCallback(({ email, id }) => {
@@ -111,51 +111,49 @@ const Room = () => {
         handleNegoNeedIncomming,
         handleNegoNeedFinal,
     ]);
-    
+
     return (
         <>
-        <div className='flex flex-col bg-[#000] min-h-screen max-h-full text-white'>
-        <div className='lg:ml-10 lg:mt-4'>
-            <div className='ml-5 mt-0 flex items-center'>
-                <BackIcon />
-                <p className='text-white font-medium text-[35px] ml-4 lg:ml-7 tracking-[2px]'>
-                    {
-                     "Meeting-1"
-                    }
-                </p>
+            <div className='flex flex-col bg-[#000] min-h-screen max-h-full text-white'>
+                <div className='lg:ml-10 lg:mt-4'>
+                    <div className='flex mt-3 ml-5 lg:ml-5 lg:mt-0 lg:items-center'>
+                        <BackIcon />
+                        <p className='text-white mt-2 lg:mt-0 font-medium text-[32px] ml-4 lg:ml-7 tracking-[2px]'>
+                            {
+                                "Meeting-1"
+                            }
+                        </p>
+                    </div>
+                    <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
+                    {myStream && <button onClick={sendStreams}>Send Stream</button>}
+                    {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
+                    {myStream && (
+                        <div className='mt-4'>
+                            <ReactPlayer
+                                playing
+                                muted
+                                url={myStream}
+                                controls={true}
+                                width="300px" // Set the width to 100% for responsiveness
+                                height="400px" // Set the height to 100% for responsiveness
+                            />
+                        </div>
+                    )}
+                    {remoteStream && (
+                        <>
+                            <h1>Remote Stream</h1>
+                            <ReactPlayer
+                                playing
+                                muted
+                                height="300px"
+                                width="400px"
+                                url={remoteStream}
+                            />
+                        </>
+                    )}
+                </div>
             </div>
-            <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-            {myStream && <button onClick={sendStreams}>Send Stream</button>}
-            {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-            {myStream && (
-                <div className='mt-4'>
-                <Screen>
-                    <ReactPlayer
-                        playing
-                        muted
-                        url={myStream}
-                        controls={true}
-                        width="100%" // Set the width to 100% for responsiveness
-                        height="100%" // Set the height to 100% for responsiveness
-                    />
-                </Screen>
-            </div>
-            )}
-            {remoteStream && (
-                <>
-                    <h1>Remote Stream</h1>
-                    <ReactPlayer
-                        playing
-                        muted
-                        height="300px"
-                        width="400px"
-                        url={remoteStream}
-                    />
-                </>
-            )}
-            </div>
-        </div>
-        <Chat />
+            <Chat />
         </>
     );
 }
