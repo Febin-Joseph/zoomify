@@ -85,7 +85,7 @@ const Chat = () => {
             {/* Style for LG lesser devices */}
             {closeChat && (
                 <div className='lg:hidden flex justify-center items-center'>
-                    <div className='fixed bottom-0 h-[600px] rounded-t-[20px] w-[80vw] max-w-[470px] bg-[#1C1C1C]'>
+                    <div className='fixed bottom-0 h-[600px] rounded-t-[20px] w-[90vw] max-w-[470px] bg-[#1C1C1C]'>
                         <img
                             src={closeBtn}
                             alt="close"
