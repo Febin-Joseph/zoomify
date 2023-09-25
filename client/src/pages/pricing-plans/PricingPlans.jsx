@@ -13,21 +13,24 @@ const PricingPlans = () => {
             <div className='flex items-center justify-center w-[100%] flex-grow
              mt-2 rounded-t-[60px] lg:bg-[#161616] pt-7'>
                 <div className='flex flex-col space-y-10 pb-10 pt-5 lg:space-y-0 lg:flex-row
-                 lg:space-x-20 lg:pb-0'>
+                 lg:space-x-12 lg:pb-3'>
                     <PlansCard
                         heading={'Basic Plan'}
                         price={'$2.99 /Month'}
-                        features={''}
+                        color={'text-gradient-basic'}
+                        features={['Set ID and Password']}
                     />
                     <PlansCard
                         heading={'Pro Plan'}
                         price={'$5.99 /Month'}
-                        features={''}
+                        color={'text-gradient-pro'}
+                        features={['Set ID and Password', 'Find Who Is The Host']}
                     />
                     <PlansCard
                         heading={'Premium  Plan'}
                         price={'$20.99 /Month'}
-                        features={''}
+                        color={'text-gradient-premium'}
+                        features={['Set ID and Password', 'Find Who Is The Host', 'Schedule Meeting', 'Video View']}
                     />
                 </div>
             </div>

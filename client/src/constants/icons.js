@@ -14,6 +14,7 @@ import round from "../assets/icons/round.png";
 import zoomifyLogo from "../assets/icons/zoomifyLogo.png";
 import closeBtn from "../assets/icons/closeBtn.png";
 import send from "../assets/icons/send.png"
+import tickMark from "../assets/icons/tickMark.png"
 
 //IMAGES
 import profile from "../assets/images/profile.png"
@@ -34,5 +35,6 @@ export {
     zoomifyLogo,
     profile,
     closeBtn,
-    send
+    send,
+    tickMark
 }
