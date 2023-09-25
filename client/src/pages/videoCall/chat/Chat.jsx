@@ -44,9 +44,10 @@ const Chat = () => {
     }, [chatMessages, socket]);
 
     return (
-        <div className='fixed bottom-0 h-[565px] rounded-t-[20px] w-[350px] bg-[#2B2B2BA6]'>
-            <div className='flex justify-center items-center lg:fixed lg:bottom-0 lg:right-0 lg:h-[565px] lg:rounded-tl-[20px]
-                            lg:w-[350px] bg-[#2B2B2BA6]'>
+        <div>
+            {/* Style for LG and greater devices */}
+            <div className='hidden lg:block lg:fixed lg:bottom-0 lg:right-0 lg:h-[565px] 
+                            lg:rounded-tl-[20px] lg:w-[350px] bg-[#2B2B2BA6]'>
                 <img
                     src={closeBtn}
                     alt="close"
@@ -56,7 +57,7 @@ const Chat = () => {
                     <ChatNav setShowMessages={setShowMessages} />
                 </div>
                 <div className="flex flex-col">
-                    <div className='flex-1 overflow-y-auto mt-16 max-h-[28.5vw] group'>
+                    <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
                         {showMessages && chatMessages.map((message, index) => (
                             <Message
                                 key={index}
@@ -65,14 +66,48 @@ const Chat = () => {
                             />
                         ))}
                     </div>
+                    {/* Message input */}
+                    <div className="flex justify-center items-center">
+                        <MsgInput
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onSend={handleSendMessage}
+                        />
+                    </div>
                 </div>
-                {/* Message input */}
-                <div className="flex justify-center items-center">
-                    <MsgInput
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onSend={handleSendMessage}
+            </div>
+
+
+            {/* Style for LG lesser devices */}
+            <div className='lg:hidden flex justify-center items-center'>
+                <div className='fixed bottom-0 h-[600px] rounded-t-[20px] w-[80vw] max-w-[470px] bg-[#2B2B2BA6]'>
+                    <img
+                        src={closeBtn}
+                        alt="close"
+                        className='absolute -top-4 -right-3 p-3 w-[85px]'
                     />
+                    <div className='top-12 flex justify-center items-center mb-10 pb-1'>
+                        <ChatNav setShowMessages={setShowMessages} />
+                    </div>
+                    <div className="flex flex-col">
+                        <div className='flex-1 overflow-y-auto mt-16 max-h-[425px] group'>
+                            {showMessages && chatMessages.map((message, index) => (
+                                <Message
+                                    key={index}
+                                    message={message}
+                                    isCurrentScreen={message.senderSocketId === currentUserSocketId}
+                                />
+                            ))}
+                        </div>
+                        {/* Message input */}
+                        <div className="flex justify-center items-center">
+                            <MsgInput
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onSend={handleSendMessage}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
