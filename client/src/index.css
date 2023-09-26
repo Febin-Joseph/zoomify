@@ -13,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
+
 }
 
 .github-logo {
@@ -45,15 +45,13 @@ body {
 }
 
 .text-gradient-basic {
-  background: radial-gradient(
-    64.18% 64.18% at 71.16% 35.69%,
-    #def9fa 0.89%,
-    #bef3f5 17.23%,
-    #9dedf0 42.04%,
-    #7de7eb 55.12%,
-    #5ce1e6 71.54%,
-    #33bbcf 100%
-  );
+  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
+      #def9fa 0.89%,
+      #bef3f5 17.23%,
+      #9dedf0 42.04%,
+      #7de7eb 55.12%,
+      #5ce1e6 71.54%,
+      #33bbcf 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -61,15 +59,13 @@ body {
 }
 
 .text-gradient-pro {
-  background: radial-gradient(
-    64.18% 64.18% at 71.16% 35.69%,
-    #ffff 0.89%,
-    #c95909  17.23%,
-    #945E37  42.04%,
-    #FFC195  55.12%,
-    #cf5a06 71.54%,
-    #FC7900 100%
-  );
+  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
+      #ffff 0.89%,
+      #c95909 17.23%,
+      #945E37 42.04%,
+      #FFC195 55.12%,
+      #cf5a06 71.54%,
+      #FC7900 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -77,15 +73,13 @@ body {
 }
 
 .text-gradient-premium {
-  background: radial-gradient(
-    64.18% 64.18% at 71.16% 35.69%,
-    #F9C718 0.89%,
-    #595f04 17.23%,
-    #FFF492 42.04%,
-    #BDAF33 55.12%,
-    #7B6A2D 71.54%,
-    #FFEB3A 100%
-  );
+  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
+      #F9C718 0.89%,
+      #595f04 17.23%,
+      #FFF492 42.04%,
+      #BDAF33 55.12%,
+      #7B6A2D 71.54%,
+      #FFEB3A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

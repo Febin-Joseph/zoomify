@@ -12,8 +12,8 @@ const PricingPlans = () => {
 
             <div className='flex items-center justify-center w-[100%] flex-grow
              mt-2 rounded-t-[60px] lg:bg-[#161616] pt-7'>
-                <div className='flex flex-col space-y-10 pb-10 pt-5 lg:space-y-0 lg:flex-row
-                 lg:space-x-12 lg:pb-3'>
+                <div className='grid grid-cols-1 gap-10 pb-10 md:grid-cols-2
+                lg:grid-cols-3 lg:space-y-0 lg:flex-row lg:pb-3'>
                     <PlansCard
                         heading={'Basic Plan'}
                         price={'$2.99 /Month'}

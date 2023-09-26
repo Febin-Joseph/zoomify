@@ -25,7 +25,7 @@ const PlansCard = ({ ...props }) => {
           ))}
         </ul>
       </div>
-      <div className=''>
+      <div className='mt-10'>
         <MainBtn
           value={'Select'}
           height={53}
