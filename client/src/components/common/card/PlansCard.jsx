@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MainBtn from '../button/MainBtn'
 import { tickMark } from '../../../constants/icons'
+import { PaymentMethod } from '../../../pages'
 
 const PlansCard = ({ ...props }) => {
+  const [showPaymentMethods, setshowPaymentMethods] = useState(false)
+
+  function handleSelect() {
+    setshowPaymentMethods(true);
+  }
   return (
     <div className='bg-[#262626] w-[320px] h-[450px] rounded-[20px]'>
       <div className='text-[#E3E3E3] text-center mt-5'>
@@ -30,10 +36,13 @@ const PlansCard = ({ ...props }) => {
           value={'Select'}
           height={53}
           width={''}
-          onClick={''}
+          onClick={handleSelect}
           maxWidth={''}
           type />
       </div>
+      {showPaymentMethods && (
+        <PaymentMethod />
+      )}
     </div>
   )
 }

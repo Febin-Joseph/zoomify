@@ -11,6 +11,7 @@ import Chat from './videoCall/chat/Chat'
 import Room from './videoCall/room/Room'
 import WaitingRoom from './waitingRoom/WaitingRoom'
 import PricingPlans from './pricing-plans/PricingPlans'
+import PaymentMethod from './pricing-plans/PaymentMethod'
 
 export {
     Home,
@@ -25,4 +26,5 @@ export {
     Room,
     WaitingRoom,
     PricingPlans,
+    PaymentMethod,
 }

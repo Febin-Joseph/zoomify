@@ -1,5 +1,6 @@
 import React from 'react'
 import { Nav, PlansCard } from '../../components'
+import PaymentMethod from './PaymentMethod'
 
 const PricingPlans = () => {
     return (
