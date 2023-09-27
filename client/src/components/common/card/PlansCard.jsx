@@ -1,32 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import MainBtn from '../button/MainBtn'
-import { tickMark } from '../../../constants/icons'
-import { PaymentMethod } from '../../../pages'
-import axios from 'axios'
+import React, { useState } from 'react';
+import MainBtn from '../button/MainBtn';
+import { tickMark } from '../../../constants/icons';
+import { PaymentMethod } from '../../../pages';
 
-const PlansCard = ({ ...props }) => {
+const PlansCard = ({ plan }) => {
   const [showPaymentMethods, setshowPaymentMethods] = useState(false);
-  const [plans, setPlans] = useState([]);
 
   function handleSelect() {
     setshowPaymentMethods(true);
   }
 
-  useEffect(() => {
-    axios.get('/api/plans').then((response) => {
-      setPlans(response.data)
-    })
-  }, []);
-
   return (
     <div className='bg-[#262626] w-[320px] h-[450px] rounded-[20px]'>
       <div className='text-[#E3E3E3] text-center mt-5'>
-        <p className={`font-medium text-[35px]  font-poppins ${props.color}`}>
-          {props.heading}
+        <p className={`font-medium text-[35px] font-poppins`}>
+          {plan.name}
         </p>
-        <p className='text-[20px] mt-2'>{props.price}</p>
+        <p className='text-[20px] mt-2'>{plan.price / 100}</p>
         <ul className='mt-8'>
-          {props.features.map((feature, index) => (
+          {plan.features.map((feature, index) => (
             <li key={index} className="flex items-center mt-4 space-x-4">
               <span>
                 <img
@@ -47,13 +39,14 @@ const PlansCard = ({ ...props }) => {
           width={''}
           onClick={handleSelect}
           maxWidth={''}
-          type />
+          type
+        />
       </div>
       {showPaymentMethods && (
         <PaymentMethod />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PlansCard
+export default PlansCard;
