@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import helmet from 'helmet';
+import helmet from 'helmet/index.cjs';
 import dotenv from 'dotenv';
 import { rateLimit } from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
