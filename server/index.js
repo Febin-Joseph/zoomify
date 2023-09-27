@@ -2,13 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import helmet from 'helmet/index.cjs';
+import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { rateLimit } from 'express-rate-limit';
+import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
-// import insertPlans from './db-data/plansData.js';
 import { Server } from 'socket.io';
+// import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
 const limiter = rateLimit({//It is used to prevent attacks and abuse
