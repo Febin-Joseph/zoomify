@@ -1,14 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MainBtn from '../button/MainBtn'
 import { tickMark } from '../../../constants/icons'
 import { PaymentMethod } from '../../../pages'
+import axios from 'axios'
 
 const PlansCard = ({ ...props }) => {
-  const [showPaymentMethods, setshowPaymentMethods] = useState(false)
+  const [showPaymentMethods, setshowPaymentMethods] = useState(false);
+  const [plans, setPlans] = useState([]);
 
   function handleSelect() {
     setshowPaymentMethods(true);
   }
+
+  useEffect(() => {
+    axios.get('/api/plans').then((response) => {
+      setPlans(response.data)
+    })
+  }, []);
+
   return (
     <div className='bg-[#262626] w-[320px] h-[450px] rounded-[20px]'>
       <div className='text-[#E3E3E3] text-center mt-5'>

@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { rateLimit } from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
+import plansRoutes from './routes/plans.js'
+// import insertPlans from './db-data/plansData.js';
 import { Server } from 'socket.io';
 
 //RATELIMIT
@@ -33,14 +35,17 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 //Routes
 app.use('/auth', authRoutes)
+app.use('/api/plans', plansRoutes)
 
 
 //MONGODB CONNECTION
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then(() => {
+}).then(async () => {
     console.log('MONGO DB connected')
+    // const db = mongoose.connection;
+    // await insertPlans(db);
 }).catch((err) => console.log(`cant connect because of this error  ${err}`));
 
 
