@@ -9,6 +9,7 @@ import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import { Server } from 'socket.io';
 import Razorpay from 'razorpay'
+import Stripe from 'stripe';
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
@@ -45,10 +46,10 @@ var instance = new Razorpay({
     key_secret: process.env.RAZORPAY_SECRET_KEY,
 });
 
-app.post('/create/orderId', (req, res) => {
+app.post('/create/razorpay/order', (req, res) => {
     console.log("create orderId request", req.body);
     var options = {
-        amount: req.body.amount,  // amount in the smallest currency unit
+        amount: req.body.amount,
         currency: "INR",
         receipt: "order_rcptid_11"
     };
@@ -56,6 +57,38 @@ app.post('/create/orderId', (req, res) => {
         console.log(order);
         res.send({ orderId: order.id });
     });
+})
+
+//STRIPE
+const stripe = new Stripe('sk_test_51NvLbKSGqQ3kGNrgatSuqppiT0d7d2TwoXzYSD2oe45kvPvfxjPJd51RzHGxJe6QvfQtiomU80HbYExpBOXX0a0V00EiiubPUn', {
+  });
+
+app.post('/create/stripe/order', async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'INR',
+                        product_data: {
+                            name: 'Product Name',
+                        },
+                        unit_amount: req.body.amount,
+                    },
+                    quantity: 1, // Quantity of the product
+                },
+            ],
+            mode: 'payment',
+            success_url: 'https://zoomify.vercel.app/plans',
+            cancel_url: 'https://zoomify.vercel.app/plans',
+        });
+
+        res.json({ sessionId: session.id });
+    } catch (error) {
+        console.error('Error creating Stripe session:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 })
 
 

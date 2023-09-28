@@ -26,7 +26,8 @@
     "nodemailer": "^6.9.5",
     "nodemon": "^3.0.1",
     "razorpay": "^2.9.2",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "stripe": "^13.7.0"
   },
   "devDependencies": {
     "babel-jest": "^29.6.4",

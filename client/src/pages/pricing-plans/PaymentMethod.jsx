@@ -1,16 +1,19 @@
 import React from 'react'
 import axios from 'axios';
 import { zoomifyLogo } from '../../constants/icons';
+import { loadStripe } from '@stripe/stripe-js';
 
 const PaymentMethod = ({ onClose, onSelectPaymentMethod, price }) => {
+  // Razorpay
   const handlePaymentMethod = async (method) => {
     if (method === 'razorpay') {
       try {
-        const response = await axios.post('http://localhost:4000/create/orderId', { amount: price });
+        const response = await axios.post('http://localhost:4000/create/razorpay/order', {
+          amount: price
+        });
         const orderId = response.data.orderId;
         console.log(orderId);
 
-        // Razorpay
         const options = {
           key: process.env.RAZORPAY_KEY_ID,
           amount: price,
@@ -31,7 +34,27 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price }) => {
       } catch (error) {
         console.error('Error creating order ID:', error);
       }
+    } else if (method === 'stripe') {
+      const stripePromise = loadStripe('pk_test_51NvLbKSGqQ3kGNrgXE0bQUZ4Ok0fpca427m2QrZlhleZ7SVTZaYjs5N8vuZDh0sAV1J2EniatH8SCLw9lH2KfOpy00OgcmhbI0');
+      const stripe = await stripePromise;
+
+      try {
+        const response = await axios.post('http://localhost:4000/create/stripe/order', {
+          amount: price
+        })
+
+        const result = await stripe.redirectToCheckout({
+          sessionId: response.data.sessionId,
+        });
+
+        if (result.error) {
+          console.error('Error redirecting to Stripe Checkout:', result.error.message);
+        }
+      } catch (error) {
+        console.error('Error creating Stripe Checkout session:', error);
+      }
     }
+
     onSelectPaymentMethod(method);
   };
 
@@ -43,7 +66,7 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price }) => {
           onClick={() => handlePaymentMethod('razorpay')}>Razorpay</button>
         <button
           className="bg-green-500 text-white px-4 py-2 rounded-lg m-2"
-          onClick={() => onSelectPaymentMethod('stripe')}
+          onClick={() => handlePaymentMethod('stripe')}
         >
           Stripe
         </button>
