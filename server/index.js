@@ -1,13 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-// import cors from 'cors';
+import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import { Server } from 'socket.io';
+import Razorpay from 'razorpay'
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
@@ -22,11 +23,11 @@ const app = express();
 app.use(express.json());
 app.use(limiter)
 dotenv.config();
-// app.use(cors({
-//     origin: ['https://zoomify.vercel.app', 'http://localhost:3000'],
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-// }));
+app.use(cors({
+    origin: ['https://zoomify.vercel.app', 'http://localhost:3000'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -36,6 +37,26 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 //Routes
 app.use('/auth', authRoutes)
 app.use('/api/plans', plansRoutes)
+
+
+//RAZORPAY
+var instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_SECRET_KEY,
+});
+
+app.post('/create/orderId', (req, res) => {
+    console.log("create orderId request", req.body);
+    var options = {
+        amount: req.body.amount,  // amount in the smallest currency unit
+        currency: "INR",
+        receipt: "order_rcptid_11"
+    };
+    instance.orders.create(options, function (err, order) {
+        console.log(order);
+        res.send({ orderId: order.id });
+    });
+})
 
 
 //MONGODB CONNECTION

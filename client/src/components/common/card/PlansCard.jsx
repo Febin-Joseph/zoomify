@@ -29,8 +29,7 @@ const PlansCard = ({ plan }) => {
     setShowPaymentMethods(false);
   };
 
-  const handleSelectPaymentMethod = (method) => {
-    
+  const handleSelectPaymentMethod = async (method) => {
     console.log(`Selected payment method: ${method}`);
     setShowPaymentMethods(false);
   };
@@ -70,6 +69,7 @@ const PlansCard = ({ plan }) => {
         <PaymentMethod
           onClose={handleClosePaymentMethods}
           onSelectPaymentMethod={handleSelectPaymentMethod}
+          price={plan.price}
         />
       )}
     </div>
