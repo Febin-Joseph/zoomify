@@ -6,6 +6,6 @@ export const pricingPlans = async (req, res) => {
         res.json(plans);
     } catch (error) {
         console.error('Error fetching plans:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: error.message });
     }
 };
