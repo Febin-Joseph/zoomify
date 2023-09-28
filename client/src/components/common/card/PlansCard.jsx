@@ -4,16 +4,44 @@ import { tickMark } from '../../../constants/icons';
 import { PaymentMethod } from '../../../pages';
 
 const PlansCard = ({ plan }) => {
-  const [showPaymentMethods, setshowPaymentMethods] = useState(false);
+  const [showPaymentMethods, setShowPaymentMethods] = useState(false);
 
-  function handleSelect() {
-    setshowPaymentMethods(true);
+  let textGradientClass;
+  switch (plan.name) {
+    case 'Basic Plan':
+      textGradientClass = 'text-gradient-basic';
+      break;
+    case 'Pro Plan':
+      textGradientClass = 'text-gradient-pro';
+      break;
+    case 'Premium Plan':
+      textGradientClass = 'text-gradient-premium';
+      break;
+    default:
+      textGradientClass = 'text-gradient-premium';
   }
 
+  const handleSelect = () => {
+    setShowPaymentMethods(true);
+  };
+
+  const handleClosePaymentMethods = () => {
+    setShowPaymentMethods(false);
+  };
+
+  const handleSelectPaymentMethod = (method) => {
+    // Here, you can navigate to the payment method page based on the selected method
+    // For example, if method is 'razorpay', navigate to the Razorpay payment page.
+    // You can use React Router for navigation.
+    // Example: history.push('/razorpay-payment');
+    console.log(`Selected payment method: ${method}`);
+    setShowPaymentMethods(false);
+  };
+
   return (
-    <div className='bg-[#262626] w-[320px] h-[450px] rounded-[20px]'>
-      <div className='text-[#E3E3E3] text-center mt-5'>
-        <p className={`font-medium text-[35px] font-poppins`}>
+    <div className='bg-[#262626] w-[320px] h-[450px] rounded-[20px] flex flex-col'>
+      <div className='text-[#E3E3E3] text-center mt-5 flex-grow'>
+        <p className={`font-medium text-[35px] font-poppins ${textGradientClass}`}>
           {plan.name}
         </p>
         <p className='text-[20px] mt-2'>{plan.price / 100}</p>
@@ -32,18 +60,20 @@ const PlansCard = ({ plan }) => {
           ))}
         </ul>
       </div>
-      <div className='mt-10'>
+      <div className='mb-20'>
         <MainBtn
           value={'Select'}
           height={53}
           width={''}
           onClick={handleSelect}
           maxWidth={''}
-          type
         />
       </div>
       {showPaymentMethods && (
-        <PaymentMethod />
+        <PaymentMethod
+          onClose={handleClosePaymentMethods}
+          onSelectPaymentMethod={handleSelectPaymentMethod}
+        />
       )}
     </div>
   );
