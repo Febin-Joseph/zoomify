@@ -30,10 +30,7 @@ const PlansCard = ({ plan }) => {
   };
 
   const handleSelectPaymentMethod = (method) => {
-    // Here, you can navigate to the payment method page based on the selected method
-    // For example, if method is 'razorpay', navigate to the Razorpay payment page.
-    // You can use React Router for navigation.
-    // Example: history.push('/razorpay-payment');
+    
     console.log(`Selected payment method: ${method}`);
     setShowPaymentMethods(false);
   };

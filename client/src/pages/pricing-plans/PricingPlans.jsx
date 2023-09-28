@@ -6,7 +6,7 @@ const PricingPlans = () => {
     const [plans, setPlans] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:4000/api/plans').then((response) => {
+        axios.get('https://zoomify-backend.vercel.app/api/plans').then((response) => {
             setPlans(response.data);
         });
     }, []);
