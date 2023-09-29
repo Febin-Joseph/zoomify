@@ -60,8 +60,7 @@ app.post('/create/razorpay/order', (req, res) => {
 })
 
 //STRIPE
-const stripe = new Stripe('sk_test_51NvLbKSGqQ3kGNrgatSuqppiT0d7d2TwoXzYSD2oe45kvPvfxjPJd51RzHGxJe6QvfQtiomU80HbYExpBOXX0a0V00EiiubPUn', {
-  });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 app.post('/create/stripe/order', async (req, res) => {
     try {
@@ -109,41 +108,41 @@ const server = app.listen(PORT, () => console.log(`server started on port : ${PO
 
 
 //SOCKET CONNECTION
-const io = new Server(server, {
-    cors: true,
-});
+// const io = new Server(server, {
+//     cors: true,
+// });
 
-const emailToSocketIdMap = new Map();
-const socketIdToEmailMap = new Map();
+// const emailToSocketIdMap = new Map();
+// const socketIdToEmailMap = new Map();
 
-io.on('connection', (socket) => {
-    socket.on('room:join', (data) => {
-        const { email, room } = data
-        emailToSocketIdMap.set(email, socket.id);
-        socketIdToEmailMap.set(socket.id, email);
-        io.to(room).emit('user:joined', { email, id: socket.id });
-        socket.join(room);
-        io.to(socket.id).emit('room:join', data);
-    })
+// io.on('connection', (socket) => {
+//     socket.on('room:join', (data) => {
+//         const { email, room } = data
+//         emailToSocketIdMap.set(email, socket.id);
+//         socketIdToEmailMap.set(socket.id, email);
+//         io.to(room).emit('user:joined', { email, id: socket.id });
+//         socket.join(room);
+//         io.to(socket.id).emit('room:join', data);
+//     })
 
-    socket.on('chat:message', (data) => {
-        const { message, room } = data;
-        // Broadcast the chat message to all users in the room
-        io.to(room).emit('chat:message', { message });
-    });
+//     socket.on('chat:message', (data) => {
+//         const { message, room } = data;
+//         // Broadcast the chat message to all users in the room
+//         io.to(room).emit('chat:message', { message });
+//     });
 
-    socket.on('user:call', ({ to, offer }) => {
-        io.to(to).emit('incomming:call', { from: socket.id, offer })
-    })
+//     socket.on('user:call', ({ to, offer }) => {
+//         io.to(to).emit('incomming:call', { from: socket.id, offer })
+//     })
 
-    socket.on('call:accepted', ({ to, ans }) => {
-        io.to(to).emit('call:accepted', { from: socket.id, ans })
-    })
-    socket.on('peer:nego:needed', ({ to, offer }) => {
-        io.to(to).emit('peer:nego:needed', { from: socket.id, offer })
-    })
+//     socket.on('call:accepted', ({ to, ans }) => {
+//         io.to(to).emit('call:accepted', { from: socket.id, ans })
+//     })
+//     socket.on('peer:nego:needed', ({ to, offer }) => {
+//         io.to(to).emit('peer:nego:needed', { from: socket.id, offer })
+//     })
 
-    socket.on('peer:nego:done', ({ to, ans }) => {
-        io.to(to).emit('peer:nego:final', { from: socket.id, ans })
-    })
-});
+//     socket.on('peer:nego:done', ({ to, ans }) => {
+//         io.to(to).emit('peer:nego:final', { from: socket.id, ans })
+//     })
+// });
