@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/api/plans",
-            "dest": "/"
+            "dest": "./controllers/plans.js"
         },
         {
             "src": "/(.*)",
