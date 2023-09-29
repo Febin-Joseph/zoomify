@@ -8,6 +8,14 @@
     ],
     "routes": [
         {
+            "src": "/api/plans",
+            "dest": "/api/plans.js"
+        },
+        {
+            "src": "/api/*",
+            "dest": "/api/index.js"
+        },
+        {
             "src": "/(.*)",
             "dest": "/"
         }
