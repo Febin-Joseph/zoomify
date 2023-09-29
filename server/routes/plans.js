@@ -1,8 +1,8 @@
-import express from 'express'
-import { pricingPlans } from '../controllers/plans.js';
+// import express from 'express'
+// import { pricingPlans } from '../controllers/plans.js';
 
-const router = express.Router()
+// const router = express.Router()
 
-router.get('/', pricingPlans)
+// router.get('/', pricingPlans)
 
-export default router;
+// export default router;

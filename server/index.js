@@ -6,10 +6,11 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
-import plansRoutes from './routes/plans.js'
+// import plansRoutes from './routes/plans.js'
 import { Server } from 'socket.io';
 import Razorpay from 'razorpay'
 import Stripe from 'stripe';
+import Plan from './models/Pricing-plans.js';
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
@@ -37,7 +38,15 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 //Routes
 app.use('/auth', authRoutes)
-app.use('/api/plans', plansRoutes)
+app.use('/api/plans', async (req, res) => {
+    try {
+        const plans = await Plan.find();
+        res.json(plans);
+    } catch (error) {
+        console.error('Error fetching plans:', error);
+        res.status(500).json({ error: error.message });
+    }
+})
 
 
 //RAZORPAY
