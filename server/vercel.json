@@ -13,7 +13,7 @@
         },
         {
             "src": "/api/*",
-            "dest": "/controllers/index.js"
+            "dest": "/"
         },
         {
             "src": "/(.*)",
