@@ -18,6 +18,7 @@ import tickMark from "../assets/icons/tickMark.png"
 
 //IMAGES
 import profile from "../assets/images/profile.png"
+import noProfile from "../assets/images/noProfile.png"
 
 export {
     copy,
@@ -36,5 +37,6 @@ export {
     profile,
     closeBtn,
     send,
-    tickMark
+    tickMark,
+    noProfile,
 }

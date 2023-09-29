@@ -3,12 +3,12 @@ import axios from 'axios';
 import { zoomifyLogo } from '../../constants/icons';
 import { loadStripe } from '@stripe/stripe-js';
 
-const PaymentMethod = ({ onClose, onSelectPaymentMethod, price }) => {
+const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) => {
   // Razorpay
   const handlePaymentMethod = async (method) => {
     if (method === 'razorpay') {
       try {
-        const response = await axios.post('https://zoomify-backend.vercel.app/create/razorpay/order', {
+        const response = await axios.post('http://localhost:4000/create/razorpay/order', {
           amount: price
         });
         const orderId = response.data.orderId;
@@ -39,8 +39,9 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price }) => {
       const stripe = await stripePromise;
 
       try {
-        const response = await axios.post('https://zoomify-backend.vercel.app/create/stripe/order', {
-          amount: price
+        const response = await axios.post('http://localhost:4000/create/stripe/order', {
+          amount: price,
+          name: productName
         })
 
         const result = await stripe.redirectToCheckout({

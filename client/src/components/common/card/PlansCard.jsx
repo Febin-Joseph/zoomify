@@ -70,6 +70,7 @@ const PlansCard = ({ plan }) => {
           onClose={handleClosePaymentMethods}
           onSelectPaymentMethod={handleSelectPaymentMethod}
           price={plan.price}
+          productName={plan.name}
         />
       )}
     </div>

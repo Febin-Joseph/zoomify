@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
-import { profile } from '../../constants/icons';
+import { noProfile } from '../../constants/icons';
 import { nameVerification } from '../../middleware';
 import { useSocket } from '../../utils/SocketProvider';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +60,7 @@ const NewMeeting = () => {
               This Will Be Your Meeting Profile And Name
             </p>
             <img
-              src={profile}
+              src={noProfile}
               alt="profileImg"
               className='w-[100px] m-auto items-center justify-center mb-0' />
             <InputBtn
@@ -138,7 +138,7 @@ const NewMeeting = () => {
               This Will Be Your Meeting Profile And Name
             </p>
             <img
-              src={profile}
+              src={noProfile}
               alt="profileImg"
               className='w-[100px] m-auto items-center justify-center mb-0' />
             <InputBtn
