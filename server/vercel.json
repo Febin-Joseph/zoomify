@@ -9,11 +9,11 @@
     "routes": [
         {
             "src": "/api/plans",
-            "dest": "/controllers/plans.js"
+            "dest": "/routes/plans.js"
         },
         {
             "src": "/api/*",
-            "dest": "/"
+            "dest": "/controllers/plans.js"
         },
         {
             "src": "/(.*)",
