@@ -3,16 +3,17 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary'
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET_KEY,
+    cloud_name: 'dz1jdl1sa',
+    api_key: '329247159121158',
+    api_secret: 'Ge6sqLGt9jJW9DkK6zbPhIbYKYY',
 })
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'Profile-images',
-        allowed_formats: ['jpg', 'jpeg', 'png'],
+        format: async (req, file) => 'png', // supports promises as well
+        public_id: (req, file) => 'computed-filename-using-request',
         transformation: [{ width: 200, height: 200, crop: 'limit' }],
     },
 })

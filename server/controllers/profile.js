@@ -11,11 +11,13 @@ export const uploadProfile = async (req, res, next) => {
         try {
             if (!req.file) {
                 return res.status(400).json({ error: "No image file provided" });
-            } else if (!req.user) {
+            }
+            
+            const userId = req.userId;
+            if (!req.userId) {
                 return res.status(400).json({ error: "No user found" });
             }
 
-            const userId = req.user._id;
             const imageUrl = req.file.path;
 
             User.findByIdAndUpdate(userId, { profile: imageUrl });

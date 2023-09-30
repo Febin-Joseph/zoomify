@@ -11,6 +11,7 @@ import profileRoutes from './routes/profile.js'
 import { Server } from 'socket.io';
 import Razorpay from 'razorpay'
 import Stripe from 'stripe';
+import paypal from 'paypal-rest-sdk'
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
@@ -91,6 +92,81 @@ app.post('/create/stripe/order', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+
+//PAYPAL
+paypal.configure({
+    'mode': 'sandbox',
+    'client_id': 'ASJvpaXtTkkKuzcAWsVLUZYUnCH5NdYkHDE3iqXh-KtsPn3mF2IYIzLasIijCH_FjajbIlxkc13XXo7G',
+    'client_secret': 'EOL-CtKaRllcze0h52jEdUiMFQ20JY1yNpCWYCApWhEx4yClRsM1JkQBmBmgbiuy7CiiTxBijc0AoPrN',
+})
+
+app.post('/create/paypal/order', async (req, res) => {
+    console.log(req.body)
+    const create_payment_json = {
+        "intent": 'sale',
+        "payer": {
+            "payment_method": 'paypal',
+        },
+        "redirect_urls": {
+            "return_url": 'http://localhost:3000/paypal/success',
+            "cancel_url": 'https://zoomify.vercel.app/plans',
+        },
+        "transactions": [
+            {
+                "item_list": {
+                    "items": [
+                        {
+                            "name": req.body.name,
+                            "sku": 'SKU',
+                            "price": '1',
+                            "currency": 'USD',
+                            "quantity": 1,
+                        },
+                    ],
+                },
+                "amount": {
+                    "currency": 'USD',
+                    "total": req.body.amount,
+                },
+                "description": 'buy your plans and enjoy',
+            },
+        ],
+    };
+
+    paypal.payment.create(create_payment_json, (error, payment) => {
+        if (error) {
+            throw error;
+        } else {
+            console.log(payment)
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    res.redirect(payment.links[i].href);
+                    break;
+                }
+            }
+        }
+    })
+});
+
+app.get('/paypal/success', (req, res) => {
+    const payerId = req.query.PayerID;
+    const paymentId = req.query.paymentId;
+
+    const execute_payment_json = {
+        payer_id: payerId
+    };
+
+    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+        if (error) {
+            console.error(error.response);
+            throw error;
+        } else {
+            // Payment success logic here
+            res.send('Payment Success');
+        }
+    });
+});
+
 
 
 //MONGODB CONNECTION

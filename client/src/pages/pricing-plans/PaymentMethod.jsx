@@ -54,6 +54,17 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
       } catch (error) {
         console.error('Error creating Stripe Checkout session:', error);
       }
+    } else if (method === 'paypal') {
+      try {
+        const response = await axios.post('http://localhost:4000/create/paypal/order', {
+          amount: price,
+          name: productName,
+        });
+    
+        window.location.href = response.data.redirectUrl;
+      } catch (error) {
+        console.error('Error creating PayPal order:', error);
+      }
     }
 
     onSelectPaymentMethod(method);
@@ -73,7 +84,7 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
         </button>
         <button
           className="bg-yellow-500 text-white px-4 py-2 rounded-lg m-2"
-          onClick={() => onSelectPaymentMethod('paypal')}
+          onClick={() => handlePaymentMethod('paypal')}
         >
           PayPal
         </button>
