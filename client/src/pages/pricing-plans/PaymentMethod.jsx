@@ -61,7 +61,12 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
           name: productName,
         });
     
-        window.location.href = response.data.redirectUrl;
+        if (!response.ok) {
+          throw new Error(`Error creating PayPal order: ${response.statusText}`);
+        }
+
+        const responseData = await response.json();
+        window.location.href = responseData.redirectUrl;
       } catch (error) {
         console.error('Error creating PayPal order:', error);
       }

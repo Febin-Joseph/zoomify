@@ -118,7 +118,7 @@ app.post('/create/paypal/order', async (req, res) => {
                         {
                             "name": req.body.name,
                             "sku": 'SKU',
-                            "price": '1',
+                            "price": req.body.amount,
                             "currency": 'USD',
                             "quantity": 1,
                         },
@@ -128,20 +128,19 @@ app.post('/create/paypal/order', async (req, res) => {
                     "currency": 'USD',
                     "total": req.body.amount,
                 },
-                "description": 'buy your plans and enjoy',
+                "description": 'buy a subscription',
             },
         ],
     };
 
     paypal.payment.create(create_payment_json, (error, payment) => {
         if (error) {
-            throw error;
+            throw error;r
         } else {
             console.log(payment)
             for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === 'approval_url') {
                     res.redirect(payment.links[i].href);
-                    break;
                 }
             }
         }
@@ -153,7 +152,8 @@ app.get('/paypal/success', (req, res) => {
     const paymentId = req.query.paymentId;
 
     const execute_payment_json = {
-        payer_id: payerId
+        "payer_id": payerId,
+        
     };
 
     paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
@@ -161,7 +161,7 @@ app.get('/paypal/success', (req, res) => {
             console.error(error.response);
             throw error;
         } else {
-            // Payment success logic here
+            console.log(JSON.stringify(payment));
             res.send('Payment Success');
         }
     });
