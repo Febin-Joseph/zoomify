@@ -135,7 +135,7 @@ app.post('/create/paypal/order', async (req, res) => {
 
     paypal.payment.create(create_payment_json, (error, payment) => {
         if (error) {
-            throw error;r
+            throw error;
         } else {
             console.log(payment)
             for (let i = 0; i < payment.links.length; i++) {
