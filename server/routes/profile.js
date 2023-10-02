@@ -3,7 +3,7 @@ import { getProfile, uploadProfile } from '../controllers/profile.js'
 
 const router = express.Router()
 
-router.post('/upload', uploadProfile)
+router.patch('/upload/:userId', uploadProfile)
 router.get('/:userId/image', getProfile)
 
 export default router;

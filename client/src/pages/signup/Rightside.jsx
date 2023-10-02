@@ -18,6 +18,26 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
     }
   }, [isAuthenticated, navigate]);
 
+  const handleAuthentication = async (values) => {
+    try {
+      if (value1.includes('Sign Up')) {
+        await dispatch(signup({
+          email: values.email,
+          password: values.password
+        }));
+      } else {
+        await dispatch(signin({
+          email: values.email,
+          password: values.password
+        }));
+      }
+      setShowOTP(true);
+    } catch (error) {
+      console.error('Authentication error:', error);
+      // Handle errors here, show an error message to the user
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -30,21 +50,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         .min(4, 'Must be 4 or greater')
         .required('Required'),
     }),
-    onSubmit: async (values) => {
-      if (value1.includes('Sign Up')) {
-        dispatch(signup({
-          email: values.email,
-          password: values.password
-        }))
-        setShowOTP(true);
-      } else {
-        dispatch(signin({
-          email: values.email,
-          password: values.password
-        }))
-        setShowOTP(true);
-      }
-    },
+    onSubmit: handleAuthentication,
   });
 
   return (
@@ -111,7 +117,7 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
         <AuthenicationBtn value={value1} logo={logo1} />
         <AuthenicationBtn value={value2} logo={logo2} />
       </div>
-      {showOTP && (value1.includes('Sign Up')) ? (
+      {showOTP && value1.includes('Sign Up') ? (
         <OTPcard
           email={formik.values.email}
         />

@@ -17,10 +17,12 @@ const authSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
+        localStorage.setItem('token', action.payload.token);
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
+        localStorage.setItem('token', action.payload.token);
       });
   },
 });
