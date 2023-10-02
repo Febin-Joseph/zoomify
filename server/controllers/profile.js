@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import { upload } from "../middleware/profileUpload.js";
 
 export const uploadProfile = async (req, res, next) => {
-    upload.single('image')(req, res, (err) => {
+    upload.single('image')(req, res, async (err) => {
         if (err) {
             console.error('Multer error:', err);
             return res.status(400).json({ error: "Image upload failed" });
@@ -12,15 +12,15 @@ export const uploadProfile = async (req, res, next) => {
             if (!req.file) {
                 return res.status(400).json({ error: "No image file provided" });
             }
-            
-            const userId = req.userId;
-            if (!req.userId) {
-                return res.status(400).json({ error: "No user found" });
+
+            const userId = req.body.userId;
+            if (userId) {
+                return res.status(400).json({ error: "No users found" });
             }
 
             const imageUrl = req.file.path;
 
-            User.findByIdAndUpdate(userId, { profile: imageUrl });
+            await User.findByIdAndUpdate(userId, { profile: imageUrl });
 
             res.json({ message: "Image Uploaded Successfully", imageUrl });
         } catch (error) {
