@@ -5,7 +5,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
-import authRoutes from './routes/auth.js'
+// import authRoutes from './routes/auth.js'
 // import plansRoutes from './routes/plans.js'
 // import profileRoutes from './routes/profile.js'
 // import { Server } from 'socket.io';
@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 
 //Routes
-app.use('/auth', authRoutes)
+// app.use('/auth', authRoutes)
 // app.use('/api/plans', plansRoutes)
 // app.use('/profile', profileRoutes)
 
