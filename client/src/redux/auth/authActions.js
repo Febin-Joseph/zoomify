@@ -14,7 +14,9 @@ export const signin = createAsyncThunk('auth/signin', async (userData) => {
   try {
     const response = await axios.post(`http://localhost:4000/auth/signin`, userData);
     const { token } = response.data;
+    const { _id } = response.data.user;
     localStorage.setItem('token', token);
+    localStorage.setItem('_id', _id);
     return response.data;
   } catch (error) {
     throw error;

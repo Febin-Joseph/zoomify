@@ -34,7 +34,6 @@ const Rightside = ({ value1, logo1, value2, logo2 }) => {
       setShowOTP(true);
     } catch (error) {
       console.error('Authentication error:', error);
-      // Handle errors here, show an error message to the user
     }
   };
 

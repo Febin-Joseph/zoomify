@@ -11,11 +11,37 @@ const NewMeeting = () => {
   const [nameVerified, setNameVerified] = useState(false);
   const [email, setEmail] = useState('')
   const [room, setRoom] = useState('')
+  const [profileImage, setProfileImage] = useState('');
+  const [userId, setUserId] = useState(localStorage.getItem('_id'));
 
   const navigate = useNavigate();
 
   const socket = useSocket()
   console.log(socket);
+
+  const handleImageUpload = async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch(`http://localhost:4000/profile/upload/${userId}`, {
+        method: 'PATCH',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setProfileImage(data.imageUrl);
+      } else {
+        // Handle error here
+        console.error('Image upload failed');
+      }
+    } catch (error) {
+      // Handle network or other errors here
+      console.error('Image upload error:', error);
+    }
+  };
+
 
   const handleSubmitForm = useCallback((e) => {
     e.preventDefault();
@@ -60,9 +86,24 @@ const NewMeeting = () => {
               This Will Be Your Meeting Profile And Name
             </p>
             <img
-              src={noProfile}
+              src={profileImage || noProfile}
               alt="profileImg"
-              className='w-[100px] m-auto items-center justify-center mb-0' />
+              className='w-[100px] m-auto items-center justify-center mb-0'
+              onClick={() => {
+                document.getElementById('profileImageInput').click();
+              }}
+            />
+            <input
+              type="file"
+              id="profileImageInput"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  handleImageUpload(file);
+                }
+              }}
+            />
             <InputBtn
               text={"MEETING NAME"}
               width={85}
@@ -138,9 +179,24 @@ const NewMeeting = () => {
               This Will Be Your Meeting Profile And Name
             </p>
             <img
-              src={noProfile}
+              src={profileImage || noProfile}
               alt="profileImg"
-              className='w-[100px] m-auto items-center justify-center mb-0' />
+              className='w-[100px] m-auto items-center justify-center mb-0'
+              onClick={() => {
+                document.getElementById('profileImageInput').click();
+              }}
+            />
+            <input
+              type="file"
+              id="profileImageInput"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  handleImageUpload(file);
+                }
+              }}
+            />
             <InputBtn
               text={"MEETING NAME"}
               width={85}
