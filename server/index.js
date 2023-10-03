@@ -4,27 +4,27 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-// import rateLimit from 'express-rate-limit';
+import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import profileRoutes from './routes/profile.js'
 import { Server } from 'socket.io';
-import Razorpay from 'razorpay'
+// import Razorpay from 'razorpay'
 import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
-// const limiter = rateLimit({//It is used to prevent attacks and abuse
-//     windowMs: 15 * 60 * 1000, // 15 minutes
-//     max: 100, // Limit each IP to 100 requests per windowMs
-// });
+const limiter = rateLimit({//It is used to prevent attacks and abuse
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+});
 
 
 //Middlewares
 const app = express();
 app.use(express.json());
-// app.use(limiter)
+app.use(limiter)
 dotenv.config();
 app.use(cors({
     origin: ['https://zoomify.vercel.app', 'http://localhost:3000'],
@@ -44,23 +44,23 @@ app.use('/profile', profileRoutes)
 
 
 //RAZORPAY
-var instance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_SECRET_KEY,
-});
+// var instance = new Razorpay({
+//     key_id: process.env.RAZORPAY_KEY_ID,
+//     key_secret: process.env.RAZORPAY_SECRET_KEY,
+// });
 
-app.post('/create/razorpay/order', (req, res) => {
-    console.log("create orderId request", req.body);
-    var options = {
-        amount: req.body.amount,
-        currency: "INR",
-        receipt: "order_rcptid_11"
-    };
-    instance.orders.create(options, function (err, order) {
-        console.log(order);
-        res.send({ orderId: order.id });
-    });
-})
+// app.post('/create/razorpay/order', (req, res) => {
+//     console.log("create orderId request", req.body);
+//     var options = {
+//         amount: req.body.amount,
+//         currency: "INR",
+//         receipt: "order_rcptid_11"
+//     };
+//     instance.orders.create(options, function (err, order) {
+//         console.log(order);
+//         res.send({ orderId: order.id });
+//     });
+// })
 
 //STRIPE
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
