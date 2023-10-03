@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(limiter)
 dotenv.config();
 app.use(cors({
-    origin: ['https://zoomify.vercel.app', 'http://localhost:3000'],
+    origin: 'https://zoomify.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));
