@@ -21,7 +21,7 @@
       },
       {
         "src": "/api/plans",
-        "dest": "/routes/plans.js"
+        "dest": "server/routes/plans.js"
       },
       {
         "src": "/profile/:userId/image",
@@ -33,7 +33,7 @@
       },
       {
         "src": "/api/plans/(.*)",
-        "dest": "/controllers/plans.js"
+        "dest": "server/controllers/plans.js"
       },
       {
         "src": "/profile/(.*)",
