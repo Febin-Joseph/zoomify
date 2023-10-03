@@ -13,11 +13,7 @@
       },
       {
         "src": "/api/plans",
-        "dest": "/server/routes"
-      },
-      {
-        "src": "/api/plans/(.*)",
-        "dest": "/server/controllers/plans.js"
+        "dest": "/server(.*)"
       }
     ]
   }  
