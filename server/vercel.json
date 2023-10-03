@@ -8,16 +8,36 @@
     ],
     "routes": [
       {
-        "src": "/auth/(.*)",
-        "dest": "/auth.js"
+        "src": "/auth/signup",
+        "dest": "/routes/auth.js"
+      },
+      {
+        "src": "/auth/signin",
+        "dest": "/routes/auth.js"
+      },
+      {
+        "src": "/auth/verifyOtp",
+        "dest": "/routes/auth.js"
       },
       {
         "src": "/api/plans",
-        "dest": "/plans.js"
+        "dest": "/routes/plans.js"
+      },
+      {
+        "src": "/profile/:userId/image",
+        "dest": "/routes/profile.js"
+      },
+      {
+        "src": "/auth/(.*)",
+        "dest": "/controllers/auth.js"
+      },
+      {
+        "src": "/api/plans/(.*)",
+        "dest": "/controllers/plans.js"
       },
       {
         "src": "/profile/(.*)",
-        "dest": "/profile.js"
+        "dest": "/controllers/profile.js"
       },
       {
         "src": "/create/stripe/order",
