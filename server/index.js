@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import rateLimit from 'express-rate-limit';
+// import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import profileRoutes from './routes/profile.js'
@@ -15,16 +15,16 @@ import paypal from 'paypal-rest-sdk'
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
-const limiter = rateLimit({//It is used to prevent attacks and abuse
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
-});
+// const limiter = rateLimit({//It is used to prevent attacks and abuse
+//     windowMs: 15 * 60 * 1000, // 15 minutes
+//     max: 100, // Limit each IP to 100 requests per windowMs
+// });
 
 
 //Middlewares
 const app = express();
 app.use(express.json());
-app.use(limiter)
+// app.use(limiter)
 dotenv.config();
 app.use(cors({
     origin: ['https://zoomify.vercel.app', 'http://localhost:3000'],
