@@ -8,20 +8,16 @@
     ],
     "routes": [
       {
-        "src": "/auth/signup",
-        "dest": "/auth.js"
-      },
-      {
-        "src": "/auth/signin",
-        "dest": "/auth.js"
+        "src": "/auth",
+        "dest": "/routes/auth.js"
       },
       {
         "src": "/api/plans",
-        "dest": "/plans.js"
+        "dest": "/routes/plans.js"
       },
       {
         "src": "/profile",
-        "dest": "/profile.js"
+        "dest": "/routes/profile.js"
       },
       {
         "src": "/create/stripe/order",
