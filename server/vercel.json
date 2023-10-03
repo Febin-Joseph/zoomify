@@ -8,50 +8,6 @@
     ],
     "routes": [
       {
-        "src": "/auth/signup",
-        "dest": "/routes/auth.js"
-      },
-      {
-        "src": "/auth/signin",
-        "dest": "/routes/auth.js"
-      },
-      {
-        "src": "/auth/verifyOtp",
-        "dest": "/routes/auth.js"
-      },
-      {
-        "src": "/api/plans",
-        "dest": "server/routes/plans.js"
-      },
-      {
-        "src": "/profile/:userId/image",
-        "dest": "/routes/profile.js"
-      },
-      {
-        "src": "/auth/(.*)",
-        "dest": "/controllers/auth.js"
-      },
-      {
-        "src": "/api/plans/(.*)",
-        "dest": "server/controllers/plans.js"
-      },
-      {
-        "src": "/profile/(.*)",
-        "dest": "/controllers/profile.js"
-      },
-      {
-        "src": "/create/stripe/order",
-        "dest": "/index.js"
-      },
-      {
-        "src": "/create/paypal/order",
-        "dest": "/index.js"
-      },
-      {
-        "src": "/paypal/success",
-        "dest": "/index.js"
-      },
-      {
         "src": "/(.*)",
         "dest": "/server"
       }
