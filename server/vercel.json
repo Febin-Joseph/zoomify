@@ -8,16 +8,16 @@
     ],
     "routes": [
       {
-        "src": "/auth",
-        "dest": "/routes/auth.js"
+        "src": "/auth/(.*)",
+        "dest": "/auth.js"
       },
       {
         "src": "/api/plans",
-        "dest": "/routes/plans.js"
+        "dest": "/plans.js"
       },
       {
-        "src": "/profile",
-        "dest": "/routes/profile.js"
+        "src": "/profile/(.*)",
+        "dest": "/profile.js"
       },
       {
         "src": "/create/stripe/order",
