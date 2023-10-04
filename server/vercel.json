@@ -6,46 +6,10 @@
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/auth/signin",
-      "destination": "/controllers/auth.js"
-    },
-    {
-      "source": "/auth/signup",
-      "destination": "/controllers/auth.js"
-    },
-    {
-      "source": "/auth/verifyOtp",
-      "destination": "/controllers/auth.js"
-    },
-    {
-      "source": "/api/plans",
-      "destination": "/controllers/plans.js"
-    },
-    {
-      "source": "/profile/upload/:userId",
-      "destination": "/controllers/profile.js"
-    },
-    {
-      "source": "/profile/:userId/image",
-      "destination": "/controllers/profile.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.js"
+      "src": "/(.*)",
+      "dest": "/index.js"
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ],
-  "trailingSlash": true
+  ]
 }
