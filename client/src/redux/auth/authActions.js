@@ -5,8 +5,12 @@ const API_URL = 'https://zoomify-backend.vercel.app';
 
 // Sign Up action
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
-  const response = await axios.post(`https://zoomify-backend.vercel.app/auth/signup`, userData);
-  return response.data;
+  try {
+    const response = await axios.post(`https://zoomify-backend.vercel.app/auth/signup`, userData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 });
 
 // Sign In action
