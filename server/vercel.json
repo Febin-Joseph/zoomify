@@ -6,34 +6,46 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/auth/signin",
-      "dest": "/controllers/auth.js"
+      "source": "/auth/signin",
+      "destination": "/controllers/auth.js"
     },
     {
-      "src": "/auth/signup",
-      "dest": "/controllers/auth.js"
+      "source": "/auth/signup",
+      "destination": "/controllers/auth.js"
     },
     {
-      "src": "/auth/verifyOtp",
-      "dest": "/controllers/auth.js"
+      "source": "/auth/verifyOtp",
+      "destination": "/controllers/auth.js"
     },
     {
-      "src": "/api/plans",
-      "dest": "/controllers/plans.js"
+      "source": "/api/plans",
+      "destination": "/controllers/plans.js"
     },
     {
-      "src": "/profile/upload/:userId",
-      "dest": "/server/controllers/profile.js"
+      "source": "/profile/upload/:userId",
+      "destination": "/controllers/profile.js"
     },
     {
-      "src": "/profile/:userId/image",
-      "dest": "/controllers/profile.js"
+      "source": "/profile/:userId/image",
+      "destination": "/controllers/profile.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.js"
+      "source": "/(.*)",
+      "destination": "/index.js"
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ],
+  "trailingSlash": true
 }
