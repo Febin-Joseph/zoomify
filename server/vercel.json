@@ -12,12 +12,12 @@
       "dest": "/index.js"
     },
     {
-      "src": "/api",
-      "dest": "/index.js"
+      "src": "/api/(.*)",
+      "dest": "routes/plans.js"
     },
     {
       "src": "/api/(.*)",
-      "dest": "/controllers/plans.js"
+      "dest": "controllers/plans.js"
     }
   ]
 }
