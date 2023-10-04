@@ -17,10 +17,6 @@
     },
     {
       "src": "/api/(.*)",
-      "dest": "/routes/plans.js"
-    },
-    {
-      "src": "/api/",
       "dest": "/controllers/plans.js"
     }
   ]
