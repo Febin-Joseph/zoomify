@@ -2,26 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/auth/signin",
-      "dest": "/server/controllers/auth.js"
+      "dest": "/controllers/auth.js"
     },
     {
       "src": "/auth/signup",
-      "dest": "/server/controllers/auth.js"
+      "dest": "/controllers/auth.js"
     },
     {
       "src": "/auth/verifyOtp",
-      "dest": "/server/controllers/auth.js"
+      "dest": "/controllers/auth.js"
     },
     {
       "src": "/api/plans",
-      "dest": "/server/controllers/plans.js"
+      "dest": "/controllers/plans.js"
     },
     {
       "src": "/profile/upload/:userId",
@@ -29,11 +29,11 @@
     },
     {
       "src": "/profile/:userId/image",
-      "dest": "/server/controllers/profile.js"
+      "dest": "/controllers/profile.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/server/index.js"
+      "dest": "/index.js"
     }
   ]
 }
