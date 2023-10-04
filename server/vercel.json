@@ -8,16 +8,20 @@
   ],
   "routes": [
     {
-      "src": "/",
+      "src": "/auth/(.*)",
+      "dest": "/controllers/auth.js"
+    },
+    {
+      "src": "/api/plans/(.*)",
+      "dest": "/controllers/plans.js"
+    },
+    {
+      "src": "/profile/(.*)",
+      "dest": "/controllers/profile.js"
+    },
+    {
+      "src": "/(.*)",
       "dest": "/index.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "routes/plans.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "controllers/plans.js"
     }
   ]
 }
