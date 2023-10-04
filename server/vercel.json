@@ -13,11 +13,11 @@
     },
     {
       "src": "/api/plans",
-      "dest": "routes/plans.js"
+      "dest": "/routes/plans.js"
     },
     {
       "src": "/api/plans(.*)",
-      "dest": "controllers/plans.js"
+      "dest": "/controllers/plans.js"
     }
   ]
 }

@@ -39,6 +39,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.options('*', cors());
 
 //Routes
+app.use('/', (req, res) => {
+    res.send({ messgae: "hello"})
+})
 app.use('/auth', authRoutes)
 app.use('/api/plans', plansRoutes)
 app.use('/profile', profileRoutes)
