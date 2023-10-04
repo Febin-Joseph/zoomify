@@ -35,31 +35,5 @@
       "src": "/(.*)",
       "dest": "/server/index.js"
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/auth(.*)",
-      "destination": "/server/controllers/auth.js"
-    },
-    {
-      "source": "/api(.*)",
-      "destination": "/server/controllers"
-    },
-    {
-      "source": "/profile(.*)",
-      "destination": "/server/controllers/profile.js"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ],
-  "trailingSlash": true
+  ]
 }
