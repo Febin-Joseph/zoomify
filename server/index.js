@@ -9,7 +9,7 @@ import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import profileRoutes from './routes/profile.js'
 import { Server } from 'socket.io';
-// import Razorpay from 'razorpay'
+import Razorpay from 'razorpay'
 import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
 import passport from 'passport';
@@ -56,23 +56,23 @@ app.use('/profile', profileRoutes)
 
 
 //RAZORPAY
-// var instance = new Razorpay({
-//     key_id: process.env.RAZORPAY_KEY_ID,
-//     key_secret: process.env.RAZORPAY_SECRET_KEY,
-// });
+var instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_SECRET_KEY,
+});
 
-// app.post('/create/razorpay/order', (req, res) => {
-//     console.log("create orderId request", req.body);
-//     var options = {
-//         amount: req.body.amount,
-//         currency: "INR",
-//         receipt: "order_rcptid_11"
-//     };
-//     instance.orders.create(options, function (err, order) {
-//         console.log(order);
-//         res.send({ orderId: order.id });
-//     });
-// })
+app.post('/create/razorpay/order', (req, res) => {
+    console.log("create orderId request", req.body);
+    var options = {
+        amount: req.body.amount,
+        currency: "INR",
+        receipt: "order_rcptid_11"
+    };
+    instance.orders.create(options, function (err, order) {
+        console.log(order);
+        res.send({ orderId: order.id });
+    });
+})
 
 //STRIPE
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
