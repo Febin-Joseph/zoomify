@@ -34,7 +34,7 @@ const OTPcard = ({ email }) => {
     }
   };
 
-  const API_URL = 'https://zoomify-backend.vercel.app'
+  const API_URL = 'https://zoomify-backend.onrender.com'
 
   const handleVerifyOTP = () => {
     const otpValue = otp.join('');

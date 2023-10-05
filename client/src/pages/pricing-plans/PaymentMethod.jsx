@@ -8,7 +8,7 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
   const handlePaymentMethod = async (method) => {
     if (method === 'razorpay') {
       try {
-        const response = await axios.post('https://zoomify-backend.vercel.app/create/razorpay/order', {
+        const response = await axios.post('https://zoomify-backend.onrender.com/create/razorpay/order', {
           amount: price
         });
         const orderId = response.data.orderId;
@@ -39,7 +39,7 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
       const stripe = await stripePromise;
 
       try {
-        const response = await axios.post('https://zoomify-backend.vercel.app/create/stripe/order', {
+        const response = await axios.post('https://zoomify-backend.onrender.com/create/stripe/order', {
           amount: price,
           name: productName
         })
@@ -56,7 +56,7 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
       }
     } else if (method === 'paypal') {
       try {
-        const response = await axios.post('https://zoomify-backend.vercel.app/create/paypal/order', {
+        const response = await axios.post('https://zoomify-backend.onrender.com/create/paypal/order', {
           amount: price,
           name: productName,
         });

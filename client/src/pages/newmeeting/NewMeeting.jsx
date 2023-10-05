@@ -24,7 +24,7 @@ const NewMeeting = () => {
     formData.append('image', file);
 
     try {
-      const response = await fetch(`https://zoomify-backend.vercel.app/profile/upload/${userId}`, {
+      const response = await fetch(`https://zoomify-backend.onrender.com/profile/upload/${userId}`, {
         method: 'PATCH',
         body: formData,
       });
