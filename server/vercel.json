@@ -20,7 +20,7 @@
       "dest": "/controllers/profile.js"
     },
     {
-      "src": "/(.*)",
+      "src": "/",
       "dest": "/index.js"
     }
   ]

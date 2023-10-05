@@ -12,6 +12,8 @@ import { Server } from 'socket.io';
 // import Razorpay from 'razorpay'
 import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
+import passport from 'passport';
+import cookieSession from 'cookie-session';
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
@@ -26,6 +28,13 @@ const app = express();
 app.use(express.json());
 app.use(limiter)
 dotenv.config();
+app.use(
+    cookieSession({
+        name: "session",
+        keys: [process.env.COOKIE_KEY],
+        maxAge: 24 * 60 * 60 * 100,  //24 hours
+    })
+)
 app.use(cors({
     origin: 'https://zoomify.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -35,12 +44,14 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.options('*', cors());
+// app.options('*', cors());
 
 //Routes
 app.use('/', (req, res) => {
-    res.send({ messgae: "hello"})
+    res.send({ messgae: "hello" })
 })
 app.use('/auth', authRoutes)
 app.use('/api/plans', plansRoutes)
@@ -157,7 +168,7 @@ app.get('/paypal/success', (req, res) => {
 
     const execute_payment_json = {
         "payer_id": payerId,
-        
+
     };
 
     paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
