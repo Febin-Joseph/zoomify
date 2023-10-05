@@ -9,10 +9,41 @@ router.post('/signin', validateLogin, login)
 router.post('/signup', validateSignup, signup)
 router.post('/verifyOtp', verifyOTP)
 
-router.get('/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] })
+router.get('/google/callback',
+    passport.authenticate('google', { scope: ['profile', 'email'], failureRedirect: '/google/failed' }),
+    (req, res) => {
+        res.redirect('/google/success');
+    }
 )
 
-router.get('/google/callback')
+// router.get('/google/callback')
+
+// router.get('/google/callback',
+//     passport.authenticate('google', { failureRedirect: '/google/failed' }),
+//     (req, res) => {
+//         res.redirect('/google/success');
+//     }
+// );
+
+router.get('/google/success', (req, res) => {
+    if (req.user) {
+        res.status(200).json({
+            error: false,
+            message: "successfully Logged In"
+        })
+    } else {
+        res.status(403).json({
+            error: true,
+            message: "User not found",
+        })
+    }
+})
+
+router.get('/google/failed', (req, res) => {
+    res.status(401).json({
+        error: true,
+        message: "Failed to authenticate",
+    })
+})
 
 export default router;

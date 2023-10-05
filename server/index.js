@@ -50,9 +50,6 @@ app.use(passport.session());
 // app.options('*', cors());
 
 //Routes
-app.use('/', (req, res) => {
-    res.send({ messgae: "hello" })
-})
 app.use('/auth', authRoutes)
 app.use('/api/plans', plansRoutes)
 app.use('/profile', profileRoutes)

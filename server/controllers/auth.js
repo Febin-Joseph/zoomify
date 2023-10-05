@@ -4,6 +4,8 @@ import User from '../models/User.js';
 import { body, validationResult } from 'express-validator';
 import generateOTP from 'gen-otp';
 import nodemailer from 'nodemailer'
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import passport from 'passport';
 
 //VALIDATION FOR SIGN UP
 export const validateSignup = [
@@ -145,4 +147,46 @@ export const login = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
-} 
+}
+
+
+passport.use(
+    new GoogleStrategy({
+        clientID: '79338699980-2jgoic81qc0k4mucm6q50e4f67mc9u3t.apps.googleusercontent.com',
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: '/google/callback',
+    },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                console.log('profile data is this ', profile)
+                const existingUser = await User.findOne({ email: profile.emails[0].value })
+
+                if (existingUser) {
+                    return done(null, existingUser);
+                } else {
+                    const newUser = new User({
+                        email: profile.emails[0].value,
+                        profile: profile.photos[0].value,
+                        verified: true
+                    });
+
+                    const saveUser = await newUser.save();
+                    return done(null, saveUser);
+                }
+            } catch (error) {
+                return done(error, false);
+            }
+        }
+    )
+)
+
+//FOR USING COOKIE SESSION
+passport.serializeUser((user, done) => {
+    return done(null, user.id)
+})
+
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    })
+})
