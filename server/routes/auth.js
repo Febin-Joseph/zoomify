@@ -10,9 +10,12 @@ router.post('/signup', validateSignup, signup)
 router.post('/verifyOtp', verifyOTP)
 
 router.get('/google/callback',
-    passport.authenticate('google', { scope: ['profile', 'email'], failureRedirect: '/google/failed' }),
+    passport.authenticate('google', {
+        scope: ['profile', 'email'],
+        failureRedirect: 'auth/google/failed',
+    }),
     (req, res) => {
-        res.redirect('/google/success');
+        res.redirect('/auth/google/success');
     }
 )
 
