@@ -15,7 +15,7 @@ router.get('/google/callback',
         failureRedirect: 'auth/google/failed',
     }),
     (req, res) => {
-        res.redirect('/auth/google/success');
+        res.redirect('https://zoomify.vercel.app/home');
     }
 )
 
@@ -25,12 +25,7 @@ router.get('/google/success', (req, res) => {
             error: false,
             message: "successfully Logged In"
         })
-    } else {
-        res.status(403).json({
-            error: true,
-            message: "User not found",
-        })
-    }
+    } 
 })
 
 router.get('/google/failed', (req, res) => {
