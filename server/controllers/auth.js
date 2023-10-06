@@ -153,8 +153,8 @@ export const login = async (req, res) => {
 passport.use(
     new GoogleStrategy({
         clientID: '79338699980-2jgoic81qc0k4mucm6q50e4f67mc9u3t.apps.googleusercontent.com',
-        clientSecret: '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',
-        callbackURL: '/auth/google/callback',
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: 'https://zoomify-backend.onrender.com/auth/google/callback',
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -187,10 +187,10 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
     User.findById(id)
-      .then(user => {
-        done(null, user);
-      })
-      .catch(err => {
-        done(err, null);
-      });
-  });
+        .then(user => {
+            done(null, user);
+        })
+        .catch(err => {
+            done(err, null);
+        });
+});
