@@ -174,6 +174,7 @@ passport.use(
                     return done(null, saveUser);
                 }
             } catch (error) {
+                console.error('Google OAuth Error:', error);
                 return done(error, false);
             }
         }
