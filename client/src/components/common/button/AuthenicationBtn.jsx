@@ -2,6 +2,7 @@ import React from 'react';
 import { GithubLogo } from '../../../constants/icons';
 
 const AuthenicationBtn = ({ value, logo }) => {
+  
   const googleAuth = () => {
     if (value.includes('Google')) {
       window.open('https://zoomify-backend.onrender.com/auth/google/callback',
@@ -9,6 +10,7 @@ const AuthenicationBtn = ({ value, logo }) => {
       )
     }
   }
+
   return (
     <div>
       <button
