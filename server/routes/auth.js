@@ -40,4 +40,35 @@ router.get('/google/failed', (req, res) => {
     })
 })
 
+router.get('/github/callback',
+    passport.authenticate('github', {
+        scope: ['profile'],
+        failureRedirect: '/auth/github/failed',
+    }),
+    (req, res) => {
+        res.redirect('/auth/github/success');
+    }
+);
+
+router.get('/github/success', (req, res) => {
+    if (req.user) {
+        res.status(200).json({
+            error: false,
+            message: 'Successfully Logged In with GitHub',
+        });
+    } else {
+        res.status(403).json({
+            error: true,
+            message: 'User not found',
+        });
+    }
+});
+
+router.get('/github/failed', (req, res) => {
+    res.status(401).json({
+        error: true,
+        message: 'Failed to authenticate with GitHub',
+    });
+});
+
 export default router;

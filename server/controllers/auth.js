@@ -5,6 +5,7 @@ import { body, validationResult } from 'express-validator';
 import generateOTP from 'gen-otp';
 import nodemailer from 'nodemailer'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { Strategy as GithubStrategy } from 'passport-github2';
 import passport from 'passport';
 
 //VALIDATION FOR SIGN UP
@@ -179,7 +180,40 @@ passport.use(
             }
         }
     )
-)
+);
+
+passport.use(
+    new GithubStrategy({
+        clientID: 'Iv1.191f903a6982d156',
+        clientSecret: 'ab3e9f2af0eb3097f4612763104319556eb4dad5',
+        callbackURL: 'http://localhost:4000/auth/github/callback',
+    },
+        async (accessToken, refreshToken, profile, done) => {
+            console.log(profile);
+            try {
+                const existingUser = await User.findOne({ githubId: profile.id });
+
+                if (existingUser) {
+                    return done(null, existingUser);
+                } else {
+                    const newUser = new User({
+                        email: profile._json.email,
+                        password: '',
+                        profile: profile.photos[0].value,
+                        githubId: profile.id,
+                    });
+
+                    const saveUser = await newUser.save();
+                    return done(null, saveUser);
+                }
+            } catch (error) {
+                console.error('GitHub OAuth Error:', error);
+                return done(error, false);
+            }
+        }
+    )
+);
+
 
 //FOR USING COOKIE SESSION
 passport.serializeUser((user, done) => {
