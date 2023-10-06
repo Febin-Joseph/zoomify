@@ -1,11 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Home, JoinMeeting, SignUp, SignIn, Home2, NewMeeting, Room, PricingPlans } from '../pages';
+import PrivateRoute from './PrivateRoute';
 // import { PageNotFound } from '../pages';
 
 const AppRoutes = () => {
-    const isAuthenticated = useSelector(state => state.auth.token !== null);
+    const isAuthenticated = localStorage.getItem('token') !== null;
 
     return (
         <BrowserRouter>
@@ -14,9 +14,15 @@ const AppRoutes = () => {
                 <Route path='join' element={<JoinMeeting />} />
                 <Route path='signin' element={<SignIn />} />
                 <Route path='signup' element={<SignUp />} />
-                <Route path='home' element={<Home2 />} />
-                <Route path='new' element={<NewMeeting />} />
-                {/* <Route path='*' element={<PageNotFound />} /> */}
+                {isAuthenticated ? (
+                    <>
+                        <Route path='home' element={<Home2 />} />
+                        <Route path='new' element={<NewMeeting />} />
+                    </>
+                )
+                    :
+                    <Route path='signin' element={<SignIn />} />
+                }
                 <Route path='room/:roomId' element={<Room />} />
                 <Route path='plans' element={<PricingPlans />} />
             </Routes>

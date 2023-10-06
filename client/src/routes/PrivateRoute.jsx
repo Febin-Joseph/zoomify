@@ -1,23 +1,14 @@
-// import React, { useEffect } from 'react';
-// import { Route, useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+// import React from 'react';
+// import { Route, Navigate } from 'react-router-dom';
 
-// const PrivateRoute = ({ path, componenet: Component }) => {
-//     const isAuthenticated = useSelector(state => state.auth.token !== null);
-//     const navigate = useNavigate();
-
-//     useEffect(() => {
-//         if (!isAuthenticated) {
-//             navigate('/signin');
-//         }
-//     }, [isAuthenticated, navigate]);
-
-//     return (
-//         <Route
-//             path={path}
-//             element={isAuthenticated ? <Component /> : null}
-//         />
+// const PrivateRoute = ({ element, ...rest }) => {
+//     const isAuthenticated = localStorage.getItem('token') !== null;
+  
+//     return isAuthenticated ? (
+//       <Route {...rest} element={element} />
+//     ) : (
+//       <Navigate to="/signin" replace />
 //     );
-// };
+//   };
 
 // export default PrivateRoute;
