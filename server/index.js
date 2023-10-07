@@ -14,7 +14,7 @@ import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
 import passport from 'passport';
 import cookieSession from 'cookie-session';
-// import insertPlans from './db-data/plansData.js';
+import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
 const limiter = rateLimit({//It is used to prevent attacks and abuse
