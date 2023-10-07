@@ -9,7 +9,7 @@ const AuthenicationBtn = ({ value, logo }) => {
         "_self"
       )
     } else if (value.includes('Github')) {
-      window.open('https//zoomify-backend.onrender.com/auth/github/callback',
+      window.open('https://zoomify-backend.onrender.com/auth/github/callback',
         "_self"
       )
     }
