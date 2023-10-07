@@ -7,13 +7,29 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: false,
         unique: true,
-        max: 50
+        max: 50,
+        validate: {
+            validator: function (value) {
+                if (this.githubId) {
+                    return true;
+                } else {
+                    return value && value.length > 0;
+                }
+            }
+        }
     },
     password: {
         type: String,
-        required: false,
+        validate: {
+            validator: function (value) {
+                if (this.githubId) {
+                    return true;
+                } else {
+                    return value && value.length > 0;
+                }
+            }
+        }
     },
     githubId: String,
     otp: String,
