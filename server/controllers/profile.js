@@ -49,7 +49,7 @@ export const getProfile = async (req, res) => {
         }
 
         res.json({ imageUrl: user.profile })
-        
+
     } catch (error) {
         console.error('Error getting profile image:', error);
         res.status(500).json({ error: 'Profile image retrieval failed' });

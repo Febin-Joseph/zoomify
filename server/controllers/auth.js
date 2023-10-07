@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
 import User from '../models/User.js';
 import { body, validationResult } from 'express-validator';
 import generateOTP from 'gen-otp';
@@ -7,6 +8,8 @@ import nodemailer from 'nodemailer'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as GithubStrategy } from 'passport-github2';
 import passport from 'passport';
+
+dotenv.config();
 
 //VALIDATION FOR SIGN UP
 export const validateSignup = [
@@ -153,8 +156,8 @@ export const login = async (req, res) => {
 
 passport.use(
     new GoogleStrategy({
-        clientID: '79338699980-2jgoic81qc0k4mucm6q50e4f67mc9u3t.apps.googleusercontent.com',
-        clientSecret: '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',
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: 'https://zoomify.vercel.app/home',
     },
         async (accessToken, refreshToken, profile, done) => {
@@ -184,9 +187,9 @@ passport.use(
 
 passport.use(
     new GithubStrategy({
-        clientID: 'Iv1.191f903a6982d156',
-        clientSecret: 'ab3e9f2af0eb3097f4612763104319556eb4dad5',
-        callbackURL: 'http://localhost:4000/auth/github/callback',
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: 'https://zoomify-backend.onrender.com/auth/github/callback',
     },
         async (accessToken, refreshToken, profile, done) => {
             console.log(profile);
