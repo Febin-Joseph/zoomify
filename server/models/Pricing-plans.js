@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const planSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     price: {
         type: Number,
@@ -12,6 +12,10 @@ const planSchema = new mongoose.Schema({
     features: {
         type: [String],
         required: true
+    },
+    order: {
+        type: Number,
+        required: true,
     }
 
 })
