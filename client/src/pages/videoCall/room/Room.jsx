@@ -124,33 +124,6 @@ const Room = () => {
                             }
                         </p>
                     </div>
-                    <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-                    {myStream && <button onClick={sendStreams}>Send Stream</button>}
-                    {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-                    {myStream && (
-                        <div className='mt-4'>
-                            <ReactPlayer
-                                playing
-                                muted
-                                url={myStream}
-                                controls={true}
-                                width="300px" // Set the width to 100% for responsiveness
-                                height="400px" // Set the height to 100% for responsiveness
-                            />
-                        </div>
-                    )}
-                    {remoteStream && (
-                        <>
-                            <h1>Remote Stream</h1>
-                            <ReactPlayer
-                                playing
-                                muted
-                                height="300px"
-                                width="400px"
-                                url={remoteStream}
-                            />
-                        </>
-                    )}
                 </div>
             </div>
             <Chat />

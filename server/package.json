@@ -33,6 +33,7 @@
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
     "paypal-rest-sdk": "^1.8.1",
+    "peer": "^1.0.1",
     "razorpay": "^2.9.2",
     "socket.io": "^4.7.2",
     "stripe": "^13.7.0"
