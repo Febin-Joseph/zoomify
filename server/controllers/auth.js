@@ -116,6 +116,19 @@ export const verifyOTP = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+
+    if (User.otpUsed === true && User.verified === true) {
+        try {
+            const secretKey = process.env.JWT_KEY;
+            const options = { expiresIn: '1h' }//EXPIRING TIME
+            const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, options);//PASSING JWT TO THE USER'S ID
+            delete user.password;//DELETING THE PASSWORD FOR NOT GETTING IT IN THE FRONT END
+            res.status(200).json({ token, user })//PASSING USER AND TOKEN AS THE RESPONSE
+
+        } catch (error) {
+            res.status(500).json({ error: error.message })
+        }
+    }
 };
 
 
