@@ -7,6 +7,10 @@ const API_URL = 'https://zoomify-backend.onrender.com';
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
   try {
     const response = await axios.post(`https://zoomify-backend.onrender.com/auth/signup`, userData);
+    const { token } = response.data;
+    const { _id } = response.data.user;
+    localStorage.setItem('token', token);
+    localStorage.setItem('_id', _id);
     return response.data;
   } catch (error) {
     throw error;
