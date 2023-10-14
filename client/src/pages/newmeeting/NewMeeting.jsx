@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
 import { noProfile } from '../../constants/icons';
 import { nameVerification } from '../../middleware';
-import { useSocket } from '../../utils/SocketProvider';
 import { useNavigate } from 'react-router-dom';
 
 const NewMeeting = () => {
@@ -15,9 +14,6 @@ const NewMeeting = () => {
   const [userId, setUserId] = useState(localStorage.getItem('_id'));
 
   const navigate = useNavigate();
-
-  const socket = useSocket()
-  console.log(socket);
 
   const handleImageUpload = async (file) => {
     const formData = new FormData();
@@ -41,26 +37,6 @@ const NewMeeting = () => {
       console.error('Image upload error:', error);
     }
   };
-
-
-  const handleSubmitForm = useCallback((e) => {
-    e.preventDefault();
-    socket.emit('room:join', { email, room })
-  },
-    [email, room, socket]
-  );
-
-  const handleJoinRoom = useCallback((data) => {
-    const { email, room } = data;
-    navigate(`/room/${room}`)
-  }, [navigate])
-
-  useEffect(() => {
-    socket.on('room:join', handleJoinRoom)
-    return () => {
-      socket.off('room:join', handleJoinRoom)
-    }
-  }, [socket, handleJoinRoom]);
 
   useEffect(() => {
     if (verificationStatus.includes('successful')) {
@@ -168,7 +144,7 @@ const NewMeeting = () => {
                 value={"Start Meeting"}
                 width={60}
                 height={60}
-                onClick={handleSubmitForm}
+                onClick={''}
               />
             </div>
 
@@ -261,7 +237,7 @@ const NewMeeting = () => {
             width={60}
             height={60}
             maxWidth={'max-w-[300px]'}
-            onClick={handleSubmitForm}
+            onClick={''}
           />
         </div>
       </div>
