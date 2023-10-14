@@ -23,7 +23,7 @@ const AppRoutes = () => {
                     :
                     <Route path='signin' element={<SignIn />} />
                 }
-                <Route path='room/:roomId/pass/:password' element={<Room />} />
+                <Route path='room/:roomid' element={<Room />} />
                 <Route path='plans' element={<PricingPlans />} />
             </Routes>
         </BrowserRouter>
