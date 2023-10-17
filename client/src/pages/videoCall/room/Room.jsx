@@ -1,118 +1,185 @@
 import React, { useEffect, useState } from "react";
-import { ZegoExpressEngine } from "zego-express-engine-webrtc";
-import { useParams } from 'react-router-dom';
+import {
+  AgoraVideoPlayer,
+  createClient,
+  createMicrophoneAndCameraTracks,
+  IAgoraRTCRemoteUser,
+  ICameraVideoTrack,
+  IMicrophoneAudioTrack,
+} from "agora-rtc-react";
 
-function Room() {
-    const appID = 2082591197;
-    const server = '5d5080fdb9f7e39b21f87c7498f7c3ab';
-    const streamID = new Date().getTime().toString();
-    const zg = new ZegoExpressEngine(appID, server);
-    const [joined, setJoined] = useState(false);
-    const [remoteStreams, setRemoteStreams] = useState([]);
+const Room = () => {
+  const [inCall, setInCall] = useState(false);
+  const [channelName, setChannelName] = useState("");
 
-    const { roomid } = useParams(); // Use the useParams hook to get the room ID from the URL
-    const roomID = roomid;
-    const token = '04AAAAAGUviekAEGdqcjM3Y2ZvemF6enJscjAAoLfombe4lNeRFYS97kwn66OXJ6143CgXtwgAhFscvEDT607vj4IyrXt8GgtdjSyLXBIQBgKiZi/lMlA93zombmV9V706/M0Np7GFzoSpAL8pRUf+EMyyfuKbqonxQHyYNB5lefeQ0OmCyCWsncR0rxpFX8siP+Gw7Q4y64eyPP4AkoUWK57ADdsvdyEaFgpM71ndJjv7BUT4TXIxWkYZwQg='
-    const userID = '_' + new Date().getTime().toString();
+  return (
+    <div>
+      <h1 className="heading">Agora RTC NG SDK React Wrapper</h1>
+      {inCall ? (
+        <VideoCall setInCall={setInCall} channelName={channelName} />
+      ) : (
+        <ChannelForm setInCall={setInCall} setChannelName={setChannelName} />
+      )}
+    </div>
+  );
+};
 
-    useEffect(() => {
-        const initializeApp = async () => {
-            // Initialize Zego
-            try {
-                await zg.checkSystemRequirements();
-            } catch (error) {
-                console.error("Zego initialization failed:", error);
-                return;
-            }
+const useClient = createClient({
+  mode: "rtc",
+  codec: "vp8",
+  appId: '7457a70d4d864646b16e8fc3f75413ff'
+});
 
-            // Event handlers
-            zg.on("roomStreamUpdate", (roomID, updateType, streamList) => {
-                if (updateType === "ADD") {
-                    alert(`User with ID ${streamList[0].userID} has joined the room.`);
-                    const newRemoteStreams = [...remoteStreams];
+const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
 
-                    streamList.forEach((streamInfo) => {
-                        const videoElement = document.createElement("video");
-                        videoElement.id = streamInfo.streamID;
-                        videoElement.autoplay = true;
-                        videoElement.playsInline = true;
-                        videoElement.muted = false;
-                        newRemoteStreams.push(videoElement);
+const VideoCall = (props) => {
+  const { setInCall, channelName } = props;
+  const [users, setUsers] = useState([]);
+  const [start, setStart] = useState(false);
+  const client = useClient();
+  const { ready, tracks } = useMicrophoneAndCameraTracks();
 
-                        // Start playing the stream
-                        zg.startPlayingStream(streamInfo.streamID, {
-                            audio: true,
-                            video: true,
-                        })
-                            .then((stream) => {
-                                videoElement.srcObject = stream;
-                            })
-                            .catch((error) => {
-                                console.error("Failed to start playing the stream:", error);
-                            });
-                    });
+  useEffect(() => {
+    let init = async (name) => {
+      client.on("user-published", async (user, mediaType) => {
+        await client.subscribe(user, mediaType);
+        if (mediaType === "video") {
+          setUsers((prevUsers) => {
+            return [...prevUsers, user];
+          });
+        }
+        if (mediaType === "audio") {
+          user.audioTrack?.play();
+        }
+      });
 
-                    setRemoteStreams(newRemoteStreams);
-                } else if (updateType === "DELETE" && zg) {
-                    streamList.forEach((streamInfo) => {
-                        zg.stopPlayingStream(streamInfo.streamID);
-                    });
-                }
-            });
+      client.on("user-unpublished", (user, type) => {
+        if (type === "audio") {
+          user.audioTrack?.stop();
+        }
+        if (type === "video") {
+          setUsers((prevUsers) => {
+            return prevUsers.filter((User) => User.uid !== user.uid);
+          });
+        }
+      });
 
-            try {
-                await zg.loginRoom(
-                    roomID, // Use the room ID from the URL
-                    token,
-                    {
-                        userID,
-                        userName: "kishan",
-                    },
-                    { userUpdate: true }
-                );
-                setJoined(true);
-            } catch (error) {
-                console.error("Failed to login to the room:", error);
-            }
+      client.on("user-left", (user) => {
+        setUsers((prevUsers) => {
+          return prevUsers.filter((User) => User.uid !== user.uid);
+        });
+      });
 
-            try {
-                const localStream = await zg.createStream({
-                    camera: {
-                        audio: true,
-                        video: true,
-                    },
-                });
-                const localVideo = document.getElementById("local-video");
-                localVideo.srcObject = localStream;
+      await client.join("YOUR_APP_ID", name, null, null);
+      if (tracks) await client.publish([tracks[0], tracks[1]]);
+      setStart(true);
+    };
 
-                await zg.startPublishingStream(streamID, localStream);
-            } catch (error) {
-                console.error("Failed to create or publish the local stream:", error);
-            }
-        };
+    if (ready && tracks) {
+      init(channelName);
+    }
+  }, [channelName, client, ready, tracks]);
 
-        initializeApp();
+  return (
+    <div className="App">
+      {ready && tracks && (
+        <Controls tracks={tracks} setStart={setStart} setInCall={setInCall} />
+      )}
+      {start && tracks && <Videos users={users} tracks={tracks} />}
+    </div>
+  );
+};
 
-        // Cleanup when the component unmounts
-        return () => {
-            if (joined) {
-                zg.logoutRoom();
-            }
-        };
-    }, [roomid, zg, remoteStreams]);
+const Videos = (props) => {
+  const { users, tracks } = props;
 
+  return (
+    <div>
+      <div id="videos">
+        <AgoraVideoPlayer
+          className="vid"
+          videoTrack={tracks[1]}
+          style={{ height: "95%", width: "95%" }}
+        />
+        {users.length > 0 &&
+          users.map((user) => {
+            if (user.videoTrack) {
+              return (
+                <AgoraVideoPlayer
+                  className="vid"
+                  videoTrack={user.videoTrack}
+                  style={{ height: "95%", width: "95%" }}
+                  key={user.uid}
+                />
+              );
+            } else return null;
+          })}
+      </div>
+    </div>
+  );
+};
+
+const Controls = (props) => {
+  const client = useClient();
+  const { tracks, setStart, setInCall } = props;
+  const [trackState, setTrackState] = useState({ video: true, audio: true });
+
+  const mute = async (type) => {
+    if (type === "audio") {
+      await tracks[0].setEnabled(!trackState.audio);
+      setTrackState((ps) => {
+        return { ...ps, audio: !ps.audio };
+      });
+    } else if (type === "video") {
+      await tracks[1].setEnabled(!trackState.video);
+      setTrackState((ps) => {
+        return { ...ps, video: !ps.video };
+      });
+    }
+  };
+
+  const leaveChannel = async () => {
+    await client.leave();
+    client.removeAllListeners();
+    tracks[0].close();
+    tracks[1].close();
+    setStart(false);
+    setInCall(false);
+  };
+
+  return (
+    <div className="controls">
+      <p className={trackState.audio ? "on" : ""} onClick={() => mute("audio")}>
+        {trackState.audio ? "MuteAudio" : "UnmuteAudio"}
+      </p>
+      <p className={trackState.video ? "on" : ""} onClick={() => mute("video")}>
+        {trackState.video ? "MuteVideo" : "UnmuteVideo"}
+      </p>
+      {<p onClick={() => leaveChannel()}>Leave</p>}
+    </div>
+  );
+};
+
+const ChannelForm = (props) => {
+    const { setInCall, setChannelName } = props;
+  
     return (
-        <div>
-            <div>
-                <video id="local-video" autoPlay playsInline muted />
-            </div>
-            <div id="remote-video">
-                {remoteStreams.map((remoteStream, index) => (
-                    <div key={index}>{remoteStream}</div>
-                ))}
-            </div>
-        </div>
+      <form className="join">
+        <input
+          type="text"
+          placeholder="Enter Channel Name"
+          onChange={(e) => setChannelName(e.target.value)}
+        />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setInCall(true);
+          }}
+        >
+          Join
+        </button>
+      </form>
     );
-}
+  };
 
 export default Room;
