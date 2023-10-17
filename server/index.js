@@ -35,7 +35,7 @@ app.use(
     })
 )
 app.use(cors({
-    origin: 'https://zoomify.vercel.app',
+    origin: [ 'https://zoomify.vercel.app', 'http://localhost:3000' ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));
