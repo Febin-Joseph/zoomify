@@ -8,11 +8,12 @@ function Room() {
     const streamID = new Date().getTime().toString();
     const zg = new ZegoExpressEngine(appID, server);
     const [joined, setJoined] = useState(false);
+    const [remoteStreams, setRemoteStreams] = useState([]);
 
     const { roomid } = useParams(); // Use the useParams hook to get the room ID from the URL
     const roomID = roomid;
     const token = '04AAAAAGUviekAEGdqcjM3Y2ZvemF6enJscjAAoLfombe4lNeRFYS97kwn66OXJ6143CgXtwgAhFscvEDT607vj4IyrXt8GgtdjSyLXBIQBgKiZi/lMlA93zombmV9V706/M0Np7GFzoSpAL8pRUf+EMyyfuKbqonxQHyYNB5lefeQ0OmCyCWsncR0rxpFX8siP+Gw7Q4y64eyPP4AkoUWK57ADdsvdyEaFgpM71ndJjv7BUT4TXIxWkYZwQg='
-    const userID = '_' + new Date().getTime();
+    const userID = '_' + new Date().getTime().toString();
 
     useEffect(() => {
         const initializeApp = async () => {
@@ -28,28 +29,30 @@ function Room() {
             zg.on("roomStreamUpdate", (roomID, updateType, streamList) => {
                 if (updateType === "ADD") {
                     alert(`User with ID ${streamList[0].userID} has joined the room.`);
-                    
+                    const newRemoteStreams = [...remoteStreams];
+
                     streamList.forEach((streamInfo) => {
-                        const remoteVideo = document.getElementById("remote-video");
                         const videoElement = document.createElement("video");
                         videoElement.id = streamInfo.streamID;
                         videoElement.autoplay = true;
                         videoElement.playsInline = true;
                         videoElement.muted = false;
-                        remoteVideo.appendChild(videoElement);
+                        newRemoteStreams.push(videoElement);
 
                         // Start playing the stream
                         zg.startPlayingStream(streamInfo.streamID, {
                             audio: true,
                             video: true,
                         })
-                        .then((stream) => {
-                            videoElement.srcObject = stream;
-                        })
-                        .catch((error) => {
-                            console.error("Failed to start playing the stream:", error);
-                        });
+                            .then((stream) => {
+                                videoElement.srcObject = stream;
+                            })
+                            .catch((error) => {
+                                console.error("Failed to start playing the stream:", error);
+                            });
                     });
+
+                    setRemoteStreams(newRemoteStreams);
                 } else if (updateType === "DELETE" && zg) {
                     streamList.forEach((streamInfo) => {
                         zg.stopPlayingStream(streamInfo.streamID);
@@ -64,7 +67,6 @@ function Room() {
                     {
                         userID,
                         userName: "kishan",
-                        token,
                     },
                     { userUpdate: true }
                 );
@@ -97,14 +99,18 @@ function Room() {
                 zg.logoutRoom();
             }
         };
-    }, [roomid]); // Include roomid in the dependency array
+    }, [roomid, zg, remoteStreams]);
 
     return (
         <div>
             <div>
                 <video id="local-video" autoPlay playsInline muted />
             </div>
-            <div id="remote-video"></div>
+            <div id="remote-video">
+                {remoteStreams.map((remoteStream, index) => (
+                    <div key={index}>{remoteStream}</div>
+                ))}
+            </div>
         </div>
     );
 }
