@@ -9,6 +9,7 @@ const Room = () => {
   const [inCall, setInCall] = useState(false);
   const [channelName, setChannelName] = useState("");
 
+
   return (
     <div>
       <h1 className="heading">Agora RTC NG SDK React Wrapper</h1>
@@ -24,8 +25,10 @@ const Room = () => {
 const useClient = createClient({
   mode: "rtc",
   codec: "vp8",
-  appId: "7457a70d4d864646b16e8fc3f75413ff", // Replace with your Agora App ID
+  appId: '7457a70d4d864646b16e8fc3f75413ff',
 });
+
+// useClient.init('7457a70d4d864646b16e8fc3f75413ff')
 
 const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
 
@@ -36,9 +39,10 @@ const VideoCall = (props) => {
   const client = useClient();
   const { ready, tracks, error } = useMicrophoneAndCameraTracks();
 
+
   useEffect(() => {
     if (error) {
-      console.error("Error accessing camera and microphone:", error);
+      console.error('Error accessing camera and microphone:', error);
     } else {
       let init = async (name) => {
         client.on("user-published", async (user, mediaType) => {
@@ -48,9 +52,15 @@ const VideoCall = (props) => {
               return [...prevUsers, user];
             });
           }
+          if (mediaType === "audio") {
+            user.audioTrack?.play();
+          }
         });
 
         client.on("user-unpublished", (user, type) => {
+          if (type === "audio") {
+            user.audioTrack?.stop();
+          }
           if (type === "video") {
             setUsers((prevUsers) => {
               return prevUsers.filter((User) => User.uid !== user.uid);
@@ -64,7 +74,7 @@ const VideoCall = (props) => {
           });
         });
 
-        await client.join("7457a70d4d864646b16e8fc3f75413ff", name, null, null); // Replace your_token_here with your token
+        await client.join("7457a70d4d864646b16e8fc3f75413ff", name, null, null);
         if (tracks) await client.publish([tracks[0], tracks[1]]);
         setStart(true);
       };
@@ -91,12 +101,11 @@ const Videos = (props) => {
   return (
     <div>
       <div id="videos">
-        <div className="vid" style={{ height: "95%", width: "95%" }}>
-          <AgoraVideoPlayer
-            videoTrack={tracks[1]}
-            style={{ height: "100%", width: "100%" }}
-          />
-        </div>
+        <AgoraVideoPlayer
+          className="vid"
+          videoTrack={tracks[1]}
+          style={{ height: "95%", width: "95%" }}
+        />
         {users.length > 0 &&
           users.map((user) => {
             if (user.videoTrack) {
@@ -146,10 +155,10 @@ const Controls = (props) => {
   return (
     <div className="controls">
       <p className={trackState.audio ? "on" : ""} onClick={() => mute("audio")}>
-        {trackState.audio ? "Mute Audio" : "Unmute Audio"}
+        {trackState.audio ? "MuteAudio" : "UnmuteAudio"}
       </p>
       <p className={trackState.video ? "on" : ""} onClick={() => mute("video")}>
-        {trackState.video ? "Mute Video" : "Unmute Video"}
+        {trackState.video ? "MuteVideo" : "UnmuteVideo"}
       </p>
       {<p onClick={() => leaveChannel()}>Leave</p>}
     </div>
