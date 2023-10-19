@@ -9,7 +9,6 @@ const Room = () => {
   const [inCall, setInCall] = useState(false);
   const [channelName, setChannelName] = useState("");
 
-
   return (
     <div>
       <h1 className="heading">Agora RTC NG SDK React Wrapper</h1>
@@ -36,10 +35,9 @@ const VideoCall = (props) => {
   const client = useClient();
   const { ready, tracks, error } = useMicrophoneAndCameraTracks();
 
-
   useEffect(() => {
     if (error) {
-      console.error('Error accessing camera and microphone:', error);
+      console.error("Error accessing camera and microphone:", error);
     } else {
       let init = async (name) => {
         client.on("user-published", async (user, mediaType) => {
@@ -71,7 +69,12 @@ const VideoCall = (props) => {
           });
         });
 
-        await client.join("7457a70d4d864646b16e8fc3f75413ff", name, null, null);
+        await client.join(
+          "7457a70d4d864646b16e8fc3f75413ff",
+          name,
+          "007eJxTYLg5c2q3x+YtLpaPylKMNnFu0xJlOcIenO4QPGnZC/7Y4ikKDOYmpuaJ5gYpJikWZiZAmGRolmqRlmycZm5qYmiclnb5gEFqQyAjw+tbl1gZGSAQxGdmMDQyZmAAAMQXHcY=",
+          null
+        );
         if (tracks) await client.publish([tracks[0], tracks[1]]);
         setStart(true);
       };
@@ -94,14 +97,13 @@ const VideoCall = (props) => {
 
 const Videos = (props) => {
   const { users, tracks } = props;
-
   return (
     <div>
       <div id="videos">
         <AgoraVideoPlayer
           className="vid"
           videoTrack={tracks[1]}
-          style={{ height: "95%", width: "95%" }}
+          style={{ height: "100%", width: "100%" }}
         />
         {users.length > 0 &&
           users.map((user) => {
@@ -111,7 +113,7 @@ const Videos = (props) => {
                   className="vid"
                   videoTrack={user.videoTrack}
                   style={{ height: "95%", width: "95%" }}
-                  key={user.uid}
+                  key={user.uid} // Unique key for remote videos
                 />
               );
             } else return null;
