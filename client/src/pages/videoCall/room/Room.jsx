@@ -1,19 +1,60 @@
 import React, { useEffect, useState } from "react";
 import {
-  AgoraVideoPlayer,
   createClient,
   createMicrophoneAndCameraTracks,
+  AgoraVideoPlayer,
 } from "agora-rtc-react";
+
+const config = {
+  mode: "rtc",
+  codec: "vp8",
+};
+
+const useClient = createClient(config);
+const useMicrophoneAndCamera = createMicrophoneAndCameraTracks();
 
 const Room = () => {
   const [inCall, setInCall] = useState(false);
-  const [channelName, setChannelName] = useState("");
+  const [channelName, setChannelName] = useState("123");
+  const client = useClient();
+  const { ready, tracks } = useMicrophoneAndCamera();
+
+  useEffect(() => {
+    const init = async (name) => {
+      await client.join(
+        "7457a70d4d864646b16e8fc3f75413ff",
+        name,
+        "007eJxTYLg5c2q3x+YtLpaPylKMNnFu0xJlOcIenO4QPGnZC/7Y4ikKDOYmpuaJ5gYpJikWZiZAmGRolmqRlmycZm5qYmiclnb5gEFqQyAjw+tbl1gZGSAQxGdmMDQyZmAAAMQXHcY=",
+        null
+      );
+
+      if (ready && tracks && tracks.length >= 2) {
+        await client.publish([tracks[0], tracks[1]]);
+        setInCall(true);
+      }
+    };
+
+    if (ready) {
+      init(channelName);
+    }
+
+    return async () => {
+      await client.leave();
+      if (tracks) {
+        tracks[0] && tracks[0].close();
+        tracks[1] && tracks[1].close();
+      }
+    };
+  }, [channelName, client, ready, tracks]);
 
   return (
     <div>
-      <h1 className="heading">Agora RTC NG SDK React Wrapper</h1>
       {inCall ? (
-        <VideoCall setInCall={setInCall} channelName={channelName} />
+        <div>
+          <LocalVideoTrackView tracks={tracks} />
+          <RemoteVideoTracksView client={client} />
+          <Controls tracks={tracks} setInCall={setInCall} />
+        </div>
       ) : (
         <ChannelForm setInCall={setInCall} setChannelName={setChannelName} />
       )}
@@ -21,124 +62,88 @@ const Room = () => {
   );
 };
 
-const useClient = createClient({
-  mode: "rtc",
-  codec: "vp8",
-});
-
-const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
-
-const VideoCall = (props) => {
-  const { setInCall, channelName } = props;
-  const [users, setUsers] = useState([]);
-  const [start, setStart] = useState(false);
-  const client = useClient();
-  const { ready, tracks, error } = useMicrophoneAndCameraTracks();
-
-  useEffect(() => {
-    if (error) {
-      console.error("Error accessing camera and microphone:", error);
-    } else {
-      let init = async (name) => {
-        client.on("user-published", async (user, mediaType) => {
-          await client.subscribe(user, mediaType);
-          if (mediaType === "video") {
-            setUsers((prevUsers) => {
-              return [...prevUsers, user];
-            });
-          }
-          if (mediaType === "audio") {
-            user.audioTrack?.play();
-          }
-        });
-
-        client.on("user-unpublished", (user, type) => {
-          if (type === "audio") {
-            user.audioTrack?.stop();
-          }
-          if (type === "video") {
-            setUsers((prevUsers) => {
-              return prevUsers.filter((User) => User.uid !== user.uid);
-            });
-          }
-        });
-
-        client.on("user-left", (user) => {
-          setUsers((prevUsers) => {
-            return prevUsers.filter((User) => User.uid !== user.uid);
-          });
-        });
-
-        await client.join(
-          "7457a70d4d864646b16e8fc3f75413ff",
-          name,
-          "007eJxTYLg5c2q3x+YtLpaPylKMNnFu0xJlOcIenO4QPGnZC/7Y4ikKDOYmpuaJ5gYpJikWZiZAmGRolmqRlmycZm5qYmiclnb5gEFqQyAjw+tbl1gZGSAQxGdmMDQyZmAAAMQXHcY=",
-          null
-        );
-        if (tracks) await client.publish([tracks[0], tracks[1]]);
-        setStart(true);
-      };
-
-      if (ready && tracks) {
-        init(channelName);
-      }
-    }
-  }, [error, channelName, client, ready, tracks]);
-
-  return (
-    <div className="App">
-      {ready && tracks && (
-        <Controls tracks={tracks} setStart={setStart} setInCall={setInCall} />
-      )}
-      {start && tracks && <Videos users={users} tracks={tracks} />}
-    </div>
-  );
-};
-
-const Videos = (props) => {
-  const { users, tracks } = props;
+const LocalVideoTrackView = ({ tracks }) => {
   return (
     <div>
-      <div id="videos">
-        <AgoraVideoPlayer
-          className="vid"
-          videoTrack={tracks[1]}
-          style={{ height: "100%", width: "100%" }}
-        />
-        {users.length > 0 &&
-          users.map((user) => {
-            if (user.videoTrack) {
-              return (
-                <AgoraVideoPlayer
-                  className="vid"
-                  videoTrack={user.videoTrack}
-                  style={{ height: "95%", width: "95%" }}
-                  key={user.uid} // Unique key for remote videos
-                />
-              );
-            } else return null;
-          })}
-      </div>
+      <h2>Your Video</h2>
+      <AgoraVideoPlayer
+        videoTrack={tracks[1]}
+        style={{ width: "320px", height: "240px" }}
+      />
     </div>
   );
 };
 
-const Controls = (props) => {
+const RemoteVideoTracksView = ({ client }) => {
+  const [remoteUsers, setRemoteUsers] = useState([]);
+
+  useEffect(() => {
+    const subscribeToRemoteUser = async (user) => {
+      await client.subscribe(user, "video");
+      setRemoteUsers((prevUsers) => [...prevUsers, user]);
+    };
+
+    const unsubscribeFromRemoteUser = (user) => {
+      setRemoteUsers((prevUsers) =>
+        prevUsers.filter((prevUser) => prevUser.uid !== user.uid)
+      );
+    };
+
+    // Subscribe to existing remote users' video tracks
+    client.remoteUsers.forEach(subscribeToRemoteUser);
+
+    // Event listener for when a new user publishes their video
+    client.on("user-published", async (user, mediaType) => {
+      await client.subscribe(user, mediaType);
+      if (mediaType === "video") {
+        subscribeToRemoteUser(user);
+      }
+      if (mediaType === "audio") {
+        user.audioTrack?.play();
+      }
+    });
+
+    // Event listener for when a user unpublishes their video
+    client.on("user-unpublished", (user) => {
+      unsubscribeFromRemoteUser(user);
+    });
+
+    // Event listener for when a user leaves the channel
+    client.on("user-left", (user) => {
+      // Remove the user's video from the view
+      unsubscribeFromRemoteUser(user);
+    });
+
+    return () => {
+      client.removeAllListeners();
+    };
+  }, [client]);
+
+  return (
+    <div>
+      <h2>Remote Participants</h2>
+      {remoteUsers.map((user) => (
+        <AgoraVideoPlayer
+          key={user.uid}
+          videoTrack={user.videoTrack}
+          style={{ width: "320px", height: "240px" }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const Controls = ({ tracks, setInCall }) => {
   const client = useClient();
-  const { tracks, setStart, setInCall } = props;
   const [trackState, setTrackState] = useState({ video: true, audio: true });
 
-  const mute = async (type) => {
+  const toggleMute = async (type) => {
     if (type === "audio") {
       await tracks[0].setEnabled(!trackState.audio);
-      setTrackState((ps) => {
-        return { ...ps, audio: !ps.audio };
-      });
+      setTrackState((prevState) => ({ ...prevState, audio: !prevState.audio }));
     } else if (type === "video") {
       await tracks[1].setEnabled(!trackState.video);
-      setTrackState((ps) => {
-        return { ...ps, video: !ps.video };
-      });
+      setTrackState((prevState) => ({ ...prevState, video: !prevState.video }));
     }
   };
 
@@ -147,41 +152,31 @@ const Controls = (props) => {
     client.removeAllListeners();
     tracks[0].close();
     tracks[1].close();
-    setStart(false);
     setInCall(false);
   };
 
   return (
-    <div className="controls">
-      <p className={trackState.audio ? "on" : ""} onClick={() => mute("audio")}>
-        {trackState.audio ? "MuteAudio" : "UnmuteAudio"}
-      </p>
-      <p className={trackState.video ? "on" : ""} onClick={() => mute("video")}>
-        {trackState.video ? "MuteVideo" : "UnmuteVideo"}
-      </p>
-      {<p onClick={() => leaveChannel()}>Leave</p>}
+    <div>
+      <button onClick={() => toggleMute("audio")}>
+        {trackState.audio ? "Mute Audio" : "Unmute Audio"}
+      </button>
+      <button onClick={() => toggleMute("video")}>
+        {trackState.video ? "Mute Video" : "Unmute Video"}
+      </button>
+      <button onClick={leaveChannel}>Leave</button>
     </div>
   );
 };
 
-const ChannelForm = (props) => {
-  const { setInCall, setChannelName } = props;
-
+const ChannelForm = ({ setInCall, setChannelName }) => {
   return (
-    <form className="join">
+    <form>
       <input
         type="text"
         placeholder="Enter Channel Name"
         onChange={(e) => setChannelName(e.target.value)}
       />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          setInCall(true);
-        }}
-      >
-        Join
-      </button>
+      <button onClick={() => setInCall(true)}>Join</button>
     </form>
   );
 };
