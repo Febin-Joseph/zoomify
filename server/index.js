@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import profileRoutes from './routes/profile.js'
+import tokenRoutes from './routes/token.js'
 import Razorpay from 'razorpay'
 import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
@@ -52,6 +53,7 @@ app.use(passport.session());
 app.use('/auth', authRoutes)
 app.use('/api/plans', plansRoutes)
 app.use('/profile', profileRoutes)
+app.use('/agora', tokenRoutes)
 
 
 //RAZORPAY
