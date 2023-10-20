@@ -8,12 +8,30 @@ const NewMeeting = () => {
   const [nameValidation, setNameValidation] = useState('')
   const [verificationStatus, setVerificationStatus] = useState('');
   const [nameVerified, setNameVerified] = useState(false);
-  const [email, setEmail] = useState('')
+  const [roomId, setRoomId] = useState('')
   const [room, setRoom] = useState('')
   const [profileImage, setProfileImage] = useState('');
   const [userId, setUserId] = useState(localStorage.getItem('_id'));
 
   const navigate = useNavigate();
+
+  //name verification middleware
+  function handleNameVerification() {
+    const status = nameVerification(nameValidation);
+    setVerificationStatus(status);
+
+    if (status.includes('successful')) {
+      localStorage.setItem('_userName', nameValidation);
+    }
+  }
+
+  //retreiving storaed name from local storage
+  useEffect(() => {
+    const savedName = localStorage.getItem('_userName');
+    if (savedName) {
+      setNameValidation(savedName);
+    }
+  }, []);
 
   const handleImageUpload = async (file) => {
     const formData = new FormData();
@@ -43,12 +61,6 @@ const NewMeeting = () => {
       setNameVerified(true);
     }
   }, [verificationStatus]);
-
-  //name verification middleware
-  function handleNameVerification() {
-    const status = nameVerification(nameValidation);
-    setVerificationStatus(status);
-  }
 
   return (
     <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
@@ -117,8 +129,8 @@ const NewMeeting = () => {
               width={85}
               height={8}
               placeholder={"Meeting ID"}
-              change={(e) => setEmail(e.target.value)}
-              value={email}
+              change={(e) => setRoomId(e.target.value)}
+              value={roomId}
               showCopyIcon={true}
             />
             <div className='mt-[-35px]'>
@@ -144,7 +156,9 @@ const NewMeeting = () => {
                 value={"Start Meeting"}
                 width={60}
                 height={60}
-                onClick={''}
+                onClick={() => {
+                  navigate(`/room/${roomId}`)
+                }}
               />
             </div>
 
@@ -209,8 +223,8 @@ const NewMeeting = () => {
           width={85}
           height={8}
           placeholder={"Meeting ID"}
-          change={(e) => setEmail(e.target.value)}
-          value={email}
+          change={(e) => setRoomId(e.target.value)}
+          value={roomId}
           showCopyIcon={true}
         />
 
@@ -237,7 +251,9 @@ const NewMeeting = () => {
             width={60}
             height={60}
             maxWidth={'max-w-[300px]'}
-            onClick={''}
+            onClick={() => {
+              navigate(`/room/${roomId}`)
+            }}
           />
         </div>
       </div>

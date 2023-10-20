@@ -31,6 +31,8 @@ import BackIcon from './videoCall/BackIcon'
 //Screen
 import Screen from './videoCall/Screen'
 
+import ControllersBg from './videoCall/ControllersBg'
+
 //CHAT
 //Navigation
 import ChatNav from './chat/ChatNav'
@@ -56,6 +58,7 @@ export {
     OTPBtn,
     BackIcon,
     Screen,
+    ControllersBg,
     ChatNav,
     Message,
     MsgInput,

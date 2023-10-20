@@ -5,6 +5,11 @@ import {
   AgoraVideoPlayer,
 } from "agora-rtc-react";
 
+import { useParams } from "react-router-dom";
+import Chat from "../chat/Chat";
+import { BackIcon } from "../../../components";
+import { LocalVideoTrackView, RemoteVideoTracksView, Controls } from "../../../pages";
+
 const config = {
   mode: "rtc",
   codec: "vp8",
@@ -14,17 +19,47 @@ const useClient = createClient(config);
 const useMicrophoneAndCamera = createMicrophoneAndCameraTracks();
 
 const Room = () => {
+  const { roomid } = useParams();
+  const meetingName = roomid
   const [inCall, setInCall] = useState(false);
-  const [channelName, setChannelName] = useState("123");
+  const [channelName, setChannelName] = useState(meetingName);
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCamera();
 
+
+
+  const fetchToken = async (channelName, uid, role, expireTime) => {
+    const tokenURL = `http://localhost:4000/agora/token-gen/${channelName}/${uid}/${role}/${expireTime}`;
+
+    try {
+      const response = await fetch(tokenURL);
+      if (response.ok) {
+        const data = await response.json();
+        return data.token;
+      } else {
+        console.error('Failed to fetch Agora token');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching Agora token:', error);
+      return null;
+    }
+  };
+
+
   useEffect(() => {
     const init = async (name) => {
+      const agoraToken = await fetchToken(channelName, name, "publisher", 3600);
+
+      if (!agoraToken) {
+        console.error("Failed to fetch Agora token");
+        return;
+      }
+
       await client.join(
         "7457a70d4d864646b16e8fc3f75413ff",
         name,
-        "007eJxTYLg5c2q3x+YtLpaPylKMNnFu0xJlOcIenO4QPGnZC/7Y4ikKDOYmpuaJ5gYpJikWZiZAmGRolmqRlmycZm5qYmiclnb5gEFqQyAjw+tbl1gZGSAQxGdmMDQyZmAAAMQXHcY=",
+        "007eJxTYNhhdtArfaHmjdIPXKfyA1Muqy4+YaN8f8mqqP6dV64JflFSYDA3MTVPNDdIMUmxMDMBwiRDs1SLtGTjNHNTE0PjtDRmW6PUhkBGBg5ZdRZGBggE8ZkZDI2MGRgAMOcc3w==",
         null
       );
 
@@ -51,133 +86,30 @@ const Room = () => {
     <div>
       {inCall ? (
         <div>
-          <LocalVideoTrackView tracks={tracks} />
-          <RemoteVideoTracksView client={client} />
-          <Controls tracks={tracks} setInCall={setInCall} />
+          <div className='flex flex-col bg-[#000] min-h-screen max-h-full text-white'>
+            <div className='lg:ml-10 lg:mt-4'>
+              <div className='flex mt-3 ml-5 lg:ml-5 lg:mt-0 lg:items-center'>
+                <BackIcon />
+                <p className='text-white mt-2 lg:mt-0 font-medium text-[32px] ml-4 lg:ml-7 tracking-[2px]'>
+                  {
+                    "Meeting-1"
+                  }
+                </p>
+              </div>
+            </div>
+            <LocalVideoTrackView tracks={tracks} />
+            <RemoteVideoTracksView client={client} />
+            <Controls tracks={tracks} setInCall={setInCall} />
+          </div>
         </div>
       ) : (
-        <ChannelForm setInCall={setInCall} setChannelName={setChannelName} />
+        <div>
+
+        </div>
       )}
+
+      <Chat />
     </div>
-  );
-};
-
-const LocalVideoTrackView = ({ tracks }) => {
-  return (
-    <div>
-      <h2>Your Video</h2>
-      <AgoraVideoPlayer
-        videoTrack={tracks[1]}
-        style={{ width: "320px", height: "240px" }}
-      />
-    </div>
-  );
-};
-
-const RemoteVideoTracksView = ({ client }) => {
-  const [remoteUsers, setRemoteUsers] = useState([]);
-
-  useEffect(() => {
-    const subscribeToRemoteUser = async (user) => {
-      await client.subscribe(user, "video");
-      setRemoteUsers((prevUsers) => [...prevUsers, user]);
-    };
-
-    const unsubscribeFromRemoteUser = (user) => {
-      setRemoteUsers((prevUsers) =>
-        prevUsers.filter((prevUser) => prevUser.uid !== user.uid)
-      );
-    };
-
-    // Subscribe to existing remote users' video tracks
-    client.remoteUsers.forEach(subscribeToRemoteUser);
-
-    // Event listener for when a new user publishes their video
-    client.on("user-published", async (user, mediaType) => {
-      await client.subscribe(user, mediaType);
-      if (mediaType === "video") {
-        subscribeToRemoteUser(user);
-      }
-      if (mediaType === "audio") {
-        user.audioTrack?.play();
-      }
-    });
-
-    // Event listener for when a user unpublishes their video
-    client.on("user-unpublished", (user) => {
-      unsubscribeFromRemoteUser(user);
-    });
-
-    // Event listener for when a user leaves the channel
-    client.on("user-left", (user) => {
-      // Remove the user's video from the view
-      unsubscribeFromRemoteUser(user);
-    });
-
-    return () => {
-      client.removeAllListeners();
-    };
-  }, [client]);
-
-  return (
-    <div>
-      <h2>Remote Participants</h2>
-      {remoteUsers.map((user) => (
-        <AgoraVideoPlayer
-          key={user.uid}
-          videoTrack={user.videoTrack}
-          style={{ width: "320px", height: "240px" }}
-        />
-      ))}
-    </div>
-  );
-};
-
-const Controls = ({ tracks, setInCall }) => {
-  const client = useClient();
-  const [trackState, setTrackState] = useState({ video: true, audio: true });
-
-  const toggleMute = async (type) => {
-    if (type === "audio") {
-      await tracks[0].setEnabled(!trackState.audio);
-      setTrackState((prevState) => ({ ...prevState, audio: !prevState.audio }));
-    } else if (type === "video") {
-      await tracks[1].setEnabled(!trackState.video);
-      setTrackState((prevState) => ({ ...prevState, video: !prevState.video }));
-    }
-  };
-
-  const leaveChannel = async () => {
-    await client.leave();
-    client.removeAllListeners();
-    tracks[0].close();
-    tracks[1].close();
-    setInCall(false);
-  };
-
-  return (
-    <div>
-      <button onClick={() => toggleMute("audio")}>
-        {trackState.audio ? "Mute Audio" : "Unmute Audio"}
-      </button>
-      <button onClick={() => toggleMute("video")}>
-        {trackState.video ? "Mute Video" : "Unmute Video"}
-      </button>
-      <button onClick={leaveChannel}>Leave</button>
-    </div>
-  );
-};
-
-const ChannelForm = ({ setInCall, setChannelName }) => {
-  return (
-    <form>
-      <input
-        type="text"
-        placeholder="Enter Channel Name"
-        onChange={(e) => setChannelName(e.target.value)}
-      />
-      <button onClick={() => setInCall(true)}>Join</button>
-    </form>
   );
 };
 

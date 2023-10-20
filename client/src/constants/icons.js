@@ -13,8 +13,14 @@ import premium from "../assets/icons/premium.png";
 import round from "../assets/icons/round.png";
 import zoomifyLogo from "../assets/icons/zoomifyLogo.png";
 import closeBtn from "../assets/icons/closeBtn.png";
-import send from "../assets/icons/send.png"
-import tickMark from "../assets/icons/tickMark.png"
+import send from "../assets/icons/send.png";
+import tickMark from "../assets/icons/tickMark.png";
+import mute from "../assets/icons/mute.png";
+import unmute from "../assets/icons/unmute.png";
+import share from "../assets/icons/share.png";
+import endCall from "../assets/icons/endCall.png";
+import videoOn from "../assets/icons/videoOn.png";
+import videoOff from "../assets/icons/videoOff.png";
 
 //IMAGES
 import profile from "../assets/images/profile.png"
@@ -39,4 +45,10 @@ export {
     send,
     tickMark,
     noProfile,
+    mute,
+    unmute,
+    share,
+    endCall,
+    videoOn,
+    videoOff,
 }

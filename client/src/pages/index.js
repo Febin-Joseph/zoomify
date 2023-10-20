@@ -9,6 +9,9 @@ import Rightside from './signup/Rightside'
 import PageNotFound from './PageNotFound/PageNotFound.JSX'
 import Chat from './videoCall/chat/Chat'
 import Room from './videoCall/room/Room'
+import Controls from './videoCall/room/Controls'
+import RemoteVideoTracksView from './videoCall/room/RemoteVideoTracksView'
+import LocalVideoTrackView from './videoCall/room/LocalVideoTrackView'
 import WaitingRoom from './waitingRoom/WaitingRoom'
 import PricingPlans from './pricing-plans/PricingPlans'
 import PaymentMethod from './pricing-plans/PaymentMethod'
@@ -24,6 +27,9 @@ export {
     PageNotFound,
     Chat,
     Room,
+    Controls,
+    RemoteVideoTracksView,
+    LocalVideoTrackView,
     WaitingRoom,
     PricingPlans,
     PaymentMethod,
