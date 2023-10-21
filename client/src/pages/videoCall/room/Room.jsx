@@ -59,7 +59,7 @@ const Room = () => {
         "7457a70d4d864646b16e8fc3f75413ff",
         channelName,
         agoraToken,
-        null
+        uid,
       );
 
       if (ready && tracks && tracks.length >= 2) {
