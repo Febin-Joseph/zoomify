@@ -14,6 +14,7 @@ const NewMeeting = () => {
   const [userId, setUserId] = useState(localStorage.getItem('_id'));
 
   const navigate = useNavigate();
+  const uid = Math.floor(Math.random() * 100000);
 
   //name verification middleware
   function handleNameVerification() {
@@ -157,7 +158,7 @@ const NewMeeting = () => {
                 width={60}
                 height={60}
                 onClick={() => {
-                  navigate(`/room/${roomId}`)
+                  navigate(`/room/${roomId}/${uid}`)
                 }}
               />
             </div>

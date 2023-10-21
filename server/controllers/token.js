@@ -6,9 +6,9 @@ export const genToken = async (req, res) => {
         const appId = process.env.AGORA_APP_ID;
         const appCertificate = process.env.AGORA_CERTIFICATE;
         const channelName = req.params.channelName;
-        const uid = req.params.uid;
+        const uid = req.params.uid
         const role = req.params.role;
-        const expireTime = req.params.expireTime;
+        const expireTime = 36;
 
         if (!appId || !appCertificate) {
             return res.status(500).json({ message: 'Agora credentials not found' });
@@ -27,11 +27,17 @@ export const genToken = async (req, res) => {
             return res.status(400).json({ message: 'Invalid role' });
         }
 
-        const privilegeExpireTime = parseInt(expireTime);
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+        const privilegeExpireTime = currentTimestamp + expireTime;
 
         const token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, rtcRole, privilegeExpireTime);
-
-        return res.json({ token });
+        console.log('appId:', appId);
+        console.log('appCertificate:', appCertificate);
+        console.log('channelName:', channelName);
+        console.log('uid:', uid);
+        console.log('rtcRole:', rtcRole);
+        console.log('privilegeExpireTime:', privilegeExpireTime)
+        return res.json({ uid, token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });

@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
 import { profile } from '../../constants/icons';
 import { nameVerification } from '../../middleware';
+import { useNavigate } from 'react-router-dom';
 
 const JoinMeeting = () => {
   const [nameValidation, setNameValidation] = useState('')
   const [verificationStatus, setVerificationStatus] = useState('');
   const [nameVerified, setNameVerified] = useState(false);
+  const [roomId, setRoomId] = useState('')
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (verificationStatus.includes('successful')) {
@@ -18,7 +22,19 @@ const JoinMeeting = () => {
   function handleNameVerification() {
     const status = nameVerification(nameValidation);
     setVerificationStatus(status);
+
+    if (status.includes('successful')) {
+      localStorage.setItem('_userName', nameValidation);
+    }
   }
+
+  //retreiving storaed name from local storage
+  useEffect(() => {
+    const savedName = localStorage.getItem('_userName');
+    if (savedName) {
+      setNameValidation(savedName);
+    }
+  }, []);
 
   return (
     <div className='flex flex-col bg-[#000] min-h-screen max-h-full'>
@@ -72,8 +88,8 @@ const JoinMeeting = () => {
               width={85}
               height={8}
               placeholder={"Meeting ID"}
-              change={''}
-              value={''}
+              change={(e) => setRoomId(e.target.value)}
+              value={roomId}
             />
             <div className='mt-[-35px]'>
               <InputBtn
@@ -97,6 +113,9 @@ const JoinMeeting = () => {
                 value={"Join Meeting"}
                 width={60}
                 height={60}
+                onClick={() => {
+                  navigate(`/room/${roomId}`)
+                }}
               />
             </div>
 
@@ -146,8 +165,8 @@ const JoinMeeting = () => {
           width={85}
           height={8}
           placeholder={"Meeting ID"}
-          change={''}
-          value={''}
+          change={(e) => setRoomId(e.target.value)}
+          value={roomId}
         />
 
         <InputBtn
@@ -172,6 +191,9 @@ const JoinMeeting = () => {
             width={60}
             height={60}
             maxWidth={'max-w-[300px]'}
+            onClick={() => {
+              navigate(`/room/${roomId}`)
+            }}
           />
         </div>
       </div>

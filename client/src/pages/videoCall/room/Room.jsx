@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   createClient,
   createMicrophoneAndCameraTracks,
-  AgoraVideoPlayer,
 } from "agora-rtc-react";
 
 import { useParams } from "react-router-dom";
 import Chat from "../chat/Chat";
 import { BackIcon } from "../../../components";
 import { LocalVideoTrackView, RemoteVideoTracksView, Controls } from "../../../pages";
+import axios from "axios";
 
 const config = {
   mode: "rtc",
@@ -19,25 +19,24 @@ const useClient = createClient(config);
 const useMicrophoneAndCamera = createMicrophoneAndCameraTracks();
 
 const Room = () => {
-  const { roomid } = useParams();
+  const { roomid, uid } = useParams();
   const meetingName = roomid
   const [inCall, setInCall] = useState(false);
   const [channelName, setChannelName] = useState(meetingName);
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCamera();
 
-
-
   const fetchToken = async (channelName, uid, role, expireTime) => {
     const tokenURL = `https://zoomify-backend.onrender.com/agora/token-gen/${channelName}/${uid}/${role}/${expireTime}`;
 
     try {
-      const response = await fetch(tokenURL);
-      if (response.ok) {
-        const data = await response.json();
+      const response = await axios.get(tokenURL);
+
+      if (response.status === 200) {
+        const data = response.data;
         return data.token;
       } else {
-        console.error('Failed to fetch Agora token');
+        console.error('Failed to fetch Agora token:', response.status, response.statusText);
         return null;
       }
     } catch (error) {
@@ -48,8 +47,8 @@ const Room = () => {
 
 
   useEffect(() => {
-    const init = async (name) => {
-      const agoraToken = await fetchToken(channelName, name, "publisher", 3600);
+    const init = async (channelName) => {
+      const agoraToken = await fetchToken(channelName, uid, "publisher");
 
       if (!agoraToken) {
         console.error("Failed to fetch Agora token");
@@ -58,8 +57,8 @@ const Room = () => {
 
       await client.join(
         "7457a70d4d864646b16e8fc3f75413ff",
-        name,
-        "007eJxTYMj9PkOKK+paivTt6ssLS+fmuOoXWC+YGGkcWWt89MyF108UGMxNTM0TzQ1STFIszEyAMMnQLNUiLdk4zdzUxNA4LU18onFqQyAjQ8IODUZGBggE8ZkZDI2MGRgAGUcdpA==",
+        channelName,
+        agoraToken,
         null
       );
 
