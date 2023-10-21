@@ -29,7 +29,7 @@ const Room = () => {
 
 
   const fetchToken = async (channelName, uid, role, expireTime) => {
-    const tokenURL = `http://localhost:4000/agora/token-gen/${channelName}/${uid}/${role}/${expireTime}`;
+    const tokenURL = `https://zoomify-backend.onrender.com/agora/token-gen/${channelName}/${uid}/${role}/${expireTime}`;
 
     try {
       const response = await fetch(tokenURL);
@@ -59,7 +59,7 @@ const Room = () => {
       await client.join(
         "7457a70d4d864646b16e8fc3f75413ff",
         name,
-        "007eJxTYNhhdtArfaHmjdIPXKfyA1Muqy4+YaN8f8mqqP6dV64JflFSYDA3MTVPNDdIMUmxMDMBwiRDs1SLtGTjNHNTE0PjtDRmW6PUhkBGBg5ZdRZGBggE8ZkZDI2MGRgAMOcc3w==",
+        "007eJxTYMj9PkOKK+paivTt6ssLS+fmuOoXWC+YGGkcWWt89MyF108UGMxNTM0TzQ1STFIszEyAMMnQLNUiLdk4zdzUxNA4LU18onFqQyAjQ8IODUZGBggE8ZkZDI2MGRgAGUcdpA==",
         null
       );
 

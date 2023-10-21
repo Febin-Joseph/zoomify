@@ -8,6 +8,8 @@ const RemoteVideoTracksView = ({ client }) => {
       const subscribeToRemoteUser = async (user) => {
         await client.subscribe(user, "video");
         setRemoteUsers((prevUsers) => [...prevUsers, user]);
+        const saveUserUid = localStorage.setItem("user_UID", user.uid)
+        alert(user.uid)
       };
   
       const unsubscribeFromRemoteUser = (user) => {
