@@ -67,6 +67,24 @@ const Room = () => {
         await client.publish([tracks[0], tracks[1]]);
         setInCall(true);
       }
+
+      client.on("token-privilege-will-expire", async function () {
+        let token = await fetchToken(channelName, uid, "publisher");
+        await client.renewToken(token);
+      });
+
+      // When token-privilege-did-expire occurs, fetches a new token from the server and call join to rejoin the channel.
+      client.on("token-privilege-did-expire", async function () {
+        console.log("Fetching the new Token")
+        let token = await fetchToken(channelName, uid, "publisher");
+        console.log("Rejoining the channel with new Token")
+        await client.join(
+          "7457a70d4d864646b16e8fc3f75413ff",
+          channelName,
+          agoraToken,
+          uid,
+        );
+      });
     };
 
     if (ready) {
