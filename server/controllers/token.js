@@ -8,7 +8,7 @@ export const genToken = async (req, res) => {
         const channelName = req.params.channelName;
         const uid = req.params.uid
         const role = req.params.role;
-        const expireTime = 360000;
+        const expireTime = 1;//1 hour
 
         if (!appId || !appCertificate) {
             return res.status(500).json({ message: 'Agora credentials not found' });
@@ -28,10 +28,10 @@ export const genToken = async (req, res) => {
         }
 
         const currentTimestamp = Math.floor(Date.now() / 1000);
-        const privilegeExpireTime = currentTimestamp + expireTime;
+        const privilegeExpireTime = currentTimestamp + expireTime * 3600;
 
         const token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, rtcRole, privilegeExpireTime);
-        return res.json({ uid, token });
+        return res.json({ uid, token, privilegeExpireTime });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
