@@ -28,7 +28,6 @@ const Room = () => {
 
   const fetchToken = async (channelName, uid, role, expireTime) => {
     const tokenURL = `https://zoomify-backend.onrender.com/agora/token-gen/${channelName}/${uid}/${role}/${expireTime}`;
-
     try {
       const response = await axios.get(tokenURL);
 
@@ -49,6 +48,8 @@ const Room = () => {
   useEffect(() => {
     const init = async (channelName) => {
       const agoraToken = await fetchToken(channelName, uid, "publisher");
+      const saveUid = localStorage.setItem("_userUID", uid)
+      const saveToken = localStorage.setItem("_agora_token", agoraToken)
 
       if (!agoraToken) {
         console.error("Failed to fetch Agora token");
