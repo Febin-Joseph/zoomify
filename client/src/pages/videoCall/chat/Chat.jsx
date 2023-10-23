@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 const Chat = () => {
     const socket = useSocket();
     const { roomid } = useParams();
+    const roomId = roomid;
 
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
@@ -17,18 +18,19 @@ const Chat = () => {
 
     const handleSendMessage = () => {
         if (newMessage.trim() !== '') {
-            // a new message object with sender socket ID, timestamp, and content
             const message = {
                 senderSocketId: currentusersocketid,
                 content: newMessage,
                 timestamp: Date.now(),
             };
 
-            // Emitting the message to the server with the room info and the complete message object
-            socket.emit('chat:message', { message, roomId: roomid });
-
-            // Clearing the input fieldafter sending
-            setNewMessage('');
+            try {
+                socket.emit('chat:message', { message, roomId });
+                console.log(message, roomId);
+                setNewMessage('');
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
         }
     };
 
@@ -38,17 +40,20 @@ const Chat = () => {
 
     //Listen for incoming messages from the server
     useEffect(() => {
-        socket.on('chat:message', (data) => {
-            const { message, roomId } = data;
-            // Updating the chatMessages state to include the received message
-            setChatMessages([...chatMessages, message]);
-        });
-
+        try {
+            socket.on('chat:message', (data) => {
+                const { message } = data;
+                setChatMessages((prevMessages) => [...prevMessages, message]);
+            });
+        } catch (error) {
+            console.error('Socket event error:', error);
+        }
+    
         // Cleaning up the event listener when the component unmounts
         return () => {
             socket.off('chat:message');
         };
-    }, [chatMessages, socket]);
+    }, [socket]);
 
     return (
         <div>

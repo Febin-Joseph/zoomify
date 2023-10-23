@@ -11,7 +11,6 @@ const formatTimestamp = (timestamp) => {
 };
 
 const Message = ({ message, isCurrentScreen }) => {
-  console.log(message.content)
   const formattedTime = formatTimestamp(message.timestamp);
 
   return (

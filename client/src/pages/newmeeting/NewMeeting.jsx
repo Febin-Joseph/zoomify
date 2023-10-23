@@ -253,7 +253,7 @@ const NewMeeting = () => {
             height={60}
             maxWidth={'max-w-[300px]'}
             onClick={() => {
-              navigate(`/room/${roomId}`)
+              navigate(`/room/${roomId}/${uid}`)
             }}
           />
         </div>
