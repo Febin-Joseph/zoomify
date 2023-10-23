@@ -11,7 +11,9 @@ const formatTimestamp = (timestamp) => {
 };
 
 const Message = ({ message, isCurrentScreen }) => {
+  console.log(message.content)
   const formattedTime = formatTimestamp(message.timestamp);
+
   return (
     <div className={`flex ${isCurrentScreen ? 'justify-end m-3' : 'justify-start m-3'}`}>
       <div

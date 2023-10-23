@@ -1,51 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { closeBtn } from '../../../constants/icons';
 import { ChatNav, Message, MsgInput } from '../../../components';
-// import { useSocket } from '../../../utils/SocketProvider';
+import { useSocket } from '../../../utils/SocketProvider';
+import { useParams } from 'react-router-dom';
 
 const Chat = () => {
-    // const socket = useSocket();
+    const socket = useSocket();
+    const { roomid } = useParams();
 
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [showMessages, setShowMessages] = useState(true);
     const [closeChat, setCloseChat] = useState(true)
 
-    // const 'currentusersocketid' = socket.id;
+    const currentusersocketid = socket.id;
 
     const handleSendMessage = () => {
         if (newMessage.trim() !== '') {
             // a new message object with sender socket ID, timestamp, and content
             const message = {
-                senderSocketId: 'currentusersocketid',
+                senderSocketId: currentusersocketid,
                 content: newMessage,
                 timestamp: Date.now(),
             };
 
             // Emitting the message to the server with the room info and the complete message object
-            // socket.emit('chat:message', { message, room: '1' });
+            socket.emit('chat:message', { message, roomId: roomid });
 
             // Clearing the input fieldafter sending
             setNewMessage('');
         }
     };
+
     function handleClose() {
         setCloseChat(false)
     }
 
-    // Listen for incoming messages from the server
-    // useEffect(() => {
-    //     socket.on('chat:message', (data) => {
-    //         const { message } = data;
-    //         // Updating the chatMessages state to include the received message
-    //         setChatMessages([...chatMessages, message]);
-    //     });
+    //Listen for incoming messages from the server
+    useEffect(() => {
+        socket.on('chat:message', (data) => {
+            const { message, roomId } = data;
+            // Updating the chatMessages state to include the received message
+            setChatMessages([...chatMessages, message]);
+        });
 
-    //     // Cleaning up the event listener when the component unmounts
-    //     return () => {
-    //         socket.off('chat:message');
-    //     };
-    // }, [chatMessages, socket]);
+        // Cleaning up the event listener when the component unmounts
+        return () => {
+            socket.off('chat:message');
+        };
+    }, [chatMessages, socket]);
 
     return (
         <div>
@@ -66,7 +69,7 @@ const Chat = () => {
                             <Message
                                 key={index}
                                 message={message}
-                                isCurrentScreen={message.senderSocketId === 'currentusersocketid'}
+                                isCurrentScreen={message.senderSocketId === currentusersocketid}
                             />
                         ))}
                     </div>
@@ -101,7 +104,7 @@ const Chat = () => {
                                     <Message
                                         key={index}
                                         message={message}
-                                        isCurrentScreen={message.senderSocketId === 'currentusersocketid'}
+                                        isCurrentScreen={message.senderSocketId === currentusersocketid}
                                     />
                                 ))}
                             </div>

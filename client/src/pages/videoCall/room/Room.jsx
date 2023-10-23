@@ -73,7 +73,6 @@ const Room = () => {
         await client.renewToken(token);
       });
 
-      // When token-privilege-did-expire occurs, fetches a new token from the server and call join to rejoin the channel.
       client.on("token-privilege-did-expire", async function () {
         console.log("Fetching the new Token")
         let token = await fetchToken(channelName, uid, "publisher");

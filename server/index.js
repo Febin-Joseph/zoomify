@@ -14,6 +14,7 @@ import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
 import passport from 'passport';
 import cookieSession from 'cookie-session';
+import { Server } from 'socket.io';
 // import insertPlans from './db-data/plansData.js';
 
 //RATELIMIT
@@ -36,7 +37,7 @@ app.use(
     })
 )
 app.use(cors({
-    origin: [ 'https://zoomify.vercel.app', 'http://localhost:3000' ],
+    origin: ['https://zoomify.vercel.app', 'http://localhost:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));
@@ -196,3 +197,17 @@ mongoose.connect(process.env.MONGO_URL, {
 // PORT CONNECTION
 const PORT = 4000;
 const server = app.listen(PORT, () => console.log(`server started on port : ${PORT}`));
+
+
+//SOCKET CONNECTION
+const io = new Server(server, {
+    cors: true,
+});
+
+io.on('connection', (socket) => {
+    socket.on('chat:message', (data) => {
+        const { message, roomId } = data;
+        // Broadcast the chat message to all users in the room
+        io.to(roomId).emit('chat:message', { message, roomId });
+    });
+});
