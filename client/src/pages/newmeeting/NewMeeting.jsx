@@ -20,7 +20,7 @@ const NewMeeting = () => {
   //FETCHING MEETING ID
   async function meetingId() {
     try {
-      const response = await axios.get("http://localhost:4000/meeting/id")
+      const response = await axios.get("https://zoomify-backend.onrender.com/meeting/id")
       const data = response.data.meetingID
       if (data) {
         setRoomId(data)
@@ -37,7 +37,7 @@ const NewMeeting = () => {
   //FETCHING MEETING PASSWORD
   async function meetingPswd() {
     try {
-      const response = await axios.get("http://localhost:4000/meeting/pswd")
+      const response = await axios.get("https://zoomify-backend.onrender.com/meeting/pswd")
       const data = response.data.meetingPswd
       if (data) {
         setMeetingPassword(data)
