@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { copy, goBtn2, lock } from '../../../constants/icons';
+import { useNavigate } from 'react-router-dom';
 
 const InputBtn = ({ ...props }) => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [payMsg, setPayMsg] = useState(false)
+
+  const navigate = useNavigate();
 
   const inputStyle = {
     width: props.width ? `${props.width}vw` : '90px',
@@ -62,7 +65,10 @@ const InputBtn = ({ ...props }) => {
 
             {/* Displaying Paying Notification  */}
             {payMsg && (
-              <div className="w-[230px] rounded-[30px] bg-[#515977] p-2 absolute bottom-[43px] -right-3 flex">
+              <div 
+              className="w-[230px] rounded-[30px] bg-[#515977] p-2 absolute bottom-[43px] -right-3 flex"
+              onClick={() => navigate('/plans')}
+              >
                 <p className='text-start text-[12px] text-white w-40 ml-3'>
                   PAY FOR UNLOCK SETTING ID AND PASSWORD
                 </p>
