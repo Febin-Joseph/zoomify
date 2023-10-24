@@ -169,7 +169,6 @@ const NewMeeting = () => {
               value={roomId}
               showCopyIcon={true}
               disabled={true}
-              pswd={meetingPassword}
             />
             <div className='mt-[-35px]'>
               <InputBtn
@@ -181,6 +180,7 @@ const NewMeeting = () => {
                 value={meetingPassword}
                 showCopyIcon={true}
                 disabled={true}
+                pswd={meetingPassword}
               />
             </div>
             <div className='flex items-center justify-center'>
