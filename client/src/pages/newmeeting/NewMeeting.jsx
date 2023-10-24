@@ -100,7 +100,7 @@ const NewMeeting = () => {
   }, [verificationStatus]);
 
   return (
-    <div className='flex flex-col bg-[#000] min-h-screen max-h-full overflow-y-hidden'>
+    <div className='flex flex-col bg-[#000] min-h-screen max-h-full overflow-x-hidden'>
       <Nav value={"New Meeting"} />
 
       <div className='hidden lg:flex lg:items-center lg:justify-center lg:w-[50%]
