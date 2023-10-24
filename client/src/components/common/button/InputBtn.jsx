@@ -23,6 +23,16 @@ const InputBtn = ({ ...props }) => {
     setPayMsg(false);
   }
 
+  const handleMeetingIdCopy = () => {
+    navigator.clipboard.writeText(props.value)
+    alert("copied")
+  }
+
+  const handleMeetingPswdCopy = () => {
+    navigator.clipboard.writeText(props.pswd)
+    alert("copied")
+  }
+
   return (
     <div className='flex flex-col items-center mt-10 lg:mt-0'>
       <label className='text-[#FBFBFB] text-[15px] text-left mb-2 mr-56'>
@@ -55,7 +65,9 @@ const InputBtn = ({ ...props }) => {
             <img
               src={copy}
               alt="Copy"
-              className='w-[30px]' />
+              className='w-[30px]'
+              onClick={handleMeetingIdCopy}
+            />
             <img
               src={lock}
               alt="lock"
@@ -65,9 +77,9 @@ const InputBtn = ({ ...props }) => {
 
             {/* Displaying Paying Notification  */}
             {payMsg && (
-              <div 
-              className="w-[230px] rounded-[30px] bg-[#515977] p-2 absolute bottom-[43px] -right-3 flex"
-              onClick={() => navigate('/plans')}
+              <div
+                className="w-[230px] rounded-[30px] bg-[#515977] p-2 absolute bottom-[43px] -right-3 flex"
+                onClick={() => navigate('/plans')}
               >
                 <p className='text-start text-[12px] text-white w-40 ml-3'>
                   PAY FOR UNLOCK SETTING ID AND PASSWORD

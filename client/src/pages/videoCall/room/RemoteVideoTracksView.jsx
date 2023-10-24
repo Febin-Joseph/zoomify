@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { AgoraVideoPlayer } from 'agora-rtc-react';
+import { Screen } from '../../../components';
 
 const RemoteVideoTracksView = ({ client }) => {
   const [remoteUsers, setRemoteUsers] = useState([]);
@@ -49,11 +50,13 @@ const RemoteVideoTracksView = ({ client }) => {
   return (
     <div>
       {remoteUsers.map((user) => (
-        <AgoraVideoPlayer
-          key={user.uid}
-          videoTrack={user.videoTrack}
-          style={{ width: "320px", height: "240px" }}
-        />
+        <Screen>
+          <AgoraVideoPlayer
+            key={user.uid}
+            videoTrack={user.videoTrack}
+            style={{ height: "100%", width: "100%" }}
+          />
+        </Screen>
       ))}
     </div>
   );
