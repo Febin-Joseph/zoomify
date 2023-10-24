@@ -3,18 +3,54 @@ import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
 import { noProfile } from '../../constants/icons';
 import { nameVerification } from '../../middleware';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const NewMeeting = () => {
   const [nameValidation, setNameValidation] = useState('')
   const [verificationStatus, setVerificationStatus] = useState('');
   const [nameVerified, setNameVerified] = useState(false);
   const [roomId, setRoomId] = useState('')
-  const [room, setRoom] = useState('')
+  const [meetingPassword, setMeetingPassword] = useState('')
   const [profileImage, setProfileImage] = useState('');
   const [userId, setUserId] = useState(localStorage.getItem('_id'));
 
   const navigate = useNavigate();
   const uid = Math.floor(Math.random() * 100000);
+
+  //FETCHING MEETING ID
+  async function meetingId() {
+    try {
+      const response = await axios.get("http://localhost:4000/meeting/id")
+      const data = response.data.meetingID
+      if (data) {
+        setRoomId(data)
+      }
+    } catch (error) {
+      console.error('Error fetching meeting ID:', error);
+    }
+  }
+
+  useEffect(() => {
+    meetingId();
+  }, []);
+
+  //FETCHING MEETING PASSWORD
+  async function meetingPswd() {
+    try {
+      const response = await axios.get("http://localhost:4000/meeting/pswd")
+      const data = response.data.meetingPswd
+      if (data) {
+        setMeetingPassword(data)
+      }
+    } catch (error) {
+      console.error('Error fetching meeting ID:', error);
+    }
+  }
+
+  useEffect(() => {
+    meetingPswd();
+  }, []);
+
 
   //name verification middleware
   function handleNameVerification() {
@@ -130,9 +166,9 @@ const NewMeeting = () => {
               width={85}
               height={8}
               placeholder={"Meeting ID"}
-              change={(e) => setRoomId(e.target.value)}
               value={roomId}
               showCopyIcon={true}
+              disabled={true}
             />
             <div className='mt-[-35px]'>
               <InputBtn
@@ -141,9 +177,9 @@ const NewMeeting = () => {
                 width={85}
                 height={8}
                 placeholder={"Meeting Password"}
-                change={(e) => setRoom(e.target.value)}
-                value={room}
+                value={meetingPassword}
                 showCopyIcon={true}
+                disabled={true}
               />
             </div>
             <div className='flex items-center justify-center'>
@@ -224,9 +260,9 @@ const NewMeeting = () => {
           width={85}
           height={8}
           placeholder={"Meeting ID"}
-          change={(e) => setRoomId(e.target.value)}
           value={roomId}
           showCopyIcon={true}
+          disabled={true}
         />
 
         <InputBtn
@@ -235,9 +271,9 @@ const NewMeeting = () => {
           width={85}
           height={8}
           placeholder={"Meeting Password"}
-          change={(e) => setRoom(e.target.value)}
-          value={room}
+          value={meetingPassword}
           showCopyIcon={true}
+          disabled={true}
         />
 
         <div className='flex items-center justify-center'>

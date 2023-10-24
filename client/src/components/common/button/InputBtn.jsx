@@ -44,6 +44,7 @@ const InputBtn = ({ ...props }) => {
           onChange={props.change}
           placeholder={props.placeholder}
           inputMode={props.inputMode}
+          disabled={props.disabled}
         />
         {isHovered && props.showCopyIcon && (
           <div className='absolute top-2.5 right-2 space-x-2 flex items-center 

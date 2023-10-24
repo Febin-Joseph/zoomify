@@ -9,6 +9,7 @@ import authRoutes from './routes/auth.js'
 import plansRoutes from './routes/plans.js'
 import profileRoutes from './routes/profile.js'
 import tokenRoutes from './routes/token.js'
+import meetingRoutes from "./routes/meeting.js"
 import Razorpay from 'razorpay'
 import Stripe from 'stripe';
 import paypal from 'paypal-rest-sdk'
@@ -55,6 +56,7 @@ app.use('/auth', authRoutes)
 app.use('/api/plans', plansRoutes)
 app.use('/profile', profileRoutes)
 app.use('/agora', tokenRoutes)
+app.use('/meeting', meetingRoutes)
 
 
 //RAZORPAY

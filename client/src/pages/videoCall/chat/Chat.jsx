@@ -5,14 +5,14 @@ import { useSocket } from '../../../utils/SocketProvider';
 import { useParams } from 'react-router-dom';
 
 const Chat = () => {
-    const socket = useSocket();
-    const { roomid } = useParams();
-    const roomId = roomid;
-
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [showMessages, setShowMessages] = useState(true);
     const [closeChat, setCloseChat] = useState(true)
+
+    const socket = useSocket();
+    const { roomid } = useParams();
+    const roomId = roomid;
 
     const currentusersocketid = socket.id;
 
@@ -25,8 +25,8 @@ const Chat = () => {
             };
 
             try {
-                socket.emit('chat:message', { message, roomId });
-                console.log(message, roomId);
+                socket.emit('chat:message', message);
+                console.log(message);
                 setNewMessage('');
             } catch (error) {
                 console.error('Error sending message:', error);
@@ -48,12 +48,12 @@ const Chat = () => {
         } catch (error) {
             console.error('Socket event error:', error);
         }
-    
+
         // Cleaning up the event listener when the component unmounts
         return () => {
             socket.off('chat:message');
         };
-    }, [socket]);
+    }, [chatMessages, socket]);
 
     return (
         <div>
@@ -70,6 +70,13 @@ const Chat = () => {
                 </div>
                 <div className="flex flex-col">
                     <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
+                        <ul>
+                            {chatMessages.map((message, index) => (
+                                <li
+                                    key={index}
+                                >{message.content}</li>
+                            ))}
+                        </ul>
                         {showMessages && chatMessages.map((message, index) => (
                             <Message
                                 key={index}
