@@ -70,13 +70,6 @@ const Chat = () => {
                 </div>
                 <div className="flex flex-col">
                     <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
-                        <ul>
-                            {chatMessages.map((message, index) => (
-                                <li
-                                    key={index}
-                                >{message.content}</li>
-                            ))}
-                        </ul>
                         {showMessages && chatMessages.map((message, index) => (
                             <Message
                                 key={index}

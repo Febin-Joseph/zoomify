@@ -180,7 +180,6 @@ const NewMeeting = () => {
                 value={meetingPassword}
                 showCopyIcon={true}
                 disabled={true}
-                pswd={meetingPassword}
               />
             </div>
             <div className='flex items-center justify-center'>

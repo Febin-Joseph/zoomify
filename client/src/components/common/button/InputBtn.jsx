@@ -23,13 +23,8 @@ const InputBtn = ({ ...props }) => {
     setPayMsg(false);
   }
 
-  const handleMeetingIdCopy = () => {
+  const handleMeetingCopy = () => {
     navigator.clipboard.writeText(props.value)
-    alert("copied")
-  }
-
-  const handleMeetingPswdCopy = () => {
-    navigator.clipboard.writeText(props.pswd)
     alert("copied")
   }
 
@@ -66,7 +61,7 @@ const InputBtn = ({ ...props }) => {
               src={copy}
               alt="Copy"
               className='w-[30px]'
-              onClick={handleMeetingIdCopy}
+              onClick={handleMeetingCopy}
             />
             <img
               src={lock}
