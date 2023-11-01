@@ -5,15 +5,12 @@ import './index.css';
 import AppRoutes from './routes/AppRoutes';
 import store from './redux/auth/authReducers';
 import { SocketProvider } from './utils/SocketProvider';
-import { ActiveScreensProvider } from './utils/ActiveScreensContext';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <SocketProvider>
-        <ActiveScreensProvider>
-          <AppRoutes />
-        </ActiveScreensProvider>
+        <AppRoutes />
       </SocketProvider>
     </React.StrictMode>
   </Provider>,

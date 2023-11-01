@@ -50,7 +50,7 @@ const RemoteVideoTracksView = ({ client }) => {
   return (
     <div>
       {remoteUsers.map((user) => (
-        <Screen>
+        <Screen remoteUsers={remoteUsers}>
           <AgoraVideoPlayer
             key={user.uid}
             videoTrack={user.videoTrack}
