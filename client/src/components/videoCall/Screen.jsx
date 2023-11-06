@@ -4,8 +4,8 @@ const Screen = ({ children, remoteUsers }) => {
 
   return (
     <div className={`flex justify-start items-center ml-[90px]`}>
-      <div className='w-[62vw] h-[40vw] relative rounded-[30px]
-       bg-black min-w-[300px] min-h-[400px] overflow-hidden'>
+      <div className='w-[25vw] h-[20vw] relative rounded-[10px]
+       bg-black overflow-hidden'>
         {children}
       </div>
     </div>

@@ -114,8 +114,12 @@ const Room = () => {
                 </p>
               </div>
             </div>
-            <LocalVideoTrackView tracks={tracks} />
-            <RemoteVideoTracksView client={client} />
+            <div className="flex flex-row">
+              <LocalVideoTrackView tracks={tracks} />
+              <div className="lg:-ml-20">
+                <RemoteVideoTracksView client={client} />
+              </div>
+            </div>
             <Controls tracks={tracks} setInCall={setInCall} />
           </div>
         </div>
