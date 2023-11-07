@@ -48,7 +48,7 @@ const RemoteVideoTracksView = ({ client }) => {
   }, [client]);
 
   return (
-    <div>
+    <div className='flex flex-row mr-20'>
       {remoteUsers.map((user) => (
         <Screen remoteUsers={remoteUsers}>
           <AgoraVideoPlayer

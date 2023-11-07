@@ -33,7 +33,7 @@ const Controls = ({ tracks, setInCall }) => {
     };
 
     return (
-        <div className='flex align-middle justify-center'>
+        <div className='flex align-middle justify-center space-x-2'>
             <button onClick={() => toggleMute("audio")} className="flex items-center justify-center">
                 {trackState.audio ? (
                     <ControllersBg

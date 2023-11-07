@@ -9,8 +9,10 @@ const JoinMeeting = () => {
   const [verificationStatus, setVerificationStatus] = useState('');
   const [nameVerified, setNameVerified] = useState(false);
   const [roomId, setRoomId] = useState('')
+  const [meetingPassword, setMeetingPassword] = useState('')
 
   const navigate = useNavigate()
+  const uid = Math.floor(Math.random() * 100000);
 
   useEffect(() => {
     if (verificationStatus.includes('successful')) {
@@ -98,8 +100,8 @@ const JoinMeeting = () => {
                 width={85}
                 height={8}
                 placeholder={"Password"}
-                change={''}
-                value={''}
+                change={(e) => setMeetingPassword(e.target.value)}
+                value={meetingPassword}
               />
             </div>
             <div className='flex items-center justify-center'>
@@ -114,7 +116,7 @@ const JoinMeeting = () => {
                 width={60}
                 height={60}
                 onClick={() => {
-                  navigate(`/room/${roomId}`)
+                  navigate(`/room/${roomId}/${uid}`)
                 }}
               />
             </div>
@@ -175,8 +177,8 @@ const JoinMeeting = () => {
           width={85}
           height={8}
           placeholder={"Password"}
-          change={''}
-          value={''}
+          change={(e) => setMeetingPassword(e.target.value)}
+          value={meetingPassword}
         />
 
         <div className='flex items-center justify-center'>
@@ -192,7 +194,7 @@ const JoinMeeting = () => {
             height={60}
             maxWidth={'max-w-[300px]'}
             onClick={() => {
-              navigate(`/room/${roomId}`)
+              navigate(`/room/${roomId}/${uid}`)
             }}
           />
         </div>
