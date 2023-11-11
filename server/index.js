@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js'
+import socialAuthRoutes from './routes/socialAuth.js'
 import plansRoutes from './routes/plans.js'
 import profileRoutes from './routes/profile.js'
 import tokenRoutes from './routes/token.js'
@@ -51,6 +52,7 @@ app.use(passport.session());
 
 //Routes
 app.use('/auth', authRoutes)
+app.use('/auth/v1', socialAuthRoutes)
 app.use('/api/plans', plansRoutes)
 app.use('/profile', profileRoutes)
 app.use('/agora', tokenRoutes)

@@ -9,29 +9,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         max: 50,
-        validate: {
-            validator: function (value) {
-                if (this.githubId) {
-                    return true;
-                } else {
-                    return value && value.length > 0;
-                }
-            }
-        }
+        required: true,
     },
     password: {
         type: String,
-        validate: {
-            validator: function (value) {
-                if (this.githubId) {
-                    return true;
-                } else {
-                    return value && value.length > 0;
-                }
-            }
-        }
+        required: true
     },
-    githubId: String,
     otp: String,
     otpExpiration: Date,
     otpUsed: {
@@ -45,4 +28,5 @@ const userSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model('User', userSchema);
+
 export default User;
