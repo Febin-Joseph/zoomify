@@ -5,11 +5,11 @@ const AuthenicationBtn = ({ value, logo }) => {
 
   const auth = () => {
     if (value.includes('Google')) {
-      window.open('https://zoomify.backend.onrender.com/auth/google/callback',
+      window.open('https://zoomify-backend.onrender.com/auth/google/callback',
         "_self"
       )
     } else if (value.includes('Github')) {
-      window.open('https://zoomify.backend.onrender.com/auth/github/callback',
+      window.open('https://zoomify-backend.onrender.com/auth/github/callback',
         "_self"
       )
     }
