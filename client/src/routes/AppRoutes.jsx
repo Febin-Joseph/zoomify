@@ -14,15 +14,8 @@ const AppRoutes = () => {
                 <Route path='join' element={<JoinMeeting />} />
                 <Route path='signin' element={<SignIn />} />
                 <Route path='signup' element={<SignUp />} />
-                {isAuthenticated ? (
-                    <>
                         <Route path='home' element={<Home2 />} />
                         <Route path='new' element={<NewMeeting />} />
-                    </>
-                )
-                    :
-                    <Route path='signin' element={<SignIn />} />
-                }
                 <Route path='room/:roomid/:uid' element={<Room />} />
                 <Route path='plans' element={<PricingPlans />} />
             </Routes>
