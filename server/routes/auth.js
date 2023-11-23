@@ -1,7 +1,7 @@
 import express from 'express'
 import passport from 'passport';
-import { signup, login, verifyOTP } from '../controllers/auth.js'
-import { validateSignup, validateLogin } from '../controllers/auth.js'
+import { signup, login, verifyOTP } from '../controllers/auth.js';
+import { validateSignup, validateLogin } from '../controllers/auth.js';
 
 const router = express.Router()
 
@@ -42,10 +42,11 @@ router.get('/google/failed', (req, res) => {
 
 router.get('/github/callback',
     passport.authenticate('github', {
-        scope: ['profile'],
+        scope: ['email', 'profile'],
         failureRedirect: '/auth/github/failed',
     }),
     (req, res) => {
+        console.log('GitHub Callback Route Hit');
         res.redirect('/auth/github/success');
     }
 );

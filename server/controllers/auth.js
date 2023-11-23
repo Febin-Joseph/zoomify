@@ -175,6 +175,7 @@ passport.use(
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
+                console.log(profile)
                 const existingUser = await Social.findOne({ email: profile.emails[0].value })
 
                 if (existingUser) {
@@ -205,8 +206,8 @@ passport.use(
         callbackURL: 'https://zoomify-backend.onrender.com/auth/github/callback',
     },
         async (accessToken, refreshToken, profile, done) => {
-            console.log(profile);
             try {
+                console.log(profile)
                 const existingUser = await Social.findOne({ githubId: profile.id });
 
                 if (existingUser) {
