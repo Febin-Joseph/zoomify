@@ -40,7 +40,7 @@ const PlansCard = ({ plan }) => {
         <p className={`font-medium text-[35px] font-poppins ${textGradientClass}`}>
           {plan.name}
         </p>
-        <p className='text-[20px] mt-2'>{plan.price / 100}</p>
+        <p className='text-[20px] mt-2'>₹ {plan.price / 100}/month</p>
         <ul className='mt-8'>
           {plan.features.map((feature, index) => (
             <li key={index} className="flex items-center mt-4 space-x-4">
