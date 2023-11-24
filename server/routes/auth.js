@@ -42,7 +42,7 @@ router.get('/google/failed', (req, res) => {
 
 router.get('/github/callback',
     passport.authenticate('github', {
-        scope: ['email', 'profile'],
+        scope: ['user:email'],
         failureRedirect: '/auth/github/failed',
     }),
     (req, res) => {
