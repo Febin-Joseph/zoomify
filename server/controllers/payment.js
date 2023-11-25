@@ -62,7 +62,6 @@ export const paypalPay = async (req, res) => {
         'client_secret': process.env.PAYPAL_SECRET_KEY,
     });
 
-    console.log(req.body);
     const create_payment_json = {
         "intent": 'sale',
         "payer": {
@@ -96,6 +95,7 @@ export const paypalPay = async (req, res) => {
 
     paypal.payment.create(create_payment_json, (error, payment) => {
         if (error) {
+            console.error('PayPal create payment error:', error.response || error.message);
             throw error;
         } else {
             console.log(payment);

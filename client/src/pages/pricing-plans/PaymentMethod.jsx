@@ -60,7 +60,7 @@ const PaymentMethod = ({ onClose, onSelectPaymentMethod, price, productName }) =
           amount: price,
           name: productName,
         });
-    
+
         if (!response.ok) {
           throw new Error(`Error creating PayPal order: ${response.statusText}`);
         }
