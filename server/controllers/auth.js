@@ -26,7 +26,7 @@ export const signup = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    try {//PASSING THE VALUES FROM THE User.js
+    try {
         const {
             email,
             password,
@@ -47,14 +47,6 @@ export const signup = async (req, res) => {
         //Hash generated otp
         const saltOTP = await bcrypt.genSalt();
         const hashedOTP = await bcrypt.hash(otp, saltOTP)
-
-        const newUser = new User({//CREATING A NEW USER FROM THE User.js 
-            email,
-            password: hashedPassword,//STORING THE PASSWORD AS HASHED PASSWORD IN THE DB
-            otp: hashedOTP,
-            otpExpiration: otpExpires,
-        });
-        const saveUser = await newUser.save();//SAVING IT TO THE DATABASE
 
         // Sending the OTP via email
         const transporter = nodemailer.createTransport({
@@ -80,6 +72,18 @@ export const signup = async (req, res) => {
                 res.status(201).json(saveUser);
             }
         });
+
+        const newUser = new User({//CREATING A NEW USER FROM THE User.js 
+            email,
+            password: hashedPassword,//STORING THE PASSWORD AS HASHED PASSWORD IN THE DB
+            otp: hashedOTP,
+            otpExpiration: otpExpires,
+        });
+
+        if (verifyOTP) {
+            const saveUser = await newUser.save();//SAVING IT TO THE DATABASE
+        }
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

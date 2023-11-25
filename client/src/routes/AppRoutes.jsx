@@ -10,14 +10,15 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='join' element={<JoinMeeting />} />
-                <Route path='signin' element={<SignIn />} />
-                <Route path='signup' element={<SignUp />} />
-                <Route path='home' element={<Home2 />} />
-                <Route path='new' element={<NewMeeting />} />
-                <Route path='room/:roomid/:uid' element={<Room />} />
-                <Route path='plans' element={<PricingPlans />} />
+                <Route index path='/' element={<Home />} />
+                <Route path='/join' element={<JoinMeeting />} />
+                <Route path='/signin' element={<SignIn />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route path='/home' element={<Home2 />} />
+                <Route path='/new' element={<NewMeeting />} />
+                <Route path='/signin' element={<SignIn />} />
+                <Route path='/room/:roomid/:uid' element={<Room />} />
+                <Route path='/plans' element={<PricingPlans />} />
             </Routes>
         </BrowserRouter>
     );

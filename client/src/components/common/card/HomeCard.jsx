@@ -37,12 +37,14 @@ const HomeCard = ({ color, isAuthenticated }) => {
         {isAuthenticated === true ?
           <div className='flex mt-10
            flex-row justify-center m-auto'>
+
             <Home2btn
               color={'bg-[#DE5247]'}
               icon={newMeet}
               click={() => navigate('/new')}
               value={"New"}
             />
+
             <div className='md:ml-10 ml-14 '>
               <Home2btn
                 color={'bg-[#1A6093]'}
