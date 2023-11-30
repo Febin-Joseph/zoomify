@@ -1,28 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { PiVideoCameraSlashFill, PiVideoCameraFill } from "react-icons/pi";
+import { MdOutlineScreenShare } from "react-icons/md";
+import { BiSolidMicrophoneOff } from "react-icons/bi";
+import { TiMicrophone } from "react-icons/ti";
 import { createClient } from 'agora-rtc-react';
-import { ControllersBg } from '../../../components';
-import { endCall, mute, share, unmute, videoOff, videoOn } from '../../../constants/icons';
+import { MdCallEnd } from "react-icons/md";
+import { IoIosSend } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 
 const Controls = ({ tracks, setInCall }) => {
-
     const navigate = useNavigate();
 
     const config = {
-        mode: "rtc",
-        codec: "vp8",
+        mode: 'rtc',
+        codec: 'vp8',
     };
 
     const useClient = createClient(config);
-
     const client = useClient();
     const [trackState, setTrackState] = useState({ video: true, audio: true });
 
     const toggleMute = async (type) => {
-        if (type === "audio") {
+        if (type === 'audio') {
             await tracks[0].setEnabled(!trackState.audio);
             setTrackState((prevState) => ({ ...prevState, audio: !prevState.audio }));
-        } else if (type === "video") {
+        } else if (type === 'video') {
             await tracks[1].setEnabled(!trackState.video);
             setTrackState((prevState) => ({ ...prevState, video: !prevState.video }));
         }
@@ -34,60 +36,42 @@ const Controls = ({ tracks, setInCall }) => {
         tracks[0].close();
         tracks[1].close();
         setInCall(false);
-        navigate('/join')
+        navigate('/join');
     };
 
     return (
-        <div className='flex align-middle justify-center space-x-2'>
-            <button onClick={() => toggleMute("audio")} className="flex items-center justify-center">
+        <div className='flex align-middle justify-center  join'>
+            <button onClick={() => toggleMute('audio')} className='flex items-center justify-center join-item btn'>
                 {trackState.audio ? (
-                    <ControllersBg
-                        img={unmute}
-                        alt="muteMic"
-                        style="w-[40px] h-[45px] md:w-[50px] md:h-[55px]"
-                    />
+                    <TiMicrophone size={40} />
                 ) : (
-                    <ControllersBg
-                        img={mute}
-                        alt="unMuteMic"
-                        style="w-[40px] h-[45px] md:w-[50px] md:h-[55px]"
-                    />
+                    <BiSolidMicrophoneOff size={40} />
                 )}
             </button>
 
-            <button onClick={() => toggleMute("video")} className="flex items-center justify-center">
+            <button onClick={() => toggleMute('video')} className='flex items-center justify-center join-item btn'>
                 {trackState.video ? (
-                    <ControllersBg
-                        img={videoOn}
-                        alt="turn off video"
-                        style="w-[40px] h-[45px] md:w-[50px] md:h-[55px]"
-                    />
+                    <PiVideoCameraFill size={40} />
                 ) : (
-                    <ControllersBg
-                        img={videoOff}
-                        alt="turn on video"
-                        style="w-[40px] h-[45px] md:w-[50px] md:h-[55px]"
-                    />
+                    <PiVideoCameraSlashFill size={40} />
                 )}
             </button>
 
-            <button onClick={() => ""} className="flex items-center justify-center">
-                <ControllersBg
-                    img={share}
-                    alt="share screen"
-                    style="w-[30px] h-[35px] md:w-[40px] md:h-[45px]"
-                />
+            <button onClick={() => ''} className='flex items-center justify-center join-item btn'>
+                <MdOutlineScreenShare size={40} />
             </button>
+
+            <button onClick={() => ''} className='flex items-center justify-center join-item btn'>
+                <IoIosSend size={40} />
+            </button>
+
             <button
-                className='bg-[#DE5247] flex items-center justify-center w-[100px] h-[65px] rounded-[40px] md:w-[125px] md:h-[70px] md:rounded-[45px]'
+                className='flex items-center justify-center join-item btn bg-red-600'
                 onClick={leaveChannel}>
-                <img
-                    src={endCall}
-                    alt="leave meeting"
-                />
+                <MdCallEnd size={40} />
             </button>
         </div>
     );
 };
 
-export default Controls
+export default Controls;
