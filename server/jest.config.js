@@ -1,7 +1,9 @@
-module.exports = {
-    transform: {
-      '^.+\\.jsx?$': 'babel-jest',
-      '^.+\\.tsx?$': 'babel-jest',
-    },
-  };
-  
+import { defaults } from 'jest-config';
+
+export default {
+  ...defaults,
+  transform: {
+    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.tsx?$': 'babel-jest',
+  },
+};
