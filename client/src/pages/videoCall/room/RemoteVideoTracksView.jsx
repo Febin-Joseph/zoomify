@@ -48,13 +48,12 @@ const RemoteVideoTracksView = ({ client }) => {
   }, [client]);
 
   return (
-    <div className='flex flex-row mr-20'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
       {remoteUsers.map((user) => (
-        <Screen remoteUsers={remoteUsers}>
+        <Screen key={user.uid}>
           <AgoraVideoPlayer
-            key={user.uid}
             videoTrack={user.videoTrack}
-            style={{ height: "100%", width: "100%" }}
+            style={{ height: '100%', width: '100%' }}
           />
         </Screen>
       ))}

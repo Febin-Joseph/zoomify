@@ -114,7 +114,7 @@ const Room = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-row ml-[90px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 ml-[90px] mt-3">
               <LocalVideoTrackView tracks={tracks} />
               <div className="pl-4">
                 <RemoteVideoTracksView client={client} />
