@@ -44,7 +44,6 @@ const Room = () => {
     }
   };
 
-
   useEffect(() => {
     const init = async (channelName) => {
       const agoraToken = await fetchToken(channelName, uid, "publisher");
@@ -97,7 +96,9 @@ const Room = () => {
         tracks[1] && tracks[1].close();
       }
     };
+
   }, [channelName, client, ready, tracks]);
+
 
   return (
     <div>
@@ -114,7 +115,7 @@ const Room = () => {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 ml-[90px] mt-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 ml-[90px] mt-3">
               <LocalVideoTrackView tracks={tracks} />
               <div className="pl-4">
                 <RemoteVideoTracksView client={client} />

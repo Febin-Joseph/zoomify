@@ -3,12 +3,16 @@ import { closeBtn } from '../../../constants/icons';
 import { ChatNav, Message, MsgInput } from '../../../components';
 import { useSocket } from '../../../utils/SocketProvider';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCloseChat } from '../../../redux/videoCall/chatSlice';
 
 const Chat = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [showMessages, setShowMessages] = useState(true);
-    const [closeChat, setCloseChat] = useState(true)
+
+    const dispatch = useDispatch();
+    const { closeChat } = useSelector((state) => state.chat);
 
     const socket = useSocket();
     const { roomid } = useParams();
@@ -35,7 +39,7 @@ const Chat = () => {
     };
 
     function handleClose() {
-        setCloseChat(false)
+        dispatch(setCloseChat(false))
     }
 
     //Listen for incoming messages from the server
@@ -58,11 +62,13 @@ const Chat = () => {
     return (
         <div>
             {/* Style for LG and greater devices */}
+            {closeChat && (
             <div className='hidden lg:block lg:fixed lg:bottom-0 lg:right-0 lg:h-[565px] 
                             lg:rounded-tl-[20px] lg:w-[350px] bg-[#1C1C1C]'>
                 <img
                     src={closeBtn}
                     alt="close"
+                    onClick={handleClose}
                     className='absolute -top-4 -right-3 p-3 w-[85px]'
                 />
                 <div className='top-12 flex justify-center items-center mb-10 pb-1'>
@@ -88,6 +94,7 @@ const Chat = () => {
                     </div>
                 </div>
             </div>
+            )}
 
 
             {/* Style for LG lesser devices */}
