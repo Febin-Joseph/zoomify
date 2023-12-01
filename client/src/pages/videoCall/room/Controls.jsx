@@ -3,7 +3,7 @@ import { PiVideoCameraSlashFill, PiVideoCameraFill } from "react-icons/pi";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { BiSolidMicrophoneOff } from "react-icons/bi";
 import { TiMicrophone } from "react-icons/ti";
-import { createClient, createScreenVideoTrack } from 'agora-rtc-react';
+import { createClient } from 'agora-rtc-react';
 import { MdCallEnd } from "react-icons/md";
 import { IoIosSend } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +62,7 @@ const Controls = ({ tracks, setInCall }) => {
             </button>
 
             <button onClick={() => ''} className='flex items-center justify-center join-item btn'>
-                <MdOutlineScreenShare size={40} />
+                    <MdOutlineScreenShare size={40} />
             </button>
 
             <button onClick={() => dispatch(setCloseChat(true))} className='flex items-center justify-center join-item btn'>
