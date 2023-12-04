@@ -79,9 +79,14 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
+    socket.on('join-room', ({ roomId }) => {
+        socket.join(roomId);
+        // console.log(`User ${socket.id} joined room ${roomId}`);
+    });
+
     socket.on('chat:message', (data) => {
         const { message, roomId } = data;
-        // Broadcast the chat message to all users in the room
+        // console.log(`Received message for room ${roomId} from user ${socket.id}:`, message);
         io.to(roomId).emit('chat:message', { message, roomId });
     });
 });

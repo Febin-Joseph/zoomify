@@ -11,7 +11,7 @@ const formatTimestamp = (timestamp) => {
 };
 
 const Message = ({ message, isCurrentScreen }) => {
-  const formattedTime = formatTimestamp(message.timestamp);
+  const formattedTime = formatTimestamp(message?.timestamp);
 
   return (
     <div className={`flex ${isCurrentScreen ? 'justify-end m-3' : 'justify-start m-3'}`}>
@@ -20,7 +20,7 @@ const Message = ({ message, isCurrentScreen }) => {
           'bg-blue-500 text-white' : 'bg-gray-300 text-black'
           } break-words overflow-hidden relative`}
       >
-        <div className="pt-3 pl-3">{message.content}</div>
+        <div className="pt-3 pl-3">{message?.content}</div>
         <div
           className={`text-xs absolute top-0 right-0 mt-1 mr-1 text-black pr-2`}
         >

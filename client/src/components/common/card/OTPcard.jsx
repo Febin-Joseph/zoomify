@@ -45,7 +45,6 @@ const OTPcard = ({ email }) => {
     }
     axios.post(`${API_URL}/auth/verifyOtp`, data)
       .then((response) => {
-        console.log('Response from the server:', response.data);
         if (response.data.message === 'OTP verified successfully') {
           navigate('/home')
         }
