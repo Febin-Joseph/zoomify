@@ -104,7 +104,7 @@ const Room = () => {
     <div>
       {inCall ? (
         <div>
-          <div className='flex flex-col bg-[#000] min-h-screen max-h-full text-white'>
+          <div className='flex flex-col bg-[#333333] min-h-screen max-h-full text-white'>
             <div className='lg:ml-10 lg:mt-4'>
               <div className='flex mt-3 ml-5 lg:ml-5 lg:mt-0 lg:items-center'>
                 <BackIcon />
@@ -117,9 +117,7 @@ const Room = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 ml-[90px] mt-3">
               <LocalVideoTrackView tracks={tracks} />
-              <div className="pl-4">
-                <RemoteVideoTracksView client={client} />
-              </div>
+              <RemoteVideoTracksView client={client} />
             </div>
             <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 w-full flex justify-center">
               <Controls

@@ -9,6 +9,7 @@ import { IoIosSend } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCloseChat } from '../../../redux/videoCall/chatSlice';
+import { Screen } from '../../../components';
 
 const Controls = ({ tracks, setInCall }) => {
     const navigate = useNavigate();
@@ -24,13 +25,17 @@ const Controls = ({ tracks, setInCall }) => {
     const client = useClient();
     const [trackState, setTrackState] = useState({ video: true, audio: true });
 
-    const toggleMute = async (type) => {
+    const toggleMuteVideo = async (type) => {
         if (type === 'audio') {
             await tracks[0].setEnabled(!trackState.audio);
             setTrackState((prevState) => ({ ...prevState, audio: !prevState.audio }));
         } else if (type === 'video') {
             await tracks[1].setEnabled(!trackState.video);
             setTrackState((prevState) => ({ ...prevState, video: !prevState.video }));
+            return (
+                !trackState.video &&
+                <Screen screenOff={!trackState.video} trackState={trackState} />
+            )
         }
     };
 
@@ -45,7 +50,7 @@ const Controls = ({ tracks, setInCall }) => {
 
     return (
         <div className='flex align-middle justify-center join'>
-            <button onClick={() => toggleMute('audio')} className='flex items-center justify-center join-item btn'>
+            <button onClick={() => toggleMuteVideo('audio')} className='flex items-center justify-center join-item btn'>
                 {trackState.audio ? (
                     <TiMicrophone size={40} />
                 ) : (
@@ -53,7 +58,7 @@ const Controls = ({ tracks, setInCall }) => {
                 )}
             </button>
 
-            <button onClick={() => toggleMute('video')} className='flex items-center justify-center join-item btn'>
+            <button onClick={() => toggleMuteVideo('video')} className='flex items-center justify-center join-item btn'>
                 {trackState.video ? (
                     <PiVideoCameraFill size={40} />
                 ) : (
@@ -61,8 +66,10 @@ const Controls = ({ tracks, setInCall }) => {
                 )}
             </button>
 
+            {/* {!trackState.video && <Screen screenOff={!trackState.video} trackState={trackState} />} */}
+
             <button onClick={() => ''} className='flex items-center justify-center join-item btn'>
-                    <MdOutlineScreenShare size={40} />
+                <MdOutlineScreenShare size={40} />
             </button>
 
             <button onClick={() => dispatch(setCloseChat(true))} className='flex items-center justify-center join-item btn'>
