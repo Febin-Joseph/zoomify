@@ -61,7 +61,6 @@ const Chat = () => {
     }, [socket]);
 
     useEffect(() => {
-        // Join the room when the component mounts
         socket.emit('join-room', { roomId });
     }, [socket, roomId]);
 

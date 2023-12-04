@@ -26,6 +26,7 @@ function ChatNav({ setShowMessages }) {
       >
         Room Chat
       </button>
+      
       <button
         className={`w-[50%] h-[100%] rounded-[50px] ${selectedButton === 'participants' ?
           'bg-black text-white' :
