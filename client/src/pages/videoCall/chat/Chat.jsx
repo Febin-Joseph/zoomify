@@ -28,7 +28,7 @@ const Chat = () => {
                 timestamp: Date.now(),
                 roomId: roomId,
             };
-    
+
             try {
                 socket.emit('chat:message', { message, roomId });
                 setNewMessage('');
@@ -80,10 +80,10 @@ const Chat = () => {
                     <div className='top-12 flex justify-center items-center mb-10 pb-1'>
                         <ChatNav setShowMessages={setShowMessages} />
                     </div>
-                    <div className="flex flex-col">
-                        <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
-                            {showMessages &&
-                                chatMessages.map((message, index) => (
+                    {showMessages && (
+                        <div className="flex flex-col">
+                            <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
+                                {chatMessages.map((message, index) => (
                                     message && message.senderSocketId !== undefined && (
                                         <Message
                                             key={index}
@@ -92,16 +92,17 @@ const Chat = () => {
                                         />
                                     )
                                 ))}
+                            </div>
+                            {/* Message input */}
+                            <div className="flex justify-center items-center">
+                                <MsgInput
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                    onSend={handleSendMessage}
+                                />
+                            </div>
                         </div>
-                        {/* Message input */}
-                        <div className="flex justify-center items-center">
-                            <MsgInput
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                onSend={handleSendMessage}
-                            />
-                        </div>
-                    </div>
+                    )}
                 </div>
             )}
 
@@ -119,25 +120,29 @@ const Chat = () => {
                         <div className='top-12 flex justify-center items-center mb-10 pb-1'>
                             <ChatNav setShowMessages={setShowMessages} />
                         </div>
-                        <div className="flex flex-col">
-                            <div className='flex-1 overflow-y-auto mt-16 max-h-[425px] group'>
-                                {showMessages && chatMessages.map((message, index) => (
-                                    <Message
-                                        key={index}
-                                        message={message}
-                                        isCurrentScreen={message?.senderSocketId === currentUserSocketId}
+                        {showMessages && (
+                            <div className="flex flex-col">
+                                <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
+                                    {chatMessages.map((message, index) => (
+                                        message && message.senderSocketId !== undefined && (
+                                            <Message
+                                                key={index}
+                                                message={message}
+                                                isCurrentScreen={message.senderSocketId === currentUserSocketId}
+                                            />
+                                        )
+                                    ))}
+                                </div>
+                                {/* Message input */}
+                                <div className="flex justify-center items-center">
+                                    <MsgInput
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        onSend={handleSendMessage}
                                     />
-                                ))}
+                                </div>
                             </div>
-                            {/* Message input */}
-                            <div className="flex justify-center items-center">
-                                <MsgInput
-                                    value={newMessage}
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    onSend={handleSendMessage}
-                                />
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             )}
