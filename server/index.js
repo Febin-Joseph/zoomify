@@ -89,4 +89,18 @@ io.on('connection', (socket) => {
         // console.log(`Received message for room ${roomId} from user ${socket.id}:`, message);
         io.to(roomId).emit('chat:message', { message, roomId });
     });
+
+    socket.on('join-meeting', ({ name, roomId }) => {
+        let users = [];
+
+        const newUser = {
+            id: socket.id,
+            name: name,
+        }
+        // console.log(`User ${socket.id} and name${name}`);
+
+        users.push(newUser);
+        io.to(roomId).emit('join-meeting', users);
+        // console.log(`User ${socket.id} room id ${roomId} and name ${name}`);
+    })
 });

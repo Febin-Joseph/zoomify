@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { closeBtn } from '../../../constants/icons';
+import { closeBtn, profile } from '../../../constants/icons';
 import { ChatNav, Message, MsgInput } from '../../../components';
 import { useSocket } from '../../../utils/SocketProvider';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCloseChat } from '../../../redux/videoCall/chatSlice';
 
-const Chat = () => {
+const Chat = ({ users }) => {
     const [chatMessages, setChatMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [showMessages, setShowMessages] = useState(true);
+
+    console.log(users)
 
     const dispatch = useDispatch();
     const { closeChat } = useSelector((state) => state.chat);
@@ -80,7 +82,7 @@ const Chat = () => {
                     <div className='top-12 flex justify-center items-center mb-10 pb-1'>
                         <ChatNav setShowMessages={setShowMessages} />
                     </div>
-                    {showMessages && (
+                    {showMessages ? (
                         <div className="flex flex-col">
                             <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
                                 {chatMessages.map((message, index) => (
@@ -100,6 +102,53 @@ const Chat = () => {
                                     onChange={(e) => setNewMessage(e.target.value)}
                                     onSend={handleSendMessage}
                                 />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col mt-[50px]">
+                            <div className='flex-1 overflow-y-auto mt-16 max-h-[390px] group'>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
+                                <div className='w-full h-[50px] mb-[1px] bg-gray-900 border-2 border-gray-600 rounded-[5px] hover:border-gray-400'>
+                                    <div className='flex flex-row'>
+                                        <img src={profile} alt="" className='w-[40px] mt-1 ml-5 items-center justify-center' />
+                                        <p className='text-[20px] font-bold ml-4 mt-2 text-white'>febin</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}

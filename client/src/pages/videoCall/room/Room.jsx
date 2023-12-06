@@ -9,6 +9,7 @@ import Chat from "../chat/Chat";
 import { BackIcon } from "../../../components";
 import { LocalVideoTrackView, RemoteVideoTracksView, Controls } from "../../../pages";
 import axios from "axios";
+import { useSocket } from "../../../utils/SocketProvider";
 
 const config = {
   mode: "rtc",
@@ -23,8 +24,11 @@ const Room = () => {
   const meetingName = roomid
   const [inCall, setInCall] = useState(false);
   const [channelName, setChannelName] = useState(meetingName);
+  const [users, setUsers] = useState([]);
+
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCamera();
+  const socket = useSocket();
 
   const fetchToken = async (channelName, uid, role, expireTime) => {
     const tokenURL = `https://zoomify-backend.onrender.com/agora/token-gen/${channelName}/${uid}/${role}/${expireTime}`;
@@ -66,6 +70,22 @@ const Room = () => {
         await client.publish([tracks[0], tracks[1]]);
         setInCall(true);
       }
+
+      socket.emit("join-meeting", (user) => {
+        const data = {
+          ...user,
+          customData: {
+            name: users
+          }
+        }
+        console.log(data)
+        setUsers((prevUsers) => [...prevUsers, data]);
+      });
+      
+      socket.emit("join-meeting", (newUser) => {
+        setUsers(newUser);
+        console.log("username", newUser)
+      });
 
       client.on("token-privilege-will-expire", async function () {
         let token = await fetchToken(channelName, uid, "publisher");
@@ -133,7 +153,7 @@ const Room = () => {
         </div>
       )}
 
-      <Chat />
+      <Chat users={users} />
     </div>
   );
 };

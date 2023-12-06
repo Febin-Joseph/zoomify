@@ -3,6 +3,7 @@ import { Nav, MainCard, InputBtn, MainBtn } from '../../components';
 import { profile } from '../../constants/icons';
 import { nameVerification } from '../../middleware';
 import { useNavigate } from 'react-router-dom';
+import { useSocket } from '../../utils/SocketProvider';
 
 const JoinMeeting = () => {
   const [nameValidation, setNameValidation] = useState('')
@@ -13,6 +14,8 @@ const JoinMeeting = () => {
 
   const navigate = useNavigate()
   const uid = Math.floor(Math.random() * 100000);
+  const socket = useSocket();
+  const currentUserSocketId = socket.id;
 
   useEffect(() => {
     if (verificationStatus.includes('successful')) {
@@ -27,6 +30,8 @@ const JoinMeeting = () => {
 
     if (status.includes('successful')) {
       localStorage.setItem('_userName', nameValidation);
+
+      socket.emit('join-meeting', { nameValidation, roomId });
     }
   }
 
