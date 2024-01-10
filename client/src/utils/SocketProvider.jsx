@@ -9,7 +9,7 @@ export const useSocket = () => {
 }
 
 export const SocketProvider = (props) => {
-    const socket = useMemo(() => io('https://localhost:4000'), [])
+    const socket = useMemo(() => io('https://zoomify-backend.onrender.com'), [])
 
     return (
         <SocketContext.Provider value={socket}>
